@@ -1,6 +1,6 @@
 # WorkFlow - Project Management and Progress Visualization Platform
 
-![WorkFlow Logo]() 
+![WorkFlow Logo]()
 
 Welcome to WorkFlow, your comprehensive project management and progress visualization platform. Streamline your projects, monitor tasks, and track progress using various graphs and visualization tools, all in one place.
 
@@ -45,4 +45,3 @@ Visit Site [Live Demo]()
 
 Connect with me:
 Visit my website at [Yeabsera](https://yab1.vercel.app/) | Follow me on [LinkedIn](www.linkedin.com/in/yab1) | Check out my [GitHub](https://github.com/Yab1)
-
