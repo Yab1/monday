@@ -1,15 +1,12 @@
 import {
   HomeIcon,
-  UserCircleIcon,
   TableCellsIcon,
   BellIcon,
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
-  ArrowRightOnRectangleIcon,
-  UserPlusIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Project, Notifications } from "./pages/dashboard/index";
+import { Home, Project, Notifications } from "@/pages";
 // import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {

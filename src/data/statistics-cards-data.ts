@@ -1,3 +1,10 @@
+import {
+  RectangleStackIcon,
+  HandThumbUpIcon,
+  UserPlusIcon,
+  UserIcon,
+} from "@heroicons/react/24/solid";
+
 type Color =
   | "white"
   | "blue-gray"
@@ -20,21 +27,18 @@ type Color =
   | "pink"
   | "red";
 
-interface Footer {
-  color: string;
-  label: string;
-  value: string;
-}
 export interface StatisticsCardData {
   color: Color;
+  icon: any;
   title: string;
   value: string;
-  footer: Footer;
+  footer: any;
 }
 
 const StatisticsCardsData: StatisticsCardData[] = [
   {
     color: "blue",
+    icon: RectangleStackIcon,
     title: "Today's Tasks",
     value: "5",
     footer: {
@@ -45,6 +49,7 @@ const StatisticsCardsData: StatisticsCardData[] = [
   },
   {
     color: "pink",
+    icon: HandThumbUpIcon,
     title: "Completed Tasks",
     value: "2",
     footer: {
@@ -55,6 +60,7 @@ const StatisticsCardsData: StatisticsCardData[] = [
   },
   {
     color: "green",
+    icon: UserPlusIcon,
     title: "New Users",
     value: "3,462",
     footer: {
@@ -65,6 +71,7 @@ const StatisticsCardsData: StatisticsCardData[] = [
   },
   {
     color: "orange",
+    icon: UserIcon,
     title: "Active Users",
     value: "103,430",
     footer: {
