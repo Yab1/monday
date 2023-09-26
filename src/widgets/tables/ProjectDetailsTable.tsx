@@ -1,53 +1,30 @@
-import {
-  MagnifyingGlassIcon,
-  ChevronUpDownIcon,
-} from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import { ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { PencilIcon } from "@heroicons/react/24/solid";
 import {
   Card,
-  CardHeader,
-  Input,
   Typography,
-  Button,
   CardBody,
   Chip,
-  CardFooter,
-  Tabs,
-  TabsHeader,
-  Tab,
-  Avatar,
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
+import { useSelector, useDispatch } from "react-redux";
+import { switchTab } from "@/common";
+import { RootState } from "@/redux";
 
-const TABS = [
-  {
-    label: "All",
-    value: "all",
-  },
-  {
-    label: "Monitored",
-    value: "monitored",
-  },
-  {
-    label: "Unmonitored",
-    value: "unmonitored",
-  },
-];
-
-const TABLE_HEAD = ["Task", "Owner", "Due Date", "Status", ""];
-
-const TABLE_ROWS = [
-  {
-    id: "1",
-    taskLabel: "John Michael",
-    owner: "",
-    dueDate: "23/04/18",
-    status: "",
-  },
+const TABLE_HEAD = [
+  "Title",
+  "Assigned Team Members",
+  "Due Date",
+  "Task Status",
+  "",
 ];
 
 function ProjectDetailsTable() {
+  const activeTab = useSelector((state: RootState) => state.tabs.activeTab);
+  const projects = useSelector((state: RootState) => state.projects);
+  const [{ tasks }] = projects.filter((project) => project.label === activeTab);
+
   return (
     <Card className="w-full">
       <CardBody className="p-2 rounded-lg">
@@ -74,9 +51,12 @@ function ProjectDetailsTable() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ id, taskLabel, owner, dueDate, status }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
+            {tasks.map(
+              (
+                { id, title, assignedTeamMembers, dueDate, taskStatus },
+                index
+              ) => {
+                const isLast = index === taskStatus.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
@@ -90,7 +70,7 @@ function ProjectDetailsTable() {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {taskLabel}
+                          {title}
                         </Typography>
                       </div>
                     </td>
@@ -100,7 +80,7 @@ function ProjectDetailsTable() {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {owner}
+                        {assignedTeamMembers}
                       </Typography>
                     </td>
                     <td className={classes}>
@@ -117,7 +97,7 @@ function ProjectDetailsTable() {
                         <Chip
                           variant="ghost"
                           size="sm"
-                          value={status}
+                          value={taskStatus}
                           color={"green"}
                         />
                       </div>
