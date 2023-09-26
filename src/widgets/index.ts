@@ -1,4 +1,5 @@
 export { default as DashboardNavbar } from "@/widgets/DashboardNavbar";
+export { default as ProjectSelectorTab } from "@/widgets/ProjectSelectorTab";
 export { default as StatisticsChart } from "@/widgets/charts/StatisticsChart";
 export { default as SideNav } from "@/widgets/layout/SideNav";
 export { default as ProjectOverviewTable } from "@/widgets/tables/ProjectOverviewTable";
