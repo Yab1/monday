@@ -6,7 +6,8 @@ import {
   InboxIcon,
   PowerIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Project, Notifications } from "@/pages";
+import { Home, Notifications } from "@/pages";
+import { Project } from "./features";
 // import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
