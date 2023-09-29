@@ -7,7 +7,7 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Notifications } from "@/pages";
-import { Project } from "./features";
+import { ProjectManager } from "@/features";
 // import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
@@ -40,7 +40,7 @@ export const primaryRoutes: Route[] = [
         icon: <TableCellsIcon {...icon} />,
         name: "project",
         path: "/project",
-        element: <Project />,
+        element: <ProjectManager />,
       },
     ],
   },
