@@ -1,9 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { themeReducer, tabsReducer } from "@/common";
-import { projectsReducer } from "@/features";
+import { uiReducer } from "@/common";
+import {
+  projectsReducer,
+  selectedProjectReducer,
+} from "@/features/projects/slice";
 
 export const rootReducer = combineReducers({
-  theme: themeReducer,
+  ui: uiReducer,
   projects: projectsReducer,
-  tabs: tabsReducer,
+  selectedProject: selectedProjectReducer,
 });
