@@ -1,22 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { initialState } from "@/data";
 import { Project } from "@/interfaces";
-
-const initialState: Project[] = [
-  {
-    id: "1",
-    label: "Project 1",
-    projectStatus: "In Progress",
-    tasks: [
-      {
-        id: "1",
-        title: "Task Description",
-        assignedTeamMembers: ["Robel", "Abel"],
-        dueDate: "23/04/18",
-        taskStatus: "Pending",
-      },
-    ],
-  },
-];
 
 export const projectSlice = createSlice({
   name: "projectSlice",
@@ -24,7 +8,15 @@ export const projectSlice = createSlice({
   reducers: {
     addProject: () => {},
     removeProject: () => {},
-    updateProject: () => {},
+    updateProject: (state, action: PayloadAction<Project>) => {
+      const updatedProjects = state.map((project) => {
+        if (project.id === action.payload.id) {
+          return action.payload;
+        }
+        return project;
+      });
+      return updatedProjects;
+    },
     addTask: () => {},
     removeTask: () => {},
     updateTask: () => {},

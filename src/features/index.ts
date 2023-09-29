@@ -1,3 +1,3 @@
-export { default as projectsReducer } from "./projects/projectsSlice";
-export * from "./projects/projectsSlice";
-export { default as Project } from "./projects/Project";
+export { default as projectsReducer } from "./projects/slice/projectsSlice";
+export * from "./projects/slice/projectsSlice";
+export { default as ProjectManager } from "./projects/ProjectManager";
