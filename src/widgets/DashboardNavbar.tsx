@@ -20,10 +20,13 @@ import {
   CreditCardIcon,
   Bars3Icon,
 } from "@heroicons/react/24/solid";
+import { useAppDispatch } from "@/hooks";
+import { toggleDarkMode } from "@/common";
 
 export function DashboardNavbar() {
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
+  const dispatch = useAppDispatch();
 
   return (
     <Navbar color="transparent" className="rounded-xl px-0 py-1" fullWidth>
@@ -83,7 +86,7 @@ export function DashboardNavbar() {
           <IconButton
             variant="text"
             color="blue-gray"
-            // onClick={() => setOpenConfigurator(dispatch, true)}
+            onClick={() => dispatch(toggleDarkMode())}
           >
             <Cog6ToothIcon className="h-5 w-5 text-blue-gray-500" />
           </IconButton>

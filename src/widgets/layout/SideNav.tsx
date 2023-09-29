@@ -2,23 +2,18 @@ import { Link, NavLink } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Button, IconButton, Typography } from "@material-tailwind/react";
 import { primaryRoutes, secondaryRoutes } from "@/routes";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { RootState } from "@/redux";
+import { useAppSelector } from "@/hooks";
 function Sidenav() {
-  const { darkMode, theme } = useSelector((state: RootState) => state.theme);
+  const { darkMode } = useAppSelector((state) => state.ui);
 
   return (
-    <aside
-      className={`${theme} fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 from-blue-gray-800 border`}
-    >
-      <div
-        className={`relative border-b ${
-          darkMode ? "border-white/20" : "border-blue-gray-50"
-        }`}
-      >
+    <aside className="fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border bg-white shadow-lg dark:bg-gradient-to-br from-blue-gray-800 to-blue-gray-900 ">
+      <div className="relative border-b border-blue-gray-50 dark:border-white/20">
         <Link to="/" className="flex items-center gap-4 py-6 px-8">
-          {/* <Avatar src={brandImg} size="sm" /> */}
-          <Typography variant="h6" color={darkMode ? "white" : "blue-gray"}>
+          <Typography
+            variant="h6"
+            className="text-blue-gray-900 dark:text-white"
+          >
             WorkFlow
           </Typography>
         </Link>
@@ -45,14 +40,18 @@ function Sidenav() {
                       color={
                         isActive ? "blue" : darkMode ? "white" : "blue-gray"
                       }
-                      className="flex items-center gap-4 px-4 capitalize"
+                      className={
+                        "flex items-center gap-4 px-4 capitalize " +
+                        (isActive
+                          ? "text-white"
+                          : darkMode
+                          ? "text-white"
+                          : "text-blue-gray-700")
+                      }
                       fullWidth
                     >
                       {icon}
-                      <Typography
-                        color="inherit"
-                        className="font-medium capitalize"
-                      >
+                      <Typography className="font-medium capitalize">
                         {name}
                       </Typography>
                     </Button>
@@ -74,14 +73,18 @@ function Sidenav() {
                       color={
                         isActive ? "blue" : darkMode ? "white" : "blue-gray"
                       }
-                      className="flex items-center gap-4 px-4 capitalize"
+                      className={
+                        "flex items-center gap-4 px-4 capitalize " +
+                        (isActive
+                          ? "text-white"
+                          : darkMode
+                          ? "text-white"
+                          : "text-blue-gray-700")
+                      }
                       fullWidth
                     >
                       {icon}
-                      <Typography
-                        color="inherit"
-                        className="font-medium capitalize"
-                      >
+                      <Typography className="font-medium capitalize text-inherit">
                         {name}
                       </Typography>
                     </Button>
