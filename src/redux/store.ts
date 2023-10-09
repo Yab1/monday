@@ -8,9 +8,9 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
-if (store.getState().projects.length > 0) {
-  store.dispatch(selectProject(store.getState().projects[0]));
-}
+// if (store.getState().projects.length > 0) {
+//   store.dispatch(selectProject(store.getState().projects[0]));
+// }
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
