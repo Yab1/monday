@@ -6,15 +6,18 @@ import {
   ProjectEditDialog,
   NewProjectDialog,
 } from "./widgets";
-import { updateProject } from "./slice";
+import { updateProject, selectProject } from "./slice";
 
 function ProjectManager() {
   const selectedProject = useAppSelector((state) => state.selectedProject);
+  const projects = useAppSelector((state) => state.projects);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(updateProject(selectedProject));
-  }, [selectedProject]);
+    if (projects.length > 0) {
+      dispatch(selectProject(projects[0]));
+    }
+  }, [projects]);
 
   return (
     <section className="flex flex-col gap-8">

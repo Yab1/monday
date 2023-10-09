@@ -17,7 +17,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { toggleDialog } from "@/common";
 
 function ProjectEditDialog() {
-  const { id, label } = useSelector(
+  const selectedProject = useSelector(
     (state: RootState) => state.selectedProject
   );
   const projects = useSelector((state: RootState) => state.projects);
@@ -25,7 +25,7 @@ function ProjectEditDialog() {
 
   return (
     <Fragment>
-      <Tabs value={label}>
+      <Tabs value={projects[0].label} id={selectedProject.label}>
         <TabsHeader
           className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
           indicatorProps={{
@@ -41,7 +41,9 @@ function ProjectEditDialog() {
                 dispatch(selectProject(project));
               }}
               className={`w-fit px-3 pt-1 pb-4 border-r ${
-                id === project.id ? "text-gray-900" : ""
+                selectedProject.id === project.id
+                  ? "text-gray-900"
+                  : "text-gray-900"
               }`}
             >
               <Typography variant="small" className="font-light text-sm">
