@@ -5,7 +5,7 @@ import { primaryRoutes } from "../routes";
 function Dashboard() {
   return (
     <div className="min-h-screen bg-blue-gray-50/50">
-      <SideNav />
+      {/* <SideNav /> */}
       <div className="p-4 xl:ml-80 min-h-screen">
         <DashboardNavbar />
         <Routes>
