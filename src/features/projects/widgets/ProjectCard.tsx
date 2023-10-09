@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import {
   Menu,
@@ -16,6 +17,9 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { toggleDialog } from "@/common";
+import { ConfirmationDialog } from "@/widgets";
+import { toggleConfirmationDialog } from "@/common/uiSlice";
+import { DeleteType } from "@/enum";
 
 function ProjectCard() {
   const { id, label, status, description } = useAppSelector(
@@ -26,58 +30,66 @@ function ProjectCard() {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="mt-10 flex items-center">
-      <Typography variant="h3" className="capitalize mr-5">
-        {label}
-      </Typography>
+    <Fragment>
+      <div className="mt-10 flex items-center">
+        <Typography variant="h3" className="capitalize mr-5">
+          {label}
+        </Typography>
 
-      <Tooltip
-        placement="bottom"
-        className="border border-blue-gray-50 bg-white px-4 py-3 shadow-xl shadow-black/10"
-        content={
-          <Typography variant="small" color="blue-gray">
-            {description}
-          </Typography>
-        }
-      >
-        <Button variant="text" className="p-0">
-          <InformationCircleIcon className="w-5 aspect-square" />
-        </Button>
-      </Tooltip>
+        <Tooltip
+          placement="bottom"
+          className="border border-blue-gray-50 bg-white px-4 py-3 shadow-xl shadow-black/10"
+          content={
+            <Typography variant="small" color="blue-gray">
+              {description}
+            </Typography>
+          }
+        >
+          <Button variant="text" className="p-0">
+            <InformationCircleIcon className="w-5 aspect-square" />
+          </Button>
+        </Tooltip>
 
-      <div className="flex gap-3 ml-auto mr-5">
-        <Chip
-          color="green"
-          value={status}
-          className="p-1 px-2 text-xs font-body capitalize"
-        />
+        <div className="flex gap-3 ml-auto mr-5">
+          <Chip
+            color="green"
+            value={status}
+            className="p-1 px-2 text-xs font-body capitalize"
+          />
 
-        <Menu>
-          <MenuHandler>
-            <Button variant="text" className="p-0">
-              <EllipsisHorizontalIcon className="w-6 aspect-square" />
-            </Button>
-          </MenuHandler>
-          <MenuList>
-            <MenuItem
-              className="flex items-center gap-2"
-              onClick={() => dispatch(toggleDialog("isEditDialogOpen"))}
-            >
-              <PencilIcon className="w-4 aspect-square" />
-              <Typography variant="small" className="font-normal">
-                Edit Project
-              </Typography>
-            </MenuItem>
-            <MenuItem className="flex items-center gap-2">
-              <TrashIcon className="w-4 aspect-square" />
-              <Typography variant="small" className="font-normal">
-                Delete Project
-              </Typography>
-            </MenuItem>
-          </MenuList>
-        </Menu>
+          <Menu>
+            <MenuHandler>
+              <Button variant="text" className="p-0">
+                <EllipsisHorizontalIcon className="w-6 aspect-square" />
+              </Button>
+            </MenuHandler>
+            <MenuList>
+              <MenuItem
+                className="flex items-center gap-2"
+                onClick={() => dispatch(toggleDialog("isEditDialogOpen"))}
+              >
+                <PencilIcon className="w-4 aspect-square" />
+                <Typography variant="small" className="font-normal">
+                  Edit Project
+                </Typography>
+              </MenuItem>
+              <MenuItem
+                className="flex items-center gap-2"
+                onClick={() =>
+                  dispatch(toggleConfirmationDialog(DeleteType.Project))
+                }
+              >
+                <TrashIcon className="w-4 aspect-square" />
+                <Typography variant="small" className="font-normal">
+                  Delete Project
+                </Typography>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </div>
       </div>
-    </div>
+      <ConfirmationDialog />
+    </Fragment>
   );
 }
 

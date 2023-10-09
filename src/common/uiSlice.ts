@@ -1,10 +1,15 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { UIStates } from "@/interfaces";
+import { UIStates, ConfirmationState } from "@/interfaces";
+import { DeleteType } from "@/enum";
 
 const initialState: UIStates = {
   darkMode: true,
   isEditDialogOpen: false,
   isCreateDialogOpen: false,
+  confirmationDialog: {
+    type: DeleteType.Project,
+    open: false,
+  },
 };
 
 export const uiSlice = createSlice({
@@ -16,10 +21,20 @@ export const uiSlice = createSlice({
     },
     toggleDialog: (state, action: PayloadAction<string>) => {
       const propertyName = action.payload as keyof typeof state;
-      state[propertyName] = !state[propertyName];
+      if (
+        typeof state[propertyName] === "boolean" &&
+        propertyName !== "confirmationDialog"
+      ) {
+        state[propertyName] = !state[propertyName];
+      }
+    },
+    toggleConfirmationDialog: (state, action: PayloadAction<DeleteType>) => {
+      state.confirmationDialog.type = action.payload;
+      state.confirmationDialog.open = !state.confirmationDialog.open;
     },
   },
 });
 
-export const { toggleDarkMode, toggleDialog } = uiSlice.actions;
+export const { toggleDarkMode, toggleDialog, toggleConfirmationDialog } =
+  uiSlice.actions;
 export default uiSlice.reducer;
