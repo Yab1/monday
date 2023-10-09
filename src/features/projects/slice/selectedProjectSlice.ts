@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Project } from "@/interfaces";
+import { Project, ProjectInfo } from "@/interfaces";
 
 const initialState: Project = {
   id: "",
@@ -29,8 +29,16 @@ export const tabsSlice = createSlice({
         groups: updatedGroups,
       };
     },
+    modifyProjectInfo: (state, action: PayloadAction<ProjectInfo>) => {
+      return {
+        ...state,
+        label: action.payload.projectTitle,
+        description: action.payload.projectDescription,
+      };
+    },
   },
 });
 
-export const { selectProject, toggleGroup } = tabsSlice.actions;
+export const { selectProject, toggleGroup, modifyProjectInfo } =
+  tabsSlice.actions;
 export default tabsSlice.reducer;
