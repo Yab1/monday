@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import {
   ProjectCard,
@@ -21,10 +21,16 @@ function ProjectManager() {
 
   return (
     <section className="flex flex-col gap-8">
-      <ProjectCard />
-      <ProjectTabs />
-      <ProjectEditDialog />
-      <NewProjectDialog />
+      {Boolean(selectedProject.label) ? (
+        <Fragment>
+          <ProjectCard />
+          <ProjectTabs />
+          <ProjectEditDialog />
+          <NewProjectDialog />
+        </Fragment>
+      ) : (
+        <h1>You Don't have any Project</h1>
+      )}
     </section>
   );
 }
