@@ -6,7 +6,9 @@ export const projectSlice = createSlice({
   name: "projectSlice",
   initialState,
   reducers: {
-    addProject: () => {},
+    addProject: (state, action) => {
+      return [...state, action.payload];
+    },
     removeProject: () => {},
     updateProject: (state, action: PayloadAction<Project>) => {
       const updatedProjects = state.map((project) => {
