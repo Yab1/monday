@@ -23,9 +23,13 @@ function ProjectEditDialog() {
   const projects = useSelector((state: RootState) => state.projects);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log(selectedProject.label);
+  }, [selectedProject]);
+
   return (
     <Fragment>
-      <Tabs value={projects[0].label} id={selectedProject.label}>
+      <Tabs value={selectedProject.label} id={selectedProject.label}>
         <TabsHeader
           className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
           indicatorProps={{
@@ -47,7 +51,9 @@ function ProjectEditDialog() {
               }`}
             >
               <Typography variant="small" className="font-light text-sm">
-                {project.label}
+                {project.label === selectedProject.label
+                  ? selectedProject.label
+                  : project.label}
               </Typography>
             </Tab>
           ))}
