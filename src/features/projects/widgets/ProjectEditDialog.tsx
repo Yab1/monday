@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import {
   Button,
   Dialog,
@@ -9,28 +10,16 @@ import {
   Progress,
 } from "@material-tailwind/react";
 import { useFormik } from "formik";
-import { object, string } from "yup";
+import validationSchema from "./validationSchema";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggleDialog } from "@/common";
 import { updateProject } from "../slice";
-import AvatarPublic from "../../../../public/img/team-1.jpeg";
-import { Fragment } from "react";
+import AvatarPublic from "@/assets/img/team-1.jpeg";
 
 function ProjectDialog() {
   const { isEditDialogOpen } = useAppSelector((state) => state.ui);
   const selectedProject = useAppSelector((state) => state.selectedProject);
   const dispatch = useAppDispatch();
-
-  const validationSchema = object({
-    projectTitle: string()
-      .required("Project title is required")
-      .min(4, "Project title must be at least 4 characters")
-      .max(60, "Project title must be at most 60 characters"),
-    projectDescription: string().max(
-      150,
-      "Project description must be at most 150 characters"
-    ),
-  });
 
   const formik = useFormik({
     initialValues: {
