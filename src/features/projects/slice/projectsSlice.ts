@@ -6,10 +6,15 @@ export const projectSlice = createSlice({
   name: "projectSlice",
   initialState,
   reducers: {
-    addProject: (state, action) => {
+    addProject: (state, action: PayloadAction<Project>) => {
       return [...state, action.payload];
     },
-    removeProject: () => {},
+    removeProject: (state, action: PayloadAction<string>) => {
+      const updatedProjects = state.filter(
+        (project) => project.id !== action.payload
+      );
+      return updatedProjects;
+    },
     updateProject: (state, action: PayloadAction<Project>) => {
       const updatedProjects = state.map((project) => {
         if (project.id === action.payload.id) {
@@ -21,14 +26,18 @@ export const projectSlice = createSlice({
     },
     addTask: () => {},
     removeTask: () => {},
+    addGroup: () => {},
+    removeGroup: () => {},
     updateTask: () => {},
   },
 });
 
 export const {
   addProject,
+  addGroup,
   addTask,
   removeProject,
+  removeGroup,
   removeTask,
   updateProject,
   updateTask,
