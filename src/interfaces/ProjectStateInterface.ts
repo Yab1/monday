@@ -1,10 +1,12 @@
+import { StatusEnum } from "@/enum";
+
 export interface Task {
   id: string;
   title: string;
   category?: string;
   assignedTeamMembers: string[];
   dueDate: string;
-  status: "Pending" | "Ready for Review" | "Completed";
+  status: StatusEnum;
 }
 
 export interface Groups {
@@ -17,7 +19,7 @@ export interface Groups {
 export interface Project {
   id: string;
   label: string;
-  status: "Pending" | "In Progress" | "Completed";
+  status: StatusEnum;
   description: string;
   groups: Groups[];
 }
