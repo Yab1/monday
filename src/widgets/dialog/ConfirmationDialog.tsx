@@ -8,13 +8,21 @@ import {
 } from "@material-tailwind/react";
 import { toggleConfirmationDialog } from "@/common";
 import { DeleteEnum } from "@/enum";
-import { dialogHeaderText, dialogBodyText } from "@/dictionaries";
+import { dialogHeaderText, dialogBodyText, dialogAction } from "@/dictionaries";
 
 function ConfirmationDialog() {
+  const selectedProject = useAppSelector((state) => state.selectedProject);
   const {
     confirmationDialog: { type, open },
   } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
+
+  const handleConfirmation = () => {
+    const actionToDispatch = dialogAction[type];
+
+    dispatch(actionToDispatch(selectedProject.id));
+    dispatch(toggleConfirmationDialog(DeleteEnum.Project));
+  };
 
   return (
     <Dialog open={open} size="sm" handler={() => console.log("click")}>
@@ -29,11 +37,7 @@ function ConfirmationDialog() {
         >
           <span>Cancel</span>
         </Button>
-        <Button
-          variant="gradient"
-          color="green"
-          // onClick={}
-        >
+        <Button variant="gradient" color="green" onClick={handleConfirmation}>
           <span>Confirm</span>
         </Button>
       </DialogFooter>
