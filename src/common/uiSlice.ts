@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { UIStates, ConfirmationState } from "@/interfaces";
+import { UIStates } from "@/interfaces";
 import { DeleteType } from "@/enum";
 
 const initialState: UIStates = {
