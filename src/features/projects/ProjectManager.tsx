@@ -6,7 +6,7 @@ import {
   ProjectEditDialog,
   NewProjectDialog,
 } from "./widgets";
-import { updateProject, selectProject } from "./slice";
+import { selectProject } from "./slice";
 
 function ProjectManager() {
   const selectedProject = useAppSelector((state) => state.selectedProject);

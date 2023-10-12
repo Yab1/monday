@@ -5,9 +5,9 @@ import {
   CardBody,
   Chip,
   IconButton,
-  Tooltip,
+  // Tooltip,
   CardHeader,
-  CardFooter,
+  // CardFooter,
   Button,
   Menu,
   MenuHandler,
@@ -16,7 +16,7 @@ import {
 } from "@material-tailwind/react";
 import {
   ChevronDownIcon,
-  ChevronUpDownIcon,
+  // ChevronUpDownIcon,
   EllipsisHorizontalIcon,
   ChevronRightIcon,
   PlusIcon,
@@ -99,7 +99,7 @@ function ProjectTable() {
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr>
-                  {TABLE_HEAD.map((head, index) => (
+                  {TABLE_HEAD.map((head) => (
                     <th
                       key={head}
                       className="border-b border-blue-gray-50 py-3 px-5 text-left"

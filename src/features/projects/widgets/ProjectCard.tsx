@@ -22,16 +22,16 @@ import { toggleConfirmationDialog } from "@/common/uiSlice";
 import { DeleteType } from "@/enum";
 
 function ProjectCard() {
-  const { id, label, status, description } = useAppSelector(
+  const { label, status, description } = useAppSelector(
     (state) => state.selectedProject
   );
 
-  const { isEditDialogOpen } = useAppSelector((state) => state.ui);
+  // const { isEditDialogOpen } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
 
   return (
     <Fragment>
-      <div className="mt-10 flex items-center">
+      <div className="mt-10 flex items-cent1er">
         <Typography variant="h3" className="capitalize mr-5">
           {label}
         </Typography>
@@ -56,7 +56,6 @@ function ProjectCard() {
             value={status}
             className="p-1 px-2 text-xs font-body capitalize"
           />
-
           <Menu>
             <MenuHandler>
               <Button variant="text" className="p-0">

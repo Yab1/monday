@@ -11,7 +11,7 @@ import {
 import ProjectTable from "./ProjectTable";
 import { TaskManager } from "@/features/projects/atoms";
 import { useSelector, useDispatch } from "react-redux";
-import { selectProject, updateProject } from "../slice";
+import { selectProject } from "../slice";
 import { RootState } from "@/redux";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { toggleDialog } from "@/common";
