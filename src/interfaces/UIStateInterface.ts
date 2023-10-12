@@ -1,6 +1,6 @@
-import { DeleteType } from "@/enum";
+import { DeleteEnum } from "@/enum";
 export interface ConfirmationState {
-  type: DeleteType;
+  type: DeleteEnum;
   open: boolean;
 }
 export interface UIStates {

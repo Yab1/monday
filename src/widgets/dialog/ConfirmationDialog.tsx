@@ -7,7 +7,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { toggleConfirmationDialog } from "@/common";
-import { DeleteType } from "@/enum"
+import { DeleteEnum } from "@/enum";
 import { dialogHeaderText, dialogBodyText } from "@/dictionaries";
 
 function ConfirmationDialog() {
@@ -24,7 +24,7 @@ function ConfirmationDialog() {
         <Button
           variant="text"
           color="red"
-          onClick={() => dispatch(toggleConfirmationDialog(DeleteType.Project))}
+          onClick={() => dispatch(toggleConfirmationDialog(DeleteEnum.Project))}
           className="mr-1"
         >
           <span>Cancel</span>
@@ -32,7 +32,7 @@ function ConfirmationDialog() {
         <Button
           variant="gradient"
           color="green"
-          onClick={() => console.log("click")}
+          // onClick={}
         >
           <span>Confirm</span>
         </Button>

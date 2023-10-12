@@ -1,13 +1,13 @@
-import { DeleteType } from "@/enum";
+import { DeleteEnum } from "@/enum";
 
-const dialogBodyText: Record<DeleteType, string> = {
-  [DeleteType.Project]:
+const dialogBodyText: Record<DeleteEnum, string> = {
+  [DeleteEnum.Project]:
     "Are you sure you want to delete this project? This action cannot be undone, and all associated data will be permanently removed. Please confirm your decision.",
-  [DeleteType.Group]:
+  [DeleteEnum.Group]:
     "Are you sure you want to delete this group? This action cannot be undone, and all associated data will be permanently removed. Please confirm your decision.",
-  [DeleteType.Task]:
+  [DeleteEnum.Task]:
     "Are you sure you want to delete this task? This action cannot be undone, and all associated data will be permanently removed. Please confirm your decision.",
-  [DeleteType.Account]:
+  [DeleteEnum.Account]:
     "Are you sure you want to delete this account? This action cannot be undone, and all associated data will be permanently removed. Please confirm your decision.",
 };
 
