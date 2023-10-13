@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { initialState } from "@/data";
-import { Project } from "@/interfaces";
+import { Project, PayloadValidator } from "@/interfaces";
+import { TargetEnum } from "@/enum";
 
 export const projectSlice = createSlice({
   name: "projectSlice",
@@ -24,10 +25,18 @@ export const projectSlice = createSlice({
       });
       return updatedProjects;
     },
+    addGroup: (state, action: PayloadAction<string>) => {
+      switch (action.payload) {
+        case TargetEnum.Project:
+          return "project";
+      }
+      const updatedProjects = state.map((project) => {
+        console.log(project);
+      });
+    },
+    removeGroup: () => {},
     addTask: () => {},
     removeTask: () => {},
-    addGroup: () => {},
-    removeGroup: () => {},
     updateTask: () => {},
   },
 });

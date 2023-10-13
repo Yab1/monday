@@ -25,7 +25,7 @@ import {
 import { PencilIcon } from "@heroicons/react/24/solid";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggleGroup } from "../slice";
-import { DeleteEnum } from "@/enum";
+import { TargetEnum } from "@/enum";
 import { toggleConfirmationDialog } from "@/common";
 
 const TABLE_HEAD = ["Title", "Assigned Team Members", "Due Date", "Status", ""];
@@ -81,7 +81,7 @@ function ProjectTable() {
                   <MenuItem
                     className="flex items-center gap-2"
                     onClick={() =>
-                      dispatch(toggleConfirmationDialog(DeleteEnum.Group))
+                      dispatch(toggleConfirmationDialog(TargetEnum.Group))
                     }
                   >
                     <TrashIcon className="w-4 aspect-square" />
@@ -195,7 +195,7 @@ function ProjectTable() {
                                 className="flex items-center gap-2"
                                 onClick={() =>
                                   dispatch(
-                                    toggleConfirmationDialog(DeleteEnum.Task)
+                                    toggleConfirmationDialog(TargetEnum.Task)
                                   )
                                 }
                               >

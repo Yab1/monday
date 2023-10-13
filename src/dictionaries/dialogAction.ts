@@ -1,11 +1,11 @@
-import { DeleteEnum } from "@/enum";
+import { TargetEnum } from "@/enum";
 import { removeProject, removeGroup, removeTask } from "@/features";
 
-const dialogAction: Record<DeleteEnum, Function> = {
-  [DeleteEnum.Project]: removeProject,
-  [DeleteEnum.Group]: removeGroup,
-  [DeleteEnum.Task]: removeTask,
-  [DeleteEnum.Account]: removeTask,
+const dialogAction: Record<TargetEnum, Function> = {
+  [TargetEnum.Project]: removeProject,
+  [TargetEnum.Group]: removeGroup,
+  [TargetEnum.Task]: removeTask,
+  [TargetEnum.Account]: removeTask,
 };
 
 export default dialogAction;

@@ -1,2 +1,2 @@
-export { default as DeleteEnum } from "./DeleteEnum";
+export { default as TargetEnum } from "./TargetEnum";
 export { default as StatusEnum } from "./StatusEnum";

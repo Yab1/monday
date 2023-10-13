@@ -4,3 +4,5 @@ export * from "./ProjectStateInterface";
 export * from "./ThemeStateInterface";
 export * from "./UIStateInterface";
 export * from "./ProjectInfoInterface";
+export * from "./ProjectInfoInterface";
+export * from "./PayloadValidatorInterface";

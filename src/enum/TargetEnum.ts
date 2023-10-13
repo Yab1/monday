@@ -1,8 +1,8 @@
-enum DeleteEnum {
+enum TargetEnum {
   Project = "project",
   Group = "group",
   Task = "task",
   Account = "account",
 }
 
-export default DeleteEnum;
+export default TargetEnum;

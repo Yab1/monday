@@ -19,7 +19,7 @@ import {
 import { toggleDialog } from "@/common";
 import { ConfirmationDialog } from "@/widgets";
 import { toggleConfirmationDialog } from "@/common";
-import { DeleteEnum } from "@/enum";
+import { TargetEnum } from "@/enum";
 import { updateProject } from "../slice";
 
 function ProjectCard() {
@@ -123,7 +123,7 @@ function ProjectCard() {
               <MenuItem
                 className="flex items-center gap-2 border"
                 onClick={() =>
-                  dispatch(toggleConfirmationDialog(DeleteEnum.Project))
+                  dispatch(toggleConfirmationDialog(TargetEnum.Project))
                 }
               >
                 <TrashIcon className="w-4 aspect-square" />

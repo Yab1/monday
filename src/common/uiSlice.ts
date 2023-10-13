@@ -1,13 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { UIStates } from "@/interfaces";
-import { DeleteEnum } from "@/enum";
+import { TargetEnum } from "@/enum";
 
 const initialState: UIStates = {
   darkMode: true,
   isEditDialogOpen: false,
   isCreateDialogOpen: false,
   confirmationDialog: {
-    type: DeleteEnum.Project,
+    type: TargetEnum.Project,
     open: false,
   },
 };
@@ -28,7 +28,7 @@ export const uiSlice = createSlice({
         state[propertyName] = !state[propertyName];
       }
     },
-    toggleConfirmationDialog: (state, action: PayloadAction<DeleteEnum>) => {
+    toggleConfirmationDialog: (state, action: PayloadAction<TargetEnum>) => {
       state.confirmationDialog.type = action.payload;
       state.confirmationDialog.open = !state.confirmationDialog.open;
     },

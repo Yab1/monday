@@ -1,10 +1,10 @@
-import { DeleteEnum } from "@/enum";
+import { TargetEnum } from "@/enum";
 
-const dialogHeaderText: Record<DeleteEnum, string> = {
-  [DeleteEnum.Project]: "Confirm Project Deletion",
-  [DeleteEnum.Group]: "Confirm Group Deletion",
-  [DeleteEnum.Task]: "Confirm Task Deletion",
-  [DeleteEnum.Account]: "Confirm Account Deletion",
+const dialogHeaderText: Record<TargetEnum, string> = {
+  [TargetEnum.Project]: "Confirm Project Deletion",
+  [TargetEnum.Group]: "Confirm Group Deletion",
+  [TargetEnum.Task]: "Confirm Task Deletion",
+  [TargetEnum.Account]: "Confirm Account Deletion",
 };
 
 export default dialogHeaderText;
