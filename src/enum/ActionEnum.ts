@@ -1,7 +1,7 @@
 enum ActionEnum {
-  Add = "add",
-  Delete = "delete",
-  Update = "update",
+  Add = "Add",
+  Delete = "Delete",
+  Update = "Update",
 }
 
 export default ActionEnum;

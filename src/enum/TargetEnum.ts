@@ -1,8 +1,8 @@
 enum TargetEnum {
-  Project = "project",
-  Group = "group",
-  Task = "task",
-  Account = "account",
+  Project = "Project",
+  Group = "Group",
+  Task = "Task",
+  Account = "Account",
 }
 
 export default TargetEnum;
