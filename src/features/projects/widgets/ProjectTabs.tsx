@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import {
   Tabs,
   TabsHeader,
@@ -8,24 +8,17 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import ProjectTable from "./ProjectTable";
 import { TaskManager } from "@/features/projects/atoms";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/hooks";
 import { selectProject } from "../slice";
-import { RootState } from "@/redux";
-import { PlusIcon } from "@heroicons/react/24/outline";
 import { toggleDialog } from "@/slices";
 
 function ProjectEditDialog() {
-  const selectedProject = useSelector(
-    (state: RootState) => state.selectedProject
-  );
-  const projects = useSelector((state: RootState) => state.projects);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(selectedProject.label);
-  }, [selectedProject]);
+  const selectedProject = useAppSelector((state) => state.selectedProject);
+  const projects = useAppSelector((state) => state.projects);
+  const dispatch = useAppDispatch();
 
   return (
     <Fragment>

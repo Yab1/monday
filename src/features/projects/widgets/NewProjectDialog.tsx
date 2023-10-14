@@ -13,7 +13,8 @@ import {
 } from "@material-tailwind/react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggleDialog } from "@/slices";
-import { addProject } from "../slice";
+import { alterRecord } from "../slice";
+import { ActionEnum, TargetEnum } from "@/enum";
 
 function NewProjectDialog() {
   const { isCreateDialogOpen } = useAppSelector((state) => state.ui);
@@ -41,7 +42,14 @@ function NewProjectDialog() {
       );
 
       if (isDuplicated.length === 0) {
-        dispatch(addProject(newProject));
+        dispatch(
+          alterRecord({
+            target: TargetEnum.Project,
+            id: uuidv4(),
+            actionType: ActionEnum.Add,
+            payload: newProject,
+          })
+        );
         formik.resetForm();
         dispatch(toggleDialog("isCreateDialogOpen"));
       } else {
