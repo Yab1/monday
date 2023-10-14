@@ -9,7 +9,6 @@ import {
 import { selectProject } from "./slice";
 
 function ProjectManager() {
-  const selectedProject = useAppSelector((state) => state.selectedProject);
   const projects = useAppSelector((state) => state.projects);
   const dispatch = useAppDispatch();
 
@@ -21,7 +20,7 @@ function ProjectManager() {
 
   return (
     <section className="flex flex-col gap-8">
-      {Boolean(selectedProject.label) ? (
+      {projects.length > 0 ? (
         <Fragment>
           <ProjectCard />
           <ProjectTabs />

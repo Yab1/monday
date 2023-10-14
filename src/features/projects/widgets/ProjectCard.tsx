@@ -17,8 +17,8 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { ConfirmationDialog } from "@/widgets";
-import { toggleConfirmationDialog, toggleDialog } from "@/slices";
-import { ActionEnum, StatusEnum, TargetEnum } from "@/enum";
+import { toggleConfirmationDialog, toggler } from "@/slices";
+import { ActionEnum, StatusEnum, TargetEnum, ToggleableEnum } from "@/enum";
 import { colorMap } from "@/dictionaries";
 import { alterRecord } from "../slice";
 
@@ -98,7 +98,9 @@ function ProjectCard() {
             <MenuList>
               <MenuItem
                 className="flex items-center gap-2"
-                onClick={() => dispatch(toggleDialog("isEditDialogOpen"))}
+                onClick={() =>
+                  dispatch(toggler(ToggleableEnum.EditProjectDialog))
+                }
               >
                 <PencilIcon className="w-4 aspect-square" />
                 <Typography variant="small" className="font-normal">

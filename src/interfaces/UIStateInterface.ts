@@ -4,9 +4,12 @@ export interface ConfirmationState {
   open: boolean;
 }
 export interface UIStates {
-  darkMode: boolean;
-  isSideNavOpen: boolean;
-  isEditDialogOpen: boolean;
-  isCreateDialogOpen: boolean;
+  toggleable: {
+    darkMode: boolean;
+    sideNav: boolean;
+    editProjectDialog: boolean;
+    addProjectDialog: boolean;
+    addGroup: boolean;
+  };
   confirmationDialog: ConfirmationState;
 }

@@ -1,39 +1,89 @@
-import { ChevronDownIcon, TableCellsIcon } from "@heroicons/react/24/solid";
-import {
-  Button,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
-  Typography,
-} from "@material-tailwind/react";
+import { PlusIcon } from "@heroicons/react/24/outline";
+import { Button, Input } from "@material-tailwind/react";
+import { useFormik } from "formik";
+import { v4 as uuidv4 } from "uuid";
+import { ActionEnum, TargetEnum } from "@/enum";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { groupSchema } from "../others";
+import { alterRecord } from "../slice";
+import { toggleConfirmationDialog } from "@/slices";
 
 function TaskManager() {
+  const selectedProject = useAppSelector((state) => state.selectedProject);
+  // const { isGroupAddDialogOpen } = useAppSelector((state) => state.ui);
+  const dispatch = useAppDispatch();
+
+  const formik = useFormik({
+    initialValues: {
+      groupName: "",
+    },
+    validationSchema: groupSchema,
+    validateOnChange: false,
+    validateOnBlur: false,
+    onSubmit: (values) => {
+      const newGroup = {
+        id: uuidv4(),
+        groupName: values.groupName,
+        isCollapsed: true,
+        tasks: [],
+      };
+      const isDuplicated = selectedProject.groups.filter(
+        (group) => group.groupName === values.groupName
+      );
+
+      if (isDuplicated.length === 0) {
+        dispatch(
+          alterRecord({
+            target: TargetEnum.Group,
+            id: selectedProject.id,
+            actionType: ActionEnum.Add,
+            payload: newGroup,
+          })
+        );
+        formik.resetForm();
+        // dispatch(toggleDialog("isCreateDialogOpen"));
+      } else {
+        formik.setFieldError(
+          "groupName",
+          "A Group with the same name already exists"
+        );
+      }
+    },
+  });
+
   return (
     <div className="mt-5">
-      <Button
-        color="blue"
-        className="rounded-e-none border border-blue-gray-50 capitalize py-2 px-3"
-      >
-        <Typography variant="small" className="font-light text-sm p-0 m-0">
-          New Task
-        </Typography>
-      </Button>
-      <Menu>
-        <MenuHandler>
-          <Button color="blue" className="rounded-s-none px-3 py-3">
-            <ChevronDownIcon className="h-3 w-4" />
+      {true ? (
+        <Button
+          variant="gradient"
+          color="blue"
+          className="flex gap-2 capitalize"
+        >
+          <PlusIcon className="h-4 aspect-square" />
+          Add new group
+        </Button>
+      ) : (
+        <form className="flex items-center gap-4">
+          <div className="w-[450px]">
+            <Input crossOrigin={undefined} label="Group Name" />
+          </div>
+          <Button
+            variant="gradient"
+            color="green"
+            className="flex gap-2 capitalize"
+          >
+            Add
           </Button>
-        </MenuHandler>
-        <MenuList>
-          <MenuItem className="flex gap-2 items-center">
-            <TableCellsIcon className="h-4 w-4" />
-            <Typography variant="small" className="font-normal">
-              New group of Tasks
-            </Typography>
-          </MenuItem>
-        </MenuList>
-      </Menu>
+          <Button
+            variant="gradient"
+            color="red"
+            className="flex gap-2 capitalize"
+            onClick={() => dispatch(toggleConfirmationDialog(TargetEnum.Group))}
+          >
+            Cancel
+          </Button>
+        </form>
+      )}
     </div>
   );
 }

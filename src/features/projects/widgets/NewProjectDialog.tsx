@@ -12,12 +12,14 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { toggleDialog } from "@/slices";
+import { toggler } from "@/slices";
 import { alterRecord } from "../slice";
-import { ActionEnum, TargetEnum } from "@/enum";
+import { ActionEnum, TargetEnum, ToggleableEnum } from "@/enum";
 
 function NewProjectDialog() {
-  const { isCreateDialogOpen } = useAppSelector((state) => state.ui);
+  const {
+    toggleable: { addProjectDialog },
+  } = useAppSelector((state) => state.ui);
   const projects = useAppSelector((state) => state.projects);
   const dispatch = useAppDispatch();
 
@@ -51,7 +53,7 @@ function NewProjectDialog() {
           })
         );
         formik.resetForm();
-        dispatch(toggleDialog("isCreateDialogOpen"));
+        dispatch(toggler(ToggleableEnum.AddProjectDialog));
       } else {
         formik.setFieldError(
           "projectTitle",
@@ -63,8 +65,8 @@ function NewProjectDialog() {
 
   return (
     <Dialog
-      open={isCreateDialogOpen}
-      handler={() => dispatch(toggleDialog("isCreateDialogOpen"))}
+      open={addProjectDialog}
+      handler={() => dispatch(toggler(ToggleableEnum.AddProjectDialog))}
     >
       <div className="flex items-center justify-between">
         <DialogHeader>New Project</DialogHeader>
@@ -119,7 +121,7 @@ function NewProjectDialog() {
           variant="outlined"
           color="red"
           onClick={() => {
-            dispatch(toggleDialog("isCreateDialogOpen"));
+            dispatch(toggler(ToggleableEnum.AddProjectDialog));
             formik.resetForm();
           }}
         >

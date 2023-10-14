@@ -21,7 +21,8 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 import { useAppDispatch } from "@/hooks";
-import { toggleDarkMode, toggleSideNav } from "@/slices";
+import { toggler } from "@/slices";
+import { ToggleableEnum } from "@/enum";
 
 export function DashboardNavbar() {
   const { pathname } = useLocation();
@@ -62,7 +63,7 @@ export function DashboardNavbar() {
             variant="text"
             color="blue-gray"
             className="grid xl:hidden"
-            onClick={() => dispatch(toggleSideNav())}
+            onClick={() => dispatch(toggler(ToggleableEnum.SideNav))}
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
@@ -86,7 +87,7 @@ export function DashboardNavbar() {
           <IconButton
             variant="text"
             color="blue-gray"
-            onClick={() => dispatch(toggleDarkMode())}
+            onClick={() => dispatch(toggler(ToggleableEnum.DarkMode))}
           >
             <Cog6ToothIcon className="h-5 w-5 text-blue-gray-500" />
           </IconButton>

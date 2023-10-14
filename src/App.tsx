@@ -6,7 +6,9 @@ import Dashboard from "./layouts/dashboard";
 import { manageAttributes } from "@/function";
 
 function App() {
-  const { darkMode } = useAppSelector((state) => state.ui);
+  const {
+    toggleable: { darkMode },
+  } = useAppSelector((state) => state.ui);
 
   useEffect(() => {
     manageAttributes(darkMode);

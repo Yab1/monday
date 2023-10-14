@@ -19,7 +19,6 @@ import {
   // ChevronUpDownIcon,
   EllipsisHorizontalIcon,
   ChevronRightIcon,
-  PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { PencilIcon } from "@heroicons/react/24/solid";
@@ -219,10 +218,6 @@ function ProjectTable() {
           </CardBody>
         </Card>
       ))}
-      <Button variant="outlined" className="flex gap-2 capitalize">
-        <PlusIcon className="h-4 aspect-square" />
-        Add new group
-      </Button>
     </Fragment>
   );
 }

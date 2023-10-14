@@ -11,13 +11,15 @@ import {
 import { useFormik } from "formik";
 import { projectSchema } from "../others";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { toggleDialog } from "@/slices";
+import { toggler } from "@/slices";
 import { alterRecord } from "../slice";
-import { ActionEnum, TargetEnum } from "@/enum";
+import { ActionEnum, TargetEnum, ToggleableEnum } from "@/enum";
 import AvatarPublic from "@/assets/img/team-1.jpeg";
 
 function ProjectDialog() {
-  const { isEditDialogOpen } = useAppSelector((state) => state.ui);
+  const {
+    toggleable: { editProjectDialog },
+  } = useAppSelector((state) => state.ui);
   const projects = useAppSelector((state) => state.projects);
   const selectedProject = useAppSelector((state) => state.selectedProject);
   const dispatch = useAppDispatch();
@@ -49,7 +51,7 @@ function ProjectDialog() {
             },
           })
         );
-        dispatch(toggleDialog("isEditDialogOpen"));
+        dispatch(toggler(ToggleableEnum.EditProjectDialog));
       } else {
         formik.setFieldError(
           "projectTitle",
@@ -61,8 +63,8 @@ function ProjectDialog() {
 
   return (
     <Dialog
-      open={isEditDialogOpen}
-      handler={() => dispatch(toggleDialog("isEditDialogOpen"))}
+      open={editProjectDialog}
+      handler={() => dispatch(toggler(ToggleableEnum.EditProjectDialog))}
     >
       <DialogBody className="grid grid-cols-12 p-0">
         <form className="col-start-1 col-span-7 px-8 pb-8 pt-4 relative flex flex-col gap-8">
