@@ -12,10 +12,10 @@ const alterDictionary: Record<
   Record<ActionEnum, ActionEnumFunction>
 > = {
   [TargetEnum.Project]: {
-    [ActionEnum.Add]: (project) => {
-      return project;
+    [ActionEnum.Add]: (_, projects, payload) => {
+      return [...projects, payload];
     },
-    [ActionEnum.Delete]: (id, projects) => {
+    [ActionEnum.Delete]: (id, projects, _) => {
       return projects.filter((project) => project.id !== id);
     },
     [ActionEnum.Update]: (id, projects, payload) => {
@@ -39,7 +39,7 @@ const alterDictionary: Record<
         }
       });
     },
-    [ActionEnum.Delete]: (id, projects) => {
+    [ActionEnum.Delete]: (id, projects, _) => {
       return projects.map((project) => {
         const updatedGroups = project.groups.filter((group) => group.id !== id);
         return { ...project, groups: updatedGroups };
@@ -70,7 +70,7 @@ const alterDictionary: Record<
         });
       });
     },
-    [ActionEnum.Delete]: (id, projects) => {
+    [ActionEnum.Delete]: (id, projects, _) => {
       return projects.map((project) => {
         const updatedGroups = project.groups.map((group) =>
           group.tasks.filter((task) => task.id !== id)
@@ -93,9 +93,9 @@ const alterDictionary: Record<
     },
   },
   [TargetEnum.Account]: {
-    [ActionEnum.Add]: (id) => {},
-    [ActionEnum.Delete]: (id) => {},
-    [ActionEnum.Update]: (id) => {},
+    [ActionEnum.Add]: () => {},
+    [ActionEnum.Delete]: () => {},
+    [ActionEnum.Update]: () => {},
   },
 };
 
