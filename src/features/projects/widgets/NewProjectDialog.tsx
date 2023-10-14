@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { v4 as uuidv4 } from "uuid";
-import validationSchema from "./validationSchema";
+import { validationSchema } from "../others";
 import {
   Button,
   Dialog,

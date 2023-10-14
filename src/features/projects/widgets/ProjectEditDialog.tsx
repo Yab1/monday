@@ -9,7 +9,7 @@ import {
   Progress,
 } from "@material-tailwind/react";
 import { useFormik } from "formik";
-import validationSchema from "./validationSchema";
+import { validationSchema } from "../others";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggleDialog } from "@/slices";
 import { alterRecord } from "../slice";
