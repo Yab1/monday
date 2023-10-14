@@ -1,4 +1,3 @@
-import { useAppDispatch, useAppSelector } from "@/hooks";
 import {
   Button,
   Dialog,
@@ -6,9 +5,10 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { toggleConfirmationDialog } from "@/common";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { ActionEnum, TargetEnum } from "@/enum";
 import { dialogHeaderText, dialogBodyText } from "@/dictionaries";
+import { toggleConfirmationDialog } from "@/common";
 import { alterRecord } from "@/features/projects/slice";
 
 function ConfirmationDialog() {
