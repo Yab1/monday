@@ -18,6 +18,7 @@ import AvatarPublic from "@/assets/img/team-1.jpeg";
 
 function ProjectDialog() {
   const { isEditDialogOpen } = useAppSelector((state) => state.ui);
+  const projects = useAppSelector((state) => state.projects);
   const selectedProject = useAppSelector((state) => state.selectedProject);
   const dispatch = useAppDispatch();
 
@@ -28,18 +29,33 @@ function ProjectDialog() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      dispatch(
-        alterRecord({
-          target: TargetEnum.Project,
-          id: selectedProject.id,
-          actionType: ActionEnum.Update,
-          payload: {
-            ...selectedProject,
-            label: values.projectTitle,
-            description: values.projectDescription,
-          },
-        })
+      const isDuplicated = projects.filter(
+        (project) => project.label === values.projectTitle
       );
+
+      if (
+        isDuplicated.length === 0 ||
+        isDuplicated[0].id === selectedProject.id
+      ) {
+        dispatch(
+          alterRecord({
+            target: TargetEnum.Project,
+            id: selectedProject.id,
+            actionType: ActionEnum.Update,
+            payload: {
+              ...selectedProject,
+              label: values.projectTitle,
+              description: values.projectDescription,
+            },
+          })
+        );
+        dispatch(toggleDialog("isEditDialogOpen"));
+      } else {
+        formik.setFieldError(
+          "projectTitle",
+          "A project with the same name already exists"
+        );
+      }
     },
   });
 
