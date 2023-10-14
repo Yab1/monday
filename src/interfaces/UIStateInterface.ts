@@ -5,6 +5,7 @@ export interface ConfirmationState {
 }
 export interface UIStates {
   darkMode: boolean;
+  isSideNavOpen: boolean;
   isEditDialogOpen: boolean;
   isCreateDialogOpen: boolean;
   confirmationDialog: ConfirmationState;

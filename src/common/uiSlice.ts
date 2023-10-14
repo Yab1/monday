@@ -4,6 +4,7 @@ import { TargetEnum } from "@/enum";
 
 const initialState: UIStates = {
   darkMode: true,
+  isSideNavOpen: true,
   isEditDialogOpen: false,
   isCreateDialogOpen: false,
   confirmationDialog: {
@@ -18,6 +19,9 @@ export const uiSlice = createSlice({
   reducers: {
     toggleDarkMode: (state) => {
       state.darkMode = !state.darkMode;
+    },
+    toggleSideNav: (state) => {
+      state.isSideNavOpen = !state.isSideNavOpen;
     },
     toggleDialog: (state, action: PayloadAction<string>) => {
       const propertyName = action.payload as keyof typeof state;
@@ -35,6 +39,10 @@ export const uiSlice = createSlice({
   },
 });
 
-export const { toggleDarkMode, toggleDialog, toggleConfirmationDialog } =
-  uiSlice.actions;
+export const {
+  toggleDarkMode,
+  toggleSideNav,
+  toggleDialog,
+  toggleConfirmationDialog,
+} = uiSlice.actions;
 export default uiSlice.reducer;

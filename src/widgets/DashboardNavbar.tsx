@@ -21,7 +21,7 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 import { useAppDispatch } from "@/hooks";
-import { toggleDarkMode } from "@/common";
+import { toggleDarkMode, toggleSideNav } from "@/common";
 
 export function DashboardNavbar() {
   const { pathname } = useLocation();
@@ -62,7 +62,7 @@ export function DashboardNavbar() {
             variant="text"
             color="blue-gray"
             className="grid xl:hidden"
-            // onClick={() => setOpenSidenav(dispatch, !openSidenav)}
+            onClick={() => dispatch(toggleSideNav())}
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
