@@ -1,6 +1,6 @@
 import { object, string } from "yup";
 
-const validationSchema = object({
+const projectSchema = object({
   projectTitle: string()
     .required("Project title is required")
     .min(4, "Project title must be at least 4 characters")
@@ -11,4 +11,4 @@ const validationSchema = object({
   ),
 });
 
-export default validationSchema;
+export default projectSchema;

@@ -9,7 +9,7 @@ import {
   Progress,
 } from "@material-tailwind/react";
 import { useFormik } from "formik";
-import { validationSchema } from "../others";
+import { projectSchema } from "../others";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggleDialog } from "@/slices";
 import { alterRecord } from "../slice";
@@ -27,7 +27,7 @@ function ProjectDialog() {
       projectTitle: selectedProject.label,
       projectDescription: selectedProject.description,
     },
-    validationSchema: validationSchema,
+    validationSchema: projectSchema,
     onSubmit: (values) => {
       const isDuplicated = projects.filter(
         (project) => project.label === values.projectTitle

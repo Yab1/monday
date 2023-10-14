@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { v4 as uuidv4 } from "uuid";
-import { validationSchema } from "../others";
+import { projectSchema } from "../others";
 import {
   Button,
   Dialog,
@@ -26,7 +26,7 @@ function NewProjectDialog() {
       projectTitle: "",
       projectDescription: "",
     },
-    validationSchema: validationSchema,
+    validationSchema: projectSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
