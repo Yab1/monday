@@ -16,23 +16,29 @@ import {
   PencilIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { toggleDialog } from "@/common";
 import { ConfirmationDialog } from "@/widgets";
-import { toggleConfirmationDialog } from "@/common";
-import { TargetEnum } from "@/enum";
-import { updateProject } from "../slice";
+import { toggleConfirmationDialog, toggleDialog } from "@/slices";
+import { ActionEnum, StatusEnum, TargetEnum } from "@/enum";
+import { colorMap } from "@/dictionaries";
+import { alterRecord } from "../slice";
 
 function ProjectCard() {
   const selectedProject = useAppSelector((state) => state.selectedProject);
-
   const dispatch = useAppDispatch();
 
-  const chipColor =
-    selectedProject.status === "Pending"
-      ? "blue-gray"
-      : selectedProject.status === "Completed"
-      ? "green"
-      : "yellow";
+  const dispatcher = (status: StatusEnum) => {
+    dispatch(
+      alterRecord({
+        target: TargetEnum.Project,
+        id: selectedProject.id,
+        actionType: ActionEnum.Update,
+        payload: {
+          ...selectedProject,
+          status: status,
+        },
+      })
+    );
+  };
 
   return (
     <Fragment>
@@ -57,7 +63,7 @@ function ProjectCard() {
           <Menu>
             <MenuHandler>
               <Chip
-                color={chipColor}
+                color={colorMap[selectedProject.status]}
                 value={selectedProject.status}
                 className="py-1 px-3 text-xs font-body capitalize rounded-xl h-fit self-center cursor-pointer"
               />
@@ -65,40 +71,19 @@ function ProjectCard() {
             <MenuList className="bg-gray-200 shadow-none flex flex-col gap-2 w-fit">
               <MenuItem
                 className="bg-blue-gray-700 text-white w-fit text-xs font-body py-1 px-3 rounded-full"
-                onClick={() =>
-                  dispatch(
-                    updateProject({
-                      ...selectedProject,
-                      status: "Pending",
-                    })
-                  )
-                }
+                onClick={() => dispatcher(StatusEnum.Pending)}
               >
                 Pending
               </MenuItem>
               <MenuItem
                 className="bg-yellow-500 text-blue-gray-900 w-fit text-xs font-body py-1 px-3 rounded-full"
-                onClick={() =>
-                  dispatch(
-                    updateProject({
-                      ...selectedProject,
-                      status: "In Progress",
-                    })
-                  )
-                }
+                onClick={() => dispatcher(StatusEnum["In Progress"])}
               >
                 In Progress
               </MenuItem>
               <MenuItem
                 className="bg-green-500 text-white w-fit text-xs font-body py-1 px-3 rounded-full"
-                onClick={() =>
-                  dispatch(
-                    updateProject({
-                      ...selectedProject,
-                      status: "Completed",
-                    })
-                  )
-                }
+                onClick={() => dispatcher(StatusEnum.Completed)}
               >
                 Completed
               </MenuItem>
@@ -121,7 +106,7 @@ function ProjectCard() {
                 </Typography>
               </MenuItem>
               <MenuItem
-                className="flex items-center gap-2 border"
+                className="flex items-center gap-2"
                 onClick={() =>
                   dispatch(toggleConfirmationDialog(TargetEnum.Project))
                 }
