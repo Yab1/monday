@@ -12,7 +12,8 @@ import { useFormik } from "formik";
 import validationSchema from "./validationSchema";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggleDialog } from "@/common";
-import { updateProject } from "../slice";
+import { alterRecord } from "../slice";
+import { ActionEnum, TargetEnum } from "@/enum";
 import AvatarPublic from "@/assets/img/team-1.jpeg";
 
 function ProjectDialog() {
@@ -28,10 +29,15 @@ function ProjectDialog() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       dispatch(
-        updateProject({
-          ...selectedProject,
-          label: values.projectTitle,
-          description: values.projectDescription,
+        alterRecord({
+          target: TargetEnum.Project,
+          id: selectedProject.id,
+          actionType: ActionEnum.Update,
+          payload: {
+            ...selectedProject,
+            label: values.projectTitle,
+            description: values.projectDescription,
+          },
         })
       );
     },
