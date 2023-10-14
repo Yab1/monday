@@ -7,20 +7,25 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { toggleConfirmationDialog } from "@/common";
-import { TargetEnum } from "@/enum";
-import { dialogHeaderText, dialogBodyText, dialogAction } from "@/dictionaries";
+import { ActionEnum, TargetEnum } from "@/enum";
+import { dialogHeaderText, dialogBodyText } from "@/dictionaries";
+import { alterRecord } from "@/features/projects/slice";
 
 function ConfirmationDialog() {
-  const selectedProject = useAppSelector((state) => state.selectedProject);
+  const { id } = useAppSelector((state) => state.selectedProject);
   const {
     confirmationDialog: { type, open },
   } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
 
   const handleConfirmation = () => {
-    const actionToDispatch = dialogAction[type];
-
-    dispatch(actionToDispatch(selectedProject.id));
+    dispatch(
+      alterRecord({
+        target: TargetEnum[type],
+        id: id,
+        actionType: ActionEnum.Delete,
+      })
+    );
     dispatch(toggleConfirmationDialog(TargetEnum.Project));
   };
 
