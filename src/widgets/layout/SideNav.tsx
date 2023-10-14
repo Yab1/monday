@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Button, IconButton, Typography } from "@material-tailwind/react";
 import { primaryRoutes, secondaryRoutes } from "@/routes";
 import { useAppSelector, useAppDispatch } from "@/hooks";
-import { toggleSideNav } from "@/common";
+import { toggleSideNav } from "@/slices";
 function Sidenav() {
   const { darkMode, isSideNavOpen } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();

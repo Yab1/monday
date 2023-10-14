@@ -8,7 +8,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { ActionEnum, TargetEnum } from "@/enum";
 import { dialogHeaderText, dialogBodyText } from "@/dictionaries";
-import { toggleConfirmationDialog } from "@/common";
+import { toggleConfirmationDialog } from "@/slices";
 import { alterRecord } from "@/features/projects/slice";
 
 function ConfirmationDialog() {

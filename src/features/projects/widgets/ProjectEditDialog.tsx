@@ -11,7 +11,7 @@ import {
 import { useFormik } from "formik";
 import validationSchema from "./validationSchema";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { toggleDialog } from "@/common";
+import { toggleDialog } from "@/slices";
 import { alterRecord } from "../slice";
 import { ActionEnum, TargetEnum } from "@/enum";
 import AvatarPublic from "@/assets/img/team-1.jpeg";

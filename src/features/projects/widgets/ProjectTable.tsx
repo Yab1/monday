@@ -26,7 +26,7 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggleGroup } from "../slice";
 import { TargetEnum } from "@/enum";
-import { toggleConfirmationDialog } from "@/common";
+import { toggleConfirmationDialog } from "@/slices";
 
 const TABLE_HEAD = ["Title", "Assigned Team Members", "Due Date", "Status", ""];
 

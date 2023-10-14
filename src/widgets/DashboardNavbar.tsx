@@ -21,7 +21,7 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 import { useAppDispatch } from "@/hooks";
-import { toggleDarkMode, toggleSideNav } from "@/common";
+import { toggleDarkMode, toggleSideNav } from "@/slices";
 
 export function DashboardNavbar() {
   const { pathname } = useLocation();

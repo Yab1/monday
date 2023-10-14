@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { toggleDialog } from "@/common";
+import { toggleDialog } from "@/slices";
 import { addProject } from "../slice";
 
 function NewProjectDialog() {

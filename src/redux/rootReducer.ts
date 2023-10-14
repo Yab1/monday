@@ -1,5 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { uiReducer } from "@/common";
+import { uiReducer } from "@/slices";
 import {
   projectsReducer,
   selectedProjectReducer,

@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectProject } from "../slice";
 import { RootState } from "@/redux";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { toggleDialog } from "@/common";
+import { toggleDialog } from "@/slices";
 
 function ProjectEditDialog() {
   const selectedProject = useSelector(
