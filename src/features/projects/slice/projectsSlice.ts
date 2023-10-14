@@ -1,12 +1,25 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { initialState } from "@/data";
-import { Project, PayloadValidator } from "@/interfaces";
-import { TargetEnum } from "@/enum";
+import { Project } from "@/interfaces";
+import { ActionEnum, TargetEnum } from "@/enum";
+import alterDictionary from "@/dictionaries/alterDictionary";
 
 export const projectSlice = createSlice({
   name: "projectSlice",
   initialState,
   reducers: {
+    alterRecord: (
+      state,
+      action: PayloadAction<{
+        target: TargetEnum;
+        actionType: ActionEnum;
+        id: string;
+        payload?: Object;
+      }>
+    ) => {
+      const { target, id, actionType, payload } = action.payload;
+      return alterDictionary[target][actionType](id, state, payload);
+    },
     addProject: (state, action: PayloadAction<Project>) => {
       return [...state, action.payload];
     },
@@ -25,23 +38,16 @@ export const projectSlice = createSlice({
       });
       return updatedProjects;
     },
-    addGroup: (state, action: PayloadAction<string>) => {
-      switch (action.payload) {
-        case TargetEnum.Project:
-          return "project";
-      }
-      const updatedProjects = state.map((project) => {
-        console.log(project);
-      });
-    },
-    removeGroup: () => {},
     addTask: () => {},
     removeTask: () => {},
+    addGroup: () => {},
+    removeGroup: () => {},
     updateTask: () => {},
   },
 });
 
 export const {
+  alterRecord,
   addProject,
   addGroup,
   addTask,
