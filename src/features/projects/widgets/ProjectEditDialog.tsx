@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Button,
   Dialog,
@@ -60,6 +61,11 @@ function ProjectDialog() {
       }
     },
   });
+
+  useEffect(() => {
+    formik.values.projectTitle = selectedProject.label;
+    formik.values.projectDescription = selectedProject.description;
+  }, [selectedProject]);
 
   return (
     <Dialog
