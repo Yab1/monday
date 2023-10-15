@@ -7,6 +7,7 @@ export interface Task {
   assignedTeamMembers: string[];
   dueDate: string;
   status: StatusEnum;
+  creator: string;
 }
 
 export interface Groups {
@@ -14,6 +15,7 @@ export interface Groups {
   groupName: string;
   isCollapsed: boolean;
   timestamp: string;
+  creator: string;
   tasks: Task[];
 }
 
@@ -23,5 +25,6 @@ export interface Project {
   status: StatusEnum;
   description: string;
   timestamp: string;
+  creator: string;
   groups: Groups[];
 }
