@@ -10,6 +10,7 @@ import {
   Progress,
 } from "@material-tailwind/react";
 import { useFormik } from "formik";
+import { format } from "date-fns";
 import { projectSchema } from "../others";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggler } from "@/slices";
@@ -24,6 +25,9 @@ function ProjectDialog() {
   const projects = useAppSelector((state) => state.projects);
   const selectedProject = useAppSelector((state) => state.selectedProject);
   const dispatch = useAppDispatch();
+
+  const date = new Date(selectedProject.timestamp);
+  const formattedDate = format(date, "MMMM dd, yyyy");
 
   const formik = useFormik({
     initialValues: {
@@ -135,7 +139,7 @@ function ProjectDialog() {
             <div className="flex items-center gap-2">
               <Avatar src={AvatarPublic} alt="avatar" size="xs" />
               <Typography variant="small" className="text-gray-800 text-sm">
-                September 25, 2023
+                {formattedDate}
               </Typography>
             </div>
           </div>
