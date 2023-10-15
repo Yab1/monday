@@ -13,6 +13,7 @@ export interface Groups {
   id: string;
   groupName: string;
   isCollapsed: boolean;
+  timestamp: string;
   tasks: Task[];
 }
 
@@ -21,5 +22,6 @@ export interface Project {
   label: string;
   status: StatusEnum;
   description: string;
+  timestamp: string;
   groups: Groups[];
 }
