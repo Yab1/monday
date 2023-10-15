@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggler } from "@/slices";
 import { alterRecord } from "../slice";
 import { ActionEnum, TargetEnum, ToggleableEnum } from "@/enum";
+import { getCurrentDate } from "@/function";
 
 function NewProjectDialog() {
   const {
@@ -37,6 +38,8 @@ function NewProjectDialog() {
         label: values.projectTitle,
         status: "Pending",
         description: values.projectDescription,
+        timestamp: getCurrentDate(),
+        creator: "1",
         groups: [],
       };
       const isDuplicated = projects.filter(
@@ -72,7 +75,10 @@ function NewProjectDialog() {
         <DialogHeader>New Project</DialogHeader>
       </div>
       <DialogBody divider>
-        <form className="relative grid gap-7 mb-3">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="relative grid gap-7 mb-3"
+        >
           <Input
             crossOrigin={undefined}
             id="projectTitle"
