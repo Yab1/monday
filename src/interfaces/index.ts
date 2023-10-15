@@ -5,3 +5,4 @@ export * from "./ProjectInfoInterface";
 export * from "./ProjectInterface";
 export * from "./ThemeStateInterface";
 export * from "./UIStateInterface";
+export * from "./UserInterface";
