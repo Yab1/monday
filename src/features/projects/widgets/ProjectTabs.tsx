@@ -13,7 +13,8 @@ import ProjectTable from "./ProjectTable";
 import { TaskManager } from "@/features/projects/atoms";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 import { selectProject } from "../slice";
-import { toggleDialog } from "@/slices";
+import { toggler } from "@/slices";
+import { ToggleableEnum } from "@/enum";
 
 function ProjectEditDialog() {
   const selectedProject = useAppSelector((state) => state.selectedProject);
@@ -34,16 +35,17 @@ function ProjectEditDialog() {
             <Tab
               key={project.id}
               value={project.label}
-              onClick={() => {
-                dispatch(selectProject(project));
-              }}
+              onClick={() => dispatch(selectProject(project))}
               className={`w-fit px-3 pt-1 pb-4 border-r ${
                 selectedProject.id === project.id
                   ? "text-gray-900"
                   : "text-gray-900"
               }`}
             >
-              <Typography variant="small" className="font-light text-sm">
+              <Typography
+                variant="small"
+                className="font-light text-sm pointer-events-none"
+              >
                 {project.label === selectedProject.label
                   ? selectedProject.label
                   : project.label}
@@ -53,7 +55,7 @@ function ProjectEditDialog() {
           <Button
             className="px-3 py-1"
             variant="text"
-            onClick={() => dispatch(toggleDialog("isCreateDialogOpen"))}
+            onClick={() => dispatch(toggler(ToggleableEnum.AddProjectDialog))}
           >
             <PlusIcon className="h-5 aspect-square" />
           </Button>
