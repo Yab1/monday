@@ -79,7 +79,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "User Testing",
-            assignedTeamMembers: ["11"],
+            assignedTeamMembers: ["7"],
             dueDate: "10-20-2023",
             status: StatusEnum.Pending,
             creator: "1",
