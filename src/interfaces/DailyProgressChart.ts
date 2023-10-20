@@ -1,5 +1,23 @@
+type type =
+  | "line"
+  | "area"
+  | "bar"
+  | "pie"
+  | "donut"
+  | "radialBar"
+  | "scatter"
+  | "bubble"
+  | "heatmap"
+  | "candlestick"
+  | "boxPlot"
+  | "radar"
+  | "polarArea"
+  | "rangeBar"
+  | "rangeArea"
+  | "treemap";
+
 interface DailyProgressChart {
-  type: string;
+  type: type;
   height: number;
   series: {
     name: string;
@@ -20,7 +38,7 @@ interface DailyProgressChart {
 }
 
 interface WeeklyProgressChart {
-  type: string;
+  type: type;
   height: number;
   series: {
     name: string;
@@ -40,8 +58,29 @@ interface WeeklyProgressChart {
   };
 }
 
+type color =
+  | "blue-gray"
+  | "gray"
+  | "brown"
+  | "deep-orange"
+  | "orange"
+  | "amber"
+  | "yellow"
+  | "lime"
+  | "light-green"
+  | "green"
+  | "teal"
+  | "cyan"
+  | "light-blue"
+  | "blue"
+  | "indigo"
+  | "deep-purple"
+  | "purple"
+  | "pink"
+  | "red";
+
 interface StatisticsChartsData {
-  color: string;
+  color: color;
   title: string;
   description: string;
   footer: any;
