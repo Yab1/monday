@@ -1,11 +1,6 @@
 import { Fragment, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import {
-  ProjectCard,
-  ProjectTabs,
-  ProjectEditDialog,
-  NewProjectDialog,
-} from "./widgets";
+import { useAppSelector, useAppDispatch } from "@/hooks";
+import Inventory from "./inventory/Inventory";
 import { selectProject } from "./slice";
 
 function ProjectManager() {
@@ -25,21 +20,10 @@ function ProjectManager() {
   }, [projects]);
 
   return (
-    <section className="flex flex-col gap-8">
-      {Boolean(selectedProject.id) ? (
-        <Fragment>
-          <ProjectCard />
-          <ProjectTabs />
-          <ProjectEditDialog />
-          <NewProjectDialog />
-        </Fragment>
-      ) : (
-        <h1>You Don't have any Project</h1>
-      )}
-    </section>
+    <Fragment>{Boolean(selectedProject.id) ? <Inventory /> : null}</Fragment>
   );
 }
 
-ProjectManager.displayName = "/src/pages/projects/ProjectManager.tsx";
+ProjectManager.displayName = "/src/features/projects/ProjectManager.tsx";
 
 export default ProjectManager;
