@@ -1,7 +1,12 @@
 import { TargetEnum } from "@/enum";
 export interface ConfirmationState {
+  id: string;
   type: TargetEnum;
   open: boolean;
+}
+export interface EditingState {
+  id: string;
+  isEditing: boolean;
 }
 export interface UIStates {
   toggleable: {
@@ -12,4 +17,5 @@ export interface UIStates {
     addGroup: boolean;
   };
   confirmationDialog: ConfirmationState;
+  editing: EditingState;
 }

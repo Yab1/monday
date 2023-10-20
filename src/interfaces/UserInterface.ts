@@ -7,4 +7,5 @@ export interface UserInterface {
   position: string;
   type: UserTypeEnum;
   isAuthenticated: boolean;
+  isOnline: boolean;
 }
