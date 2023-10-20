@@ -10,7 +10,7 @@ export interface Task {
   creator: string;
 }
 
-export interface Groups {
+export interface Group {
   id: string;
   groupName: string;
   isCollapsed: boolean;
@@ -26,5 +26,5 @@ export interface Project {
   description: string;
   timestamp: string;
   creator: string;
-  groups: Groups[];
+  groups: Group[];
 }
