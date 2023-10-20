@@ -1,9 +1,9 @@
 import { ActionEnum, TargetEnum } from "@/enum";
-import { Project } from "@/interfaces";
+import { Project, UserInterface } from "@/interfaces";
 
 type ActionEnumFunction = (
   id: string,
-  projects: Project[],
+  data: Project[] | UserInterface[],
   payload?: Object
 ) => void;
 
@@ -12,14 +12,16 @@ const alterDictionary: Record<
   Record<ActionEnum, ActionEnumFunction>
 > = {
   [TargetEnum.Project]: {
-    [ActionEnum.Add]: (_, projects, payload) => {
+    [ActionEnum.Add]: (_, data, payload) => {
+      const projects = data as Project[];
       return [...projects, payload];
     },
-    [ActionEnum.Delete]: (id, projects, _) => {
+    [ActionEnum.Delete]: (id, data, _) => {
+      const projects = data as Project[];
       return projects.filter((project) => project.id !== id);
     },
-    [ActionEnum.Update]: (id, projects, payload) => {
-      return projects.map((project) => {
+    [ActionEnum.Update]: (id, data, payload) => {
+      return data.map((project) => {
         if (project.id === id) {
           return payload;
         } else {
@@ -29,7 +31,8 @@ const alterDictionary: Record<
     },
   },
   [TargetEnum.Group]: {
-    [ActionEnum.Add]: (id, projects, payload) => {
+    [ActionEnum.Add]: (id, data, payload) => {
+      const projects = data as Project[];
       return projects.map((project) => {
         if (project.id === id) {
           const updatedGroups = [...project.groups, payload];
@@ -39,26 +42,30 @@ const alterDictionary: Record<
         }
       });
     },
-    [ActionEnum.Delete]: (id, projects, _) => {
+    [ActionEnum.Delete]: (id, data, _) => {
+      const projects = data as Project[];
       return projects.map((project) => {
         const updatedGroups = project.groups.filter((group) => group.id !== id);
         return { ...project, groups: updatedGroups };
       });
     },
-    [ActionEnum.Update]: (id, projects, payload) => {
+    [ActionEnum.Update]: (id, data, payload) => {
+      const projects = data as Project[];
       return projects.map((project) => {
-        project.groups.map((group) => {
+        const updatedGroups = project.groups.map((group) => {
           if (group.id === id) {
             return payload;
           } else {
             return group;
           }
         });
+        return { ...project, groups: updatedGroups };
       });
     },
   },
   [TargetEnum.Task]: {
-    [ActionEnum.Add]: (id, projects, payload) => {
+    [ActionEnum.Add]: (id, data, payload) => {
+      const projects = data as Project[];
       return projects.map((project) => {
         project.groups.map((group) => {
           if (group.id === id) {
@@ -70,25 +77,30 @@ const alterDictionary: Record<
         });
       });
     },
-    [ActionEnum.Delete]: (id, projects, _) => {
+    [ActionEnum.Delete]: (id, data, _) => {
+      const projects = data as Project[];
       return projects.map((project) => {
-        const updatedGroups = project.groups.map((group) =>
-          group.tasks.filter((task) => task.id !== id)
-        );
+        const updatedGroups = project.groups.map((group) => {
+          const updatedTasks = group.tasks.filter((task) => task.id !== id);
+          return { ...group, tasks: updatedTasks };
+        });
         return { ...project, groups: updatedGroups };
       });
     },
-    [ActionEnum.Update]: (id, projects, payload) => {
+    [ActionEnum.Update]: (id, data, payload) => {
+      const projects = data as Project[];
       return projects.map((project) => {
-        project.groups.map((group) => {
-          group.tasks.map((task) => {
+        const updatedGroups = project.groups.map((group) => {
+          const updatedTasks = group.tasks.map((task) => {
             if (task.id === id) {
               return payload;
             } else {
-              return group;
+              return task;
             }
           });
+          return { ...group, tasks: updatedTasks };
         });
+        return { ...project, groups: updatedGroups };
       });
     },
   },
