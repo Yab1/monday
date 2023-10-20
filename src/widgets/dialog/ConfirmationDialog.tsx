@@ -12,21 +12,27 @@ import { toggleConfirmationDialog } from "@/slices";
 import { alterRecord } from "@/features/projects/slice";
 
 function ConfirmationDialog() {
-  const { id } = useAppSelector((state) => state.selectedProject);
+  const projects = useAppSelector((state) => state.projects);
   const {
-    confirmationDialog: { type, open },
+    confirmationDialog: { id, type, open },
   } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
+
+  const handleCancel = () => {
+    const id = "";
+    dispatch(toggleConfirmationDialog({ id, type }));
+  };
 
   const handleConfirmation = () => {
     dispatch(
       alterRecord({
-        target: TargetEnum[type],
         id: id,
+        data: projects,
+        target: TargetEnum[type],
         actionType: ActionEnum.Delete,
       })
     );
-    dispatch(toggleConfirmationDialog(TargetEnum.Project));
+    handleCancel();
   };
 
   return (
@@ -37,7 +43,7 @@ function ConfirmationDialog() {
         <Button
           variant="text"
           color="red"
-          onClick={() => dispatch(toggleConfirmationDialog(TargetEnum.Project))}
+          onClick={handleCancel}
           className="mr-1"
         >
           <span>Cancel</span>
