@@ -67,14 +67,15 @@ const alterDictionary: Record<
     [ActionEnum.Add]: (id, data, payload) => {
       const projects = data as Project[];
       return projects.map((project) => {
-        project.groups.map((group) => {
+        const updatedGroups = project.groups.map((group) => {
           if (group.id === id) {
             const updatedTasks = [...group.tasks, payload];
-            return updatedTasks;
+            return { ...group, tasks: updatedTasks };
           } else {
             return group;
           }
         });
+        return { ...project, groups: updatedGroups };
       });
     },
     [ActionEnum.Delete]: (id, data, _) => {
