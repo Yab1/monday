@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Card } from "@material-tailwind/react";
+import { Card, Typography } from "@material-tailwind/react";
 import { Header } from "./header";
 import { Body } from "./body";
 import { useAppSelector } from "@/hooks";
@@ -11,14 +11,22 @@ function Content() {
   return (
     <Fragment>
       <AddGroup />
-      {groups.map((group) => {
-        return (
-          <Card key={group.id} className="w-full mb-2">
-            <Header group={group} />
-            <Body group={group} />
-          </Card>
-        );
-      })}
+      {groups.length === 0 ? (
+        <div className="grid h-60 place-items-center ">
+          <Typography variant="h3" className="text-gray-400">
+            No Groups Available
+          </Typography>
+        </div>
+      ) : (
+        groups.map((group) => {
+          return (
+            <Card key={group.id} className="w-full mb-2">
+              <Header group={group} />
+              <Body group={group} />
+            </Card>
+          );
+        })
+      )}
     </Fragment>
   );
 }
