@@ -22,7 +22,6 @@ function ProjectManager() {
       );
       dispatch(selectProject(currentProject[0]));
     }
-    console.log("now");
   }, [projects]);
 
   return (
