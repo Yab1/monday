@@ -11,6 +11,11 @@ const userData: UserInterface[] = [
     type: UserTypeEnum.Admin,
     isAuthenticated: true,
     isOnline: true,
+    settings: {
+      inviteAcceptanceNotifications: true,
+      incomingInviteNotifications: true,
+      mentionNotifications: true,
+    },
   },
   {
     id: "2",
@@ -21,6 +26,11 @@ const userData: UserInterface[] = [
     type: UserTypeEnum.Regular,
     isAuthenticated: true,
     isOnline: true,
+    settings: {
+      inviteAcceptanceNotifications: true,
+      incomingInviteNotifications: false,
+      mentionNotifications: true,
+    },
   },
   {
     id: "3",
@@ -31,6 +41,11 @@ const userData: UserInterface[] = [
     type: UserTypeEnum.Regular,
     isAuthenticated: true,
     isOnline: false,
+    settings: {
+      inviteAcceptanceNotifications: true,
+      incomingInviteNotifications: true,
+      mentionNotifications: true,
+    },
   },
   {
     id: "4",
@@ -41,6 +56,11 @@ const userData: UserInterface[] = [
     type: UserTypeEnum.Regular,
     isAuthenticated: true,
     isOnline: false,
+    settings: {
+      inviteAcceptanceNotifications: true,
+      incomingInviteNotifications: true,
+      mentionNotifications: true,
+    },
   },
   {
     id: "5",
@@ -51,6 +71,11 @@ const userData: UserInterface[] = [
     type: UserTypeEnum.Regular,
     isAuthenticated: true,
     isOnline: true,
+    settings: {
+      inviteAcceptanceNotifications: true,
+      incomingInviteNotifications: true,
+      mentionNotifications: true,
+    },
   },
   {
     id: "6",
@@ -61,6 +86,11 @@ const userData: UserInterface[] = [
     type: UserTypeEnum.Regular,
     isAuthenticated: true,
     isOnline: true,
+    settings: {
+      inviteAcceptanceNotifications: true,
+      incomingInviteNotifications: true,
+      mentionNotifications: true,
+    },
   },
   {
     id: "7",
@@ -71,6 +101,11 @@ const userData: UserInterface[] = [
     type: UserTypeEnum.Regular,
     isAuthenticated: true,
     isOnline: true,
+    settings: {
+      inviteAcceptanceNotifications: true,
+      incomingInviteNotifications: true,
+      mentionNotifications: true,
+    },
   },
   {
     id: "8",
@@ -81,6 +116,11 @@ const userData: UserInterface[] = [
     type: UserTypeEnum.Regular,
     isAuthenticated: true,
     isOnline: true,
+    settings: {
+      inviteAcceptanceNotifications: true,
+      incomingInviteNotifications: true,
+      mentionNotifications: true,
+    },
   },
   {
     id: "9",
@@ -91,6 +131,11 @@ const userData: UserInterface[] = [
     type: UserTypeEnum.Regular,
     isAuthenticated: true,
     isOnline: false,
+    settings: {
+      inviteAcceptanceNotifications: true,
+      incomingInviteNotifications: true,
+      mentionNotifications: true,
+    },
   },
   {
     id: "10",
@@ -101,6 +146,11 @@ const userData: UserInterface[] = [
     type: UserTypeEnum.Regular,
     isAuthenticated: true,
     isOnline: true,
+    settings: {
+      inviteAcceptanceNotifications: true,
+      incomingInviteNotifications: true,
+      mentionNotifications: true,
+    },
   },
 ];
 

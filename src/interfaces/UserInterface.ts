@@ -1,5 +1,4 @@
 import { UserTypeEnum } from "@/enum";
-
 export interface UserInterface {
   id: string;
   name: string;
@@ -8,4 +7,9 @@ export interface UserInterface {
   type: UserTypeEnum;
   isAuthenticated: boolean;
   isOnline: boolean;
+  settings: {
+    inviteAcceptanceNotifications: boolean;
+    incomingInviteNotifications: boolean;
+    mentionNotifications: boolean;
+  };
 }
