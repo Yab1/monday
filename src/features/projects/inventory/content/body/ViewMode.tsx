@@ -40,22 +40,22 @@ function ViewMode({ task, classes }: Props) {
   );
 
   return (
-    <tr className="grid grid-cols-12 items-center">
+    <tr className="grid items-center grid-cols-12">
       <td className={classes + " col-span-5"}>
         <Typography variant="small" color="blue-gray" className="font-normal">
           {task.title}
         </Typography>
       </td>
       <td className={classes + " col-span-2"}>
-        <div className="flex items-center gap-2 -space-x-4 p-0 m-0">
+        <div className="flex items-center gap-2 p-0 m-0 -space-x-4">
           {profiles.map((user) => (
             <Tooltip
+              key={user.id}
               content={user.name}
               placement="bottom"
               className="text-xs text-blue-gray-900 bg-blue-gray-50"
             >
               <Avatar
-                key={user.id}
                 src={user.profile}
                 alt={user.name}
                 size="xs"
@@ -77,7 +77,7 @@ function ViewMode({ task, classes }: Props) {
           size="sm"
           value={task.status}
           color={colorMap[task.status]}
-          className="py-1 px-3 text-xs font-normal capitalize rounded-xl h-fit w-fit"
+          className="px-3 py-1 text-xs font-normal capitalize rounded-xl h-fit w-fit"
         />
       </td>
       <td className={classes + " col-span-1 flex place-content-center"}>
