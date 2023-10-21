@@ -8,6 +8,7 @@ import {
   Typography,
   Avatar,
   Progress,
+  Tooltip,
 } from "@material-tailwind/react";
 import { useFormik } from "formik";
 import { format } from "date-fns";
@@ -16,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggler } from "@/slices";
 import { alterRecord } from "@/features/projects/slice";
 import { ActionEnum, TargetEnum, ToggleableEnum } from "@/enum";
+import { UserInterface } from "@/interfaces";
 
 function EditDialog() {
   const {
@@ -73,6 +75,31 @@ function EditDialog() {
     },
   });
 
+  const getTeamMembers = ((): UserInterface[] => {
+    const uniqueUserIds: string[] = [];
+
+    projects.forEach((project) => {
+      project.groups.forEach((group) => {
+        group.tasks.forEach((task) => {
+          task.assignedTeamMembers.forEach((userId) => {
+            if (!uniqueUserIds.includes(userId)) {
+              uniqueUserIds.push(userId);
+            }
+          });
+        });
+      });
+    });
+
+    const teamMembers: UserInterface[] = [];
+
+    uniqueUserIds.forEach((userId) => {
+      const profile = users.filter((user) => user.id === userId)[0];
+      teamMembers.push(profile);
+    });
+
+    return teamMembers;
+  })();
+
   useEffect(() => {
     formik.values.projectTitle = selectedProject.label;
     formik.values.projectDescription = selectedProject.description;
@@ -84,7 +111,7 @@ function EditDialog() {
       handler={() => dispatch(toggler(ToggleableEnum.EditProjectDialog))}
     >
       <DialogBody className="grid grid-cols-12 p-0">
-        <form className="col-start-1 col-span-7 px-8 pb-8 pt-4 relative flex flex-col gap-8">
+        <form className="relative flex flex-col col-span-7 col-start-1 gap-8 px-8 pt-4 pb-8">
           <Input
             crossOrigin={undefined}
             id="projectTitle"
@@ -100,7 +127,7 @@ function EditDialog() {
             <Typography
               variant="small"
               color="red"
-              className="ml-3 text-xs absolute top-14"
+              className="absolute ml-3 text-xs top-14"
             >
               {formik.errors.projectTitle}
             </Typography>
@@ -130,55 +157,64 @@ function EditDialog() {
             )}
         </form>
 
-        <div className="col-start-8 col-span-full bg-blue-gray-50 rounded-r-xl pl-5 p-8 grid">
-          <Typography variant="paragraph" className="text-black mb-6">
+        <div className="grid col-start-8 p-8 pl-5 col-span-full bg-blue-gray-50 rounded-r-xl">
+          <Typography variant="paragraph" className="mb-6 text-black">
             Project info
           </Typography>
 
           <div className="flex flex-col mb-6">
             <Typography
               variant="small"
-              className="text-blue-gray-600 mb-2 font-light"
+              className="mb-2 font-light text-blue-gray-600"
             >
               Created by
               <span></span>
             </Typography>
             <div className="flex items-center gap-2">
-              <Avatar
-                src={creator.profile}
-                alt={`Profile picture of the project's administrator, ${creator.name}, who created this project.`}
-                size="xs"
-              />
-              <Typography variant="small" className="text-gray-800 text-sm">
+              <Tooltip
+                content={creator.name}
+                placement="bottom"
+                className="text-xs text-blue-gray-900 bg-blue-gray-50"
+              >
+                <Avatar
+                  src={creator.profile}
+                  alt={`Profile picture of the project's administrator, ${creator.name}, who created this project.`}
+                  size="xs"
+                />
+              </Tooltip>
+              <Typography variant="small" className="text-sm text-gray-800">
                 {formattedDate}
               </Typography>
             </div>
           </div>
 
           <div className="flex flex-col mb-6">
-            <Typography variant="small" className="text-blue-gray-600 mb-2">
+            <Typography variant="small" className="mb-2 text-blue-gray-600">
               Team Members
               <span></span>
             </Typography>
-            <div className="flex items-center gap-2 -space-x-4">
-              <Avatar
-                src={creator.profile}
-                alt="avatar"
-                size="xs"
-                variant="circular"
-                className="hover:z-10 focus:z-10"
-              />
-              <Avatar
-                src={creator.profile}
-                alt="avatar"
-                size="xs"
-                variant="circular"
-              />
+            <div className="flex items-center gap-2 p-0 m-0 -space-x-4">
+              {getTeamMembers.map((member) => (
+                <Tooltip
+                  key={member.id}
+                  content={member.name}
+                  placement="bottom"
+                  className="text-xs text-blue-gray-900 bg-blue-gray-50"
+                >
+                  <Avatar
+                    src={member.profile}
+                    alt={`Profile picture of the project's administrator, ${creator.name}, who created this project.`}
+                    size="xs"
+                    variant="circular"
+                    className="hover:z-10 focus:z-10"
+                  />
+                </Tooltip>
+              ))}
             </div>
           </div>
 
           <div className="flex flex-col mb-6">
-            <Typography variant="small" className="text-blue-gray-600 mb-2">
+            <Typography variant="small" className="mb-2 text-blue-gray-600">
               Progress
               <span></span>
             </Typography>
@@ -186,7 +222,7 @@ function EditDialog() {
               <Progress value={50} color="blue" className="h-1 bg-white" />
               <Typography
                 variant="small"
-                className="mb-1 block text-xs font-medium text-blue-gray-600"
+                className="block mb-1 text-xs font-medium text-blue-gray-600"
               >
                 50%
               </Typography>
