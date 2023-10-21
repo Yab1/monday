@@ -13,9 +13,10 @@ import {
 } from "@material-tailwind/react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggler } from "@/slices";
-import { alterRecord } from "../../slice";
-import { ActionEnum, TargetEnum, ToggleableEnum } from "@/enum";
+import { alterRecord, selectProject } from "@/features/projects/slice";
+import { ActionEnum, StatusEnum, TargetEnum, ToggleableEnum } from "@/enum";
 import { getCurrentDate } from "@/function";
+import { Project } from "@/interfaces";
 
 function NewProjectDialog() {
   const {
@@ -33,10 +34,10 @@ function NewProjectDialog() {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
-      const newProject = {
+      const newProject: Project = {
         id: uuidv4(),
         label: values.projectTitle,
-        status: "Pending",
+        status: StatusEnum.Pending,
         description: values.projectDescription,
         timestamp: getCurrentDate(),
         creator: "1",
@@ -57,6 +58,7 @@ function NewProjectDialog() {
           })
         );
         formik.resetForm();
+        dispatch(selectProject(newProject));
         dispatch(toggler(ToggleableEnum.AddProjectDialog));
       } else {
         formik.setFieldError(
@@ -78,7 +80,7 @@ function NewProjectDialog() {
       <DialogBody divider>
         <form
           onSubmit={formik.handleSubmit}
-          className="relative grid gap-7 mb-3"
+          className="relative grid mb-3 gap-7"
         >
           <Input
             crossOrigin={undefined}
@@ -93,7 +95,7 @@ function NewProjectDialog() {
             <Typography
               variant="small"
               color="red"
-              className="ml-3 text-xs absolute top-10"
+              className="absolute ml-3 text-xs top-10"
             >
               {formik.errors.projectTitle}
             </Typography>
@@ -116,7 +118,7 @@ function NewProjectDialog() {
               <Typography
                 variant="small"
                 color="red"
-                className="ml-3 text-xs absolute top-44"
+                className="absolute ml-3 text-xs top-44"
               >
                 {formik.errors.projectDescription}
               </Typography>
