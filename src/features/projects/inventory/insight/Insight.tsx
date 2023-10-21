@@ -46,14 +46,20 @@ function Insight() {
 
   return (
     <Fragment>
-      <div className="mt-10 flex items-cent1er">
-        <Typography variant="h3" className="capitalize mr-4">
+      <div className="flex mt-10 items-cent1er">
+        <Typography
+          variant="h3"
+          className="mr-4 capitalize"
+          onDoubleClick={() =>
+            dispatch(toggler(ToggleableEnum.EditProjectDialog))
+          }
+        >
           {selectedProject.label}
         </Typography>
 
         <Tooltip
           placement="right"
-          className="text-xs text-blue-gray-900 bg-blue-gray-50 shadow-lg"
+          className="text-xs shadow-lg text-blue-gray-900 bg-blue-gray-50"
           content={
             <Typography variant="small" color="blue-gray">
               {selectedProject.description}
@@ -69,25 +75,25 @@ function Insight() {
               <Chip
                 color={colorMap[selectedProject.status]}
                 value={selectedProject.status}
-                className="py-1 px-3 text-xs font-body capitalize rounded-xl h-fit self-center cursor-pointer"
+                className="self-center px-3 py-1 text-xs capitalize cursor-pointer font-body rounded-xl h-fit"
               />
             </MenuHandler>
             {editing.isEditing ? null : (
-              <MenuList className="bg-gray-200 shadow-none flex flex-col gap-2 w-fit">
+              <MenuList className="flex flex-col gap-2 bg-gray-200 shadow-none w-fit">
                 <MenuItem
-                  className="bg-blue-gray-700 text-white w-fit text-xs font-body py-1 px-3 rounded-full"
+                  className="px-3 py-1 text-xs text-white rounded-full bg-blue-gray-700 w-fit font-body"
                   onClick={() => dispatcher(StatusEnum.Pending)}
                 >
                   Pending
                 </MenuItem>
                 <MenuItem
-                  className="bg-yellow-500 text-blue-gray-900 w-fit text-xs font-body py-1 px-3 rounded-full"
+                  className="px-3 py-1 text-xs bg-yellow-500 rounded-full text-blue-gray-900 w-fit font-body"
                   onClick={() => dispatcher(StatusEnum["In Progress"])}
                 >
                   In Progress
                 </MenuItem>
                 <MenuItem
-                  className="bg-green-500 text-white w-fit text-xs font-body py-1 px-3 rounded-full"
+                  className="px-3 py-1 text-xs text-white bg-green-500 rounded-full w-fit font-body"
                   onClick={() => dispatcher(StatusEnum.Completed)}
                 >
                   Completed
@@ -100,7 +106,7 @@ function Insight() {
               <MenuHandler>
                 <Button
                   variant="text"
-                  className="p-1 rounded-full h-fit my-auto"
+                  className="p-1 my-auto rounded-full h-fit"
                 >
                   <EllipsisHorizontalIcon className="w-6 aspect-square" />
                 </Button>
