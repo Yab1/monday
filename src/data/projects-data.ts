@@ -106,7 +106,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Market Research",
-            assignedTeamMembers: ["12", "13"],
+            assignedTeamMembers: ["2", "3"],
             dueDate: "09-25-2023",
             status: StatusEnum.Completed,
             creator: "1",
@@ -114,7 +114,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Campaign Strategy",
-            assignedTeamMembers: ["14", "15"],
+            assignedTeamMembers: ["7", "10"],
             dueDate: "10-01-2023",
             status: StatusEnum.Completed,
             creator: "1",
@@ -131,7 +131,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Create Advertisements",
-            assignedTeamMembers: ["16", "17"],
+            assignedTeamMembers: ["10", "7"],
             dueDate: "10-10-2023",
             status: StatusEnum.Completed,
             creator: "1",
@@ -148,7 +148,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "ROI Analysis",
-            assignedTeamMembers: ["18"],
+            assignedTeamMembers: ["1", "8"],
             dueDate: "10-25-2023",
             status: StatusEnum.Pending,
             creator: "1",
@@ -175,7 +175,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Create Wireframes",
-            assignedTeamMembers: ["19", "20"],
+            assignedTeamMembers: ["1", "9", "10"],
             dueDate: "09-30-2023",
             status: StatusEnum.Pending,
             creator: "1",
@@ -183,7 +183,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Choose Color Palette",
-            assignedTeamMembers: ["21"],
+            assignedTeamMembers: ["1", "2"],
             dueDate: "09-28-2023",
             status: StatusEnum.Completed,
             creator: "1",
@@ -191,7 +191,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Select Fonts",
-            assignedTeamMembers: ["22", "23"],
+            assignedTeamMembers: ["2", "3"],
             dueDate: "10-05-2023",
             status: StatusEnum["Ready for Review"],
             creator: "1",
@@ -208,7 +208,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Implement Responsive Layout",
-            assignedTeamMembers: ["24", "25"],
+            assignedTeamMembers: ["2", "4", "5"],
             dueDate: "10-10-2023",
             status: StatusEnum.Pending,
             creator: "1",
@@ -216,7 +216,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Backend Integration",
-            assignedTeamMembers: ["26", "27"],
+            assignedTeamMembers: ["2", "6", "7"],
             dueDate: "10-15-2023",
             status: StatusEnum.Pending,
             creator: "1",
@@ -233,7 +233,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "User Testing",
-            assignedTeamMembers: ["28"],
+            assignedTeamMembers: ["2", "8"],
             dueDate: "10-20-2023",
             status: StatusEnum.Pending,
             creator: "1",
@@ -260,7 +260,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Create Wireframes",
-            assignedTeamMembers: ["29", "30"],
+            assignedTeamMembers: ["2", "9", "3", "1"],
             dueDate: "09-30-2023",
             status: StatusEnum.Pending,
             creator: "1",
@@ -268,7 +268,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Choose Color Palette",
-            assignedTeamMembers: ["31"],
+            assignedTeamMembers: ["1", "3"],
             dueDate: "09-28-2023",
             status: StatusEnum.Completed,
             creator: "1",
@@ -276,7 +276,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Select Fonts",
-            assignedTeamMembers: ["32", "33"],
+            assignedTeamMembers: ["2", "3"],
             dueDate: "10-05-2023",
             status: StatusEnum["Ready for Review"],
             creator: "1",
@@ -293,7 +293,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Implement Responsive Layout",
-            assignedTeamMembers: ["34", "35"],
+            assignedTeamMembers: ["3", "4", "5"],
             dueDate: "10-10-2023",
             status: StatusEnum.Pending,
             creator: "1",
@@ -301,7 +301,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "Backend Integration",
-            assignedTeamMembers: ["36", "37"],
+            assignedTeamMembers: ["3", "6", "7"],
             dueDate: "10-15-2023",
             status: StatusEnum.Pending,
             creator: "1",
@@ -318,7 +318,7 @@ const initialState: Project[] = [
           {
             id: uuidv4(),
             title: "User Testing",
-            assignedTeamMembers: ["38"],
+            assignedTeamMembers: ["3", "8"],
             dueDate: "10-20-2023",
             status: StatusEnum.Pending,
             creator: "1",
