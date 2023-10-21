@@ -61,9 +61,15 @@ function Insight() {
           placement="right"
           className="text-xs shadow-lg text-blue-gray-900 bg-blue-gray-50"
           content={
-            <Typography variant="small" color="blue-gray">
-              {selectedProject.description}
-            </Typography>
+            selectedProject.description ? (
+              <Typography variant="small" color="blue-gray">
+                {selectedProject.description}
+              </Typography>
+            ) : (
+              <Typography variant="small" className="text-blue-gray-500">
+                No project description available
+              </Typography>
+            )
           }
         >
           <InformationCircleIcon className="w-5" />

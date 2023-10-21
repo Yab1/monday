@@ -14,14 +14,15 @@ function ProjectManager() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (Boolean(selectedProject.id)) {
+    if (!Boolean(selectedProject.id)) {
+      dispatch(selectProject(projects[0]));
+    } else {
       const currentProject = projects.filter(
         (project) => project.id === selectedProject.id
       );
       dispatch(selectProject(currentProject[0]));
-    } else if (projects.length > 0) {
-      dispatch(selectProject(projects[0]));
     }
+    console.log("now");
   }, [projects]);
 
   return (

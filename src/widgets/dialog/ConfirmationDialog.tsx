@@ -9,7 +9,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { ActionEnum, TargetEnum } from "@/enum";
 import { dialogHeaderText, dialogBodyText } from "@/dictionaries";
 import { toggleConfirmationDialog } from "@/slices";
-import { alterRecord } from "@/features/projects/slice";
+import { alterRecord, selectProject } from "@/features/projects/slice";
+import { Project } from "@/interfaces";
 
 function ConfirmationDialog() {
   const projects = useAppSelector((state) => state.projects);
@@ -33,6 +34,7 @@ function ConfirmationDialog() {
       })
     );
     handleCancel();
+    dispatch(selectProject({} as Project));
   };
 
   return (
