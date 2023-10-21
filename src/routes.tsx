@@ -1,13 +1,13 @@
 import {
   HomeIcon,
   TableCellsIcon,
+  UserCircleIcon,
   BellIcon,
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Notifications } from "@/pages";
-import { ProjectManager } from "@/features";
+import { Home, ProjectManager, Profile, Notifications } from "@/features";
 // import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
@@ -41,6 +41,12 @@ export const primaryRoutes: Route[] = [
         name: "project",
         path: "/project",
         element: <ProjectManager />,
+      },
+      {
+        icon: <UserCircleIcon {...icon} />,
+        name: "profile",
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },
