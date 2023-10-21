@@ -9,6 +9,7 @@ import {
   MenuList,
   MenuItem,
   Avatar,
+  Tooltip,
 } from "@material-tailwind/react";
 import {
   EllipsisHorizontalIcon,
@@ -134,9 +135,12 @@ function EditMode({ tasks, task, classes }: Props) {
   ));
 
   return (
-    <tr className="grid grid-cols-12">
+    <tr
+      className="grid grid-cols-12"
+      onDoubleClick={() => formik.handleSubmit()}
+    >
       <td className={classes + " col-span-5"}>
-        <div className="flex items-center gap-4 relative">
+        <div className="relative flex items-center gap-4">
           <Input
             crossOrigin={undefined}
             id="title"
@@ -154,7 +158,7 @@ function EditMode({ tasks, task, classes }: Props) {
             <Typography
               variant="small"
               color="red"
-              className="ml-3 text-xs absolute top-10"
+              className="absolute ml-3 text-xs top-10"
             >
               {formik.errors.title}
             </Typography>
@@ -165,21 +169,33 @@ function EditMode({ tasks, task, classes }: Props) {
         <Menu>
           <MenuHandler>
             <div className="flex items-center gap-2 -space-x-4">
-              {team.map((id) => {
-                const currentUser: UserInterface = users.filter(
-                  (user) => user.id === id
-                )[0];
-                return (
-                  <Avatar
-                    key={id}
-                    src={currentUser.profile}
-                    alt="avatar"
-                    size="xs"
-                    variant="circular"
-                    className="hover:z-10 focus:z-10"
-                  />
-                );
-              })}
+              {team.length === 0 ? (
+                <Typography variant="small" className="text-gray-400">
+                  Team Unassigned
+                </Typography>
+              ) : (
+                team.map((id) => {
+                  const currentUser: UserInterface = users.filter(
+                    (user) => user.id === id
+                  )[0];
+                  return (
+                    <Tooltip
+                      key={id}
+                      content={currentUser.name}
+                      placement="bottom"
+                      className="text-xs text-blue-gray-900 bg-blue-gray-50"
+                    >
+                      <Avatar
+                        src={currentUser.profile}
+                        alt="avatar"
+                        size="xs"
+                        variant="circular"
+                        className="hover:z-10 focus:z-10"
+                      />
+                    </Tooltip>
+                  );
+                })
+              )}
             </div>
           </MenuHandler>
           <MenuList className="flex flex-col gap-2 h-80">
@@ -212,24 +228,24 @@ function EditMode({ tasks, task, classes }: Props) {
               <Chip
                 color={colorMap[status]}
                 value={status}
-                className="py-1 px-3 text-xs font-normal capitalize rounded-xl h-fit self-center cursor-pointer"
+                className="self-center px-3 py-1 text-xs font-normal capitalize cursor-pointer rounded-xl h-fit"
               />
             </MenuHandler>
-            <MenuList className="bg-gray-200 shadow-none flex flex-col gap-2 w-fit ">
+            <MenuList className="flex flex-col gap-2 bg-gray-200 shadow-none w-fit ">
               <MenuItem
-                className="bg-blue-gray-700 text-white w-fit text-xs font-body py-1 px-3 rounded-full hover:text-blue-gray-700"
+                className="px-3 py-1 text-xs text-white rounded-full bg-blue-gray-700 w-fit font-body hover:text-blue-gray-700"
                 onClick={() => setStatus(StatusEnum.Pending)}
               >
                 Pending
               </MenuItem>
               <MenuItem
-                className="bg-yellow-500 text-blue-gray-900 w-fit text-xs font-body py-1 px-3 rounded-full hover:text-yellow-500"
+                className="px-3 py-1 text-xs bg-yellow-500 rounded-full text-blue-gray-900 w-fit font-body hover:text-yellow-500"
                 onClick={() => setStatus(StatusEnum["Ready for Review"])}
               >
                 Ready For Review
               </MenuItem>
               <MenuItem
-                className="bg-green-500 text-white w-fit text-xs font-body py-1 px-3 rounded-full hover:text-green-500"
+                className="px-3 py-1 text-xs text-white bg-green-500 rounded-full w-fit font-body hover:text-green-500"
                 onClick={() => setStatus(StatusEnum.Completed)}
               >
                 Completed

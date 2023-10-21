@@ -92,7 +92,12 @@ function ViewMode({ group }: { group: Group }) {
         )}
       </IconButton>
 
-      <Typography variant="h6" color="white" className="capitalize">
+      <Typography
+        variant="h6"
+        color="white"
+        className="capitalize"
+        onDoubleClick={() => dispatch(toggleEditMode(group.id))}
+      >
         {group.groupName}
       </Typography>
 

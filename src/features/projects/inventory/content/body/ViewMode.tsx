@@ -40,7 +40,10 @@ function ViewMode({ task, classes }: Props) {
   );
 
   return (
-    <tr className="grid items-center grid-cols-12">
+    <tr
+      className="grid items-center grid-cols-12"
+      onDoubleClick={() => dispatch(toggleEditMode(task.id))}
+    >
       <td className={classes + " col-span-5"}>
         <Typography variant="small" color="blue-gray" className="font-normal">
           {task.title}
@@ -48,22 +51,28 @@ function ViewMode({ task, classes }: Props) {
       </td>
       <td className={classes + " col-span-2"}>
         <div className="flex items-center gap-2 p-0 m-0 -space-x-4">
-          {profiles.map((user) => (
-            <Tooltip
-              key={user.id}
-              content={user.name}
-              placement="bottom"
-              className="text-xs text-blue-gray-900 bg-blue-gray-50"
-            >
-              <Avatar
-                src={user.profile}
-                alt={user.name}
-                size="xs"
-                variant="circular"
-                className="hover:z-10 focus:z-10"
-              />
-            </Tooltip>
-          ))}
+          {profiles.length === 0 ? (
+            <Typography variant="small" className="text-gray-400">
+              Team Unassigned
+            </Typography>
+          ) : (
+            profiles.map((user) => (
+              <Tooltip
+                key={user.id}
+                content={user.name}
+                placement="bottom"
+                className="text-xs text-blue-gray-900 bg-blue-gray-50"
+              >
+                <Avatar
+                  src={user.profile}
+                  alt={user.name}
+                  size="xs"
+                  variant="circular"
+                  className="hover:z-10 focus:z-10"
+                />
+              </Tooltip>
+            ))
+          )}
         </div>
       </td>
       <td className={classes + " col-span-2"}>
