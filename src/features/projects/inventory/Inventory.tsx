@@ -5,7 +5,7 @@ import Content from "./content/Content";
 
 function Inventory() {
   return (
-    <section className="flex flex-col gap-8 mb-40">
+    <section className="flex flex-col gap-8">
       <Insight />
       <Selector />
       <Content />
