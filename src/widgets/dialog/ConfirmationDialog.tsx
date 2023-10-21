@@ -33,8 +33,12 @@ function ConfirmationDialog() {
         actionType: ActionEnum.Delete,
       })
     );
+
+    if (TargetEnum[type] === TargetEnum.Project) {
+      dispatch(selectProject({} as Project));
+    }
+
     handleCancel();
-    dispatch(selectProject({} as Project));
   };
 
   return (

@@ -14,15 +14,15 @@ import { ToggleableEnum } from "@/enum";
 import NewProjectDialog from "./NewProjectDialog";
 
 function Selector() {
-  const selectedProject = useAppSelector((state) => state.selectedProject);
   const projects = useAppSelector((state) => state.projects);
+  const selectedProject = useAppSelector((state) => state.selectedProject);
   const dispatch = useAppDispatch();
 
   return (
     <Fragment>
       <Tabs value={selectedProject.label} id={selectedProject.label}>
         <TabsHeader
-          className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
+          className="p-0 bg-transparent border-b rounded-none border-blue-gray-50"
           indicatorProps={{
             className:
               "bg-transparent border-b-2 border-gray-900 shadow-none rounded-none",
@@ -41,7 +41,7 @@ function Selector() {
             >
               <Typography
                 variant="small"
-                className="font-light text-sm pointer-events-none"
+                className="text-sm font-light pointer-events-none"
               >
                 {project.label === selectedProject.label
                   ? selectedProject.label
