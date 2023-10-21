@@ -112,8 +112,8 @@ function Body({ group }: { group: Group }) {
           </table>
         ) : (
           <div className="flex flex-col items-center">
-            <Typography variant="h5" className="text-gray-400">
-              No Tasks Found
+            <Typography variant="h5" className="text-gray-400 cursor-default">
+              No Task Found
             </Typography>
             <Button
               variant="text"
@@ -122,7 +122,7 @@ function Body({ group }: { group: Group }) {
               onClick={addTask}
             >
               <PlusIcon className="h-4 aspect-square" />
-              Add a new task
+              Add Task
             </Button>
           </div>
         )}

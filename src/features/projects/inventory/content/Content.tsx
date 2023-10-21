@@ -13,8 +13,8 @@ function Content() {
       <AddGroup />
       {groups.length === 0 ? (
         <div className="grid h-40 place-items-center ">
-          <Typography variant="h3" className="text-gray-400">
-            No Groups Available
+          <Typography variant="h3" className="text-gray-400 cursor-default">
+            No Group Available
           </Typography>
         </div>
       ) : (
