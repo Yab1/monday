@@ -57,9 +57,8 @@ function NewProjectDialog() {
             target: TargetEnum.Project,
           })
         );
-        formik.resetForm();
-        dispatch(selectProject(newProject));
         dispatch(toggler(ToggleableEnum.AddProjectDialog));
+        formik.resetForm();
       } else {
         formik.setFieldError(
           "projectTitle",
