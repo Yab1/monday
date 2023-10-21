@@ -12,7 +12,7 @@ function Content() {
     <Fragment>
       <AddGroup />
       {groups.length === 0 ? (
-        <div className="grid h-60 place-items-center ">
+        <div className="grid h-40 place-items-center ">
           <Typography variant="h3" className="text-gray-400">
             No Groups Available
           </Typography>
