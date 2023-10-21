@@ -3,8 +3,8 @@ import { Project } from "@/interfaces";
 
 const initialState: Project = {} as Project;
 
-export const tabsSlice = createSlice({
-  name: "tabs",
+export const selectProjectSlice = createSlice({
+  name: "selectProject",
   initialState,
   reducers: {
     selectProject: (_, action: PayloadAction<Project>) => action.payload,
@@ -26,5 +26,5 @@ export const tabsSlice = createSlice({
   },
 });
 
-export const { selectProject, toggleGroup } = tabsSlice.actions;
-export default tabsSlice.reducer;
+export const { selectProject, toggleGroup } = selectProjectSlice.actions;
+export default selectProjectSlice.reducer;
