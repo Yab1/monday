@@ -62,7 +62,7 @@ function AddGroup() {
   });
 
   return (
-    <div className="mt-1">
+    <div>
       {addGroup ? (
         <form
           onSubmit={formik.handleSubmit}
@@ -82,7 +82,7 @@ function AddGroup() {
               <Typography
                 variant="small"
                 color="red"
-                className="ml-3 text-xs absolute top-10"
+                className="absolute ml-3 text-xs top-10"
               >
                 {formik.errors.groupName}
               </Typography>
