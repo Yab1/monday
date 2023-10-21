@@ -5,7 +5,7 @@ import { ToggleableEnum, TargetEnum } from "@/enum";
 const initialState: UIStates = {
   toggleable: {
     darkMode: false,
-    sideNav: true,
+    sideNav: false,
     editProjectDialog: false,
     addProjectDialog: false,
     addGroup: false,
