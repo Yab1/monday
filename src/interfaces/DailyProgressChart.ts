@@ -16,7 +16,7 @@ type type =
   | "rangeArea"
   | "treemap";
 
-interface DailyProgressChart {
+export interface DailyProgressChart {
   type: type;
   height: number;
   series: {
@@ -37,7 +37,7 @@ interface DailyProgressChart {
   };
 }
 
-interface WeeklyProgressChart {
+export interface WeeklyProgressChart {
   type: type;
   height: number;
   series: {
@@ -79,12 +79,10 @@ type color =
   | "pink"
   | "red";
 
-interface StatisticsChartsData {
+export interface StatisticsChartsData {
   color: color;
   title: string;
   description: string;
   footer: any;
   chart: WeeklyProgressChart | DailyProgressChart;
 }
-
-export type { DailyProgressChart, WeeklyProgressChart, StatisticsChartsData };

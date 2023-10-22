@@ -1,6 +1,7 @@
 export { default as ActionEnum } from "./ActionEnum";
-export { default as StatusEnum } from "./StatusEnum";
+export * from "./StatusEnum";
 export { default as TargetEnum } from "./TargetEnum";
 export { default as ToggleableEnum } from "./ToggleableEnum";
-export { default as UserTypeEnum } from "./UserTypeEnum";
+export { default as UserRoleEnum } from "./UserRoleEnum";
 export { default as SettingEnum } from "./SettingEnum";
+export { default as SocialsEnum } from "./SocialsEnum";

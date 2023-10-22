@@ -1,7 +1,7 @@
 export enum SettingEnum {
-  ACCEPTS_MY_INVITE = "acceptsInvite",
-  SENDS_ME_INVITE = "sendsInvite",
-  MENTIONS_ME = "mentions",
+  acceptsMyInvite = "acceptsMyInvite",
+  sendsMeInvite = "sendsMeInvite",
+  mentionsMe = "mentionsMe",
 }
 
 export default SettingEnum;

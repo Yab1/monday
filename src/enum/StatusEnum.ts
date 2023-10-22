@@ -1,8 +1,17 @@
-enum StatusEnum {
+export enum InvitationStatusEnum {
   Pending = "Pending",
-  "In Progress" = "In Progress",
+  Accepted = "Accepted",
+  Declined = "Declined",
+}
+
+export enum TaskStatusEnum {
+  Pending = "Pending",
   "Ready for Review" = "Ready for Review",
   Completed = "Completed",
 }
 
-export default StatusEnum;
+export enum ProjectStatusEnum {
+  Active = "Active",
+  Closed = "Closed",
+  Archived = "Archived",
+}
