@@ -8,6 +8,7 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/solid";
 import { Home, ProjectManager, Profile, Notifications } from "@/features";
+import { SignIn, SignUp } from "@/features/auth";
 // import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
@@ -15,7 +16,7 @@ const icon = {
 };
 
 interface Page {
-  icon: JSX.Element;
+  icon?: JSX.Element;
   name: string;
   path: string;
   element: JSX.Element;
@@ -79,6 +80,21 @@ export const secondaryRoutes: Route[] = [
         name: "logout",
         path: "/logout",
         element: <PowerIcon />,
+      },
+    ],
+  },
+  {
+    layout: "auth",
+    pages: [
+      {
+        name: "sign in",
+        path: "/sign-in",
+        element: <SignIn />,
+      },
+      {
+        name: "sign up",
+        path: "/sign-up",
+        element: <SignUp />,
       },
     ],
   },
