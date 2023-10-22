@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import Dashboard from "@/layouts/dashboard";
+import { Dashboard, Auth } from "@/layouts";
 import { manageAttributes } from "@/function";
 import { initializeCurrentUser } from "@/features/profile/slice";
 
@@ -24,7 +24,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/dashboard/*" element={<Dashboard />} />
+      <Route path="/auth/*" element={<Auth />} />
+      {/* <Route path="/dashboard/*" element={<Dashboard />} /> */}
       <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
     </Routes>
   );
