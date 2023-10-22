@@ -51,6 +51,21 @@ export const primaryRoutes: Route[] = [
       },
     ],
   },
+  {
+    layout: "auth",
+    pages: [
+      {
+        name: "sign in",
+        path: "/sign-in",
+        element: <SignIn />,
+      },
+      {
+        name: "sign up",
+        path: "/sign-up",
+        element: <SignUp />,
+      },
+    ],
+  },
 ];
 
 export const secondaryRoutes: Route[] = [
@@ -80,21 +95,6 @@ export const secondaryRoutes: Route[] = [
         name: "logout",
         path: "/logout",
         element: <PowerIcon />,
-      },
-    ],
-  },
-  {
-    layout: "auth",
-    pages: [
-      {
-        name: "sign in",
-        path: "/sign-in",
-        element: <SignIn />,
-      },
-      {
-        name: "sign up",
-        path: "/sign-up",
-        element: <SignUp />,
       },
     ],
   },
