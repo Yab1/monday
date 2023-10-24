@@ -2,21 +2,21 @@ import { Fragment } from "react";
 import { Input, Button, Typography } from "@material-tailwind/react";
 import { useFormik } from "formik";
 import { resetSchema } from "../schema";
-import { signInWithEmailPassword } from "@/slices";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+// import { signInWithEmailPassword } from "@/slices";
+import { useAppSelector } from "@/hooks";
 import { Loading } from "@/widgets";
 
 export function ResetPrompt() {
   const { status } = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {
       email: "",
     },
     validationSchema: resetSchema,
-    onSubmit: (values) => {
-      const userData = { email: values.email };
+    onSubmit: () => {
+      // const userData = { email: values.email };
       // dispatch(signInWithEmailPassword(userData));
     },
   });

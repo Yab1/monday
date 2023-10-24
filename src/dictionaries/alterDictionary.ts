@@ -1,9 +1,9 @@
 import { ActionEnum, TargetEnum } from "@/enum";
-import { Project, UserInterface } from "@/interfaces";
+import { Project, User } from "@/interfaces";
 
 type ActionEnumFunction = (
   id: string,
-  data: Project[] | UserInterface[],
+  data: Project[] | User[],
   payload?: Object
 ) => void;
 

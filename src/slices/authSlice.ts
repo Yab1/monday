@@ -132,7 +132,7 @@ const authSlice = createSlice({
       .addCase(signUpWithEmailPassword.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(signUpWithEmailPassword.fulfilled, (state, action) => {
+      .addCase(signUpWithEmailPassword.fulfilled, (state, _) => {
         state.status = "succeeded";
         state.authenticated = true;
         state.error = null;

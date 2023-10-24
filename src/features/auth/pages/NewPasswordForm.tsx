@@ -1,14 +1,14 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Input, Button, Typography } from "@material-tailwind/react";
 import { useFormik } from "formik";
 import { newPasswordSchema } from "../schema";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useAppSelector } from "@/hooks";
 import { Loading } from "@/widgets";
 
 export function NewPassword() {
   const { status } = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {

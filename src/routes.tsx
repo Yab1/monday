@@ -1,12 +1,12 @@
-import {
-  HomeIcon,
-  TableCellsIcon,
-  UserCircleIcon,
-  BellIcon,
-  Cog6ToothIcon,
-  InboxIcon,
-  PowerIcon,
-} from "@heroicons/react/24/solid";
+// import {
+//   HomeIcon,
+//   TableCellsIcon,
+//   UserCircleIcon,
+//   BellIcon,
+//   Cog6ToothIcon,
+//   InboxIcon,
+//   PowerIcon,
+// } from "@heroicons/react/24/solid";
 // import { Home, ProjectManager, Profile, Notifications } from "@/features";
 import {
   SignIn,
