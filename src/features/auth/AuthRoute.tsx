@@ -1,15 +1,16 @@
 import { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { User, getAuth, onAuthStateChanged } from "firebase/auth";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { authenticate } from "@/slices";
+// import { User, getAuth, onAuthStateChanged } from "firebase/auth";
+// import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useAppSelector } from "@/hooks";
+// import { authenticate } from "@/slices";
 
 function AuthRoute({ children }: { children: ReactNode }) {
   const { authenticated } = useAppSelector((state) => state.auth);
   // const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const auth = getAuth();
+  // const auth = getAuth();
 
   // useEffect(() => {
   //   AuthCheck();
