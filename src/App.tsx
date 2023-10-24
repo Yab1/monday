@@ -1,32 +1,36 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { Dashboard, Auth } from "@/layouts";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAppSelector } from "@/hooks";
+import { Auth, Dashboard } from "@/layouts";
 import { manageAttributes } from "@/function";
-import { initializeCurrentUser } from "@/features/profile/slice";
+import { AuthRoute } from "@/features/auth";
 
 function App() {
-  const users = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
-
   const {
     toggleable: { darkMode },
   } = useAppSelector((state) => state.ui);
+  const { authenticated } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     manageAttributes(darkMode);
   }, [darkMode]);
 
-  useEffect(() => {
-    dispatch(initializeCurrentUser(users[0]));
-  }, [users]);
-
   return (
     <Routes>
       <Route path="/auth/*" element={<Auth />} />
-      {/* <Route path="/dashboard/*" element={<Dashboard />} /> */}
-      <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
+      <Route
+        path="/dashboard/*"
+        element={
+          <AuthRoute>
+            <Dashboard />
+          </AuthRoute>
+        }
+      />
+      {authenticated ? (
+        <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
+      ) : (
+        <Route path="*" element={<Navigate to="/auth/sign-in" replace />} />
+      )}
     </Routes>
   );
 }
