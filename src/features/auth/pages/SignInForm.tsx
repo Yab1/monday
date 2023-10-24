@@ -4,13 +4,16 @@ import { Input, Button, Typography, Checkbox } from "@material-tailwind/react";
 import { FcGoogle } from "react-icons/fc";
 import { useFormik } from "formik";
 import { signInSchema } from "../schema";
-// import { signInWithEmailPassword } from "@/slices";
-import { useAppSelector } from "@/hooks";
-import { Loading } from "@/widgets";
+import {
+  signInWithEmailPassword,
+  resetState,
+  signUpWithGoogle,
+} from "@/slices";
+import { useAppSelector, useAppDispatch } from "@/hooks";
 
 export function SignIn() {
   const { status } = useAppSelector((state) => state.auth);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -18,9 +21,10 @@ export function SignIn() {
       password: "",
     },
     validationSchema: signInSchema,
-    onSubmit: () => {
-      // const userData = { email: values.email, password: values.password };
-      // dispatch(signInWithEmailPassword(userData));
+    onSubmit: (values) => {
+      dispatch(resetState());
+      const userData = { email: values.email, password: values.password };
+      dispatch(signInWithEmailPassword(userData));
     },
   });
 
@@ -35,7 +39,10 @@ export function SignIn() {
       <Typography className="text-sm font-poppins text-dark-gray">
         Welcome back! Please enter your details.
       </Typography>
-      <form className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96">
+      <form
+        className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96"
+        onSubmit={formik.handleSubmit}
+      >
         <div className="relative flex flex-col gap-6 mb-6">
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Email
@@ -139,7 +146,6 @@ export function SignIn() {
           color="blue"
           variant="gradient"
           className="mt-6"
-          onClick={() => formik.handleSubmit()}
           disabled={status === "loading" ? true : false}
         >
           sign in
@@ -150,6 +156,7 @@ export function SignIn() {
           variant="outlined"
           color="blue"
           className="flex items-center justify-center gap-2 mt-6 "
+          onClick={() => dispatch(signUpWithGoogle())}
         >
           <FcGoogle size={25} />
           Sign in with Google
@@ -171,7 +178,6 @@ export function SignIn() {
           </Link>
         </Typography>
       </form>
-      <Loading open={status === "loading" ? true : false} />
     </Fragment>
   );
 }
