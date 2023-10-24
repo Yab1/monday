@@ -4,13 +4,13 @@ import { Input, Button, Typography, Checkbox } from "@material-tailwind/react";
 import { FcGoogle } from "react-icons/fc";
 import { useFormik } from "formik";
 import { signInSchema } from "../schema";
-import { signInWithEmailPassword } from "@/slices";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+// import { signInWithEmailPassword } from "@/slices";
+import { useAppSelector } from "@/hooks";
 import { Loading } from "@/widgets";
 
 export function SignIn() {
   const { status } = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -18,9 +18,9 @@ export function SignIn() {
       password: "",
     },
     validationSchema: signInSchema,
-    onSubmit: (values) => {
-      const userData = { email: values.email, password: values.password };
-      dispatch(signInWithEmailPassword(userData));
+    onSubmit: () => {
+      // const userData = { email: values.email, password: values.password };
+      // dispatch(signInWithEmailPassword(userData));
     },
   });
 
