@@ -6,10 +6,10 @@ import {
   sendEmailVerification,
   UserCredential,
 } from "firebase/auth";
-import { app } from "@/firebase";
+// import { app } from "@/firebase";
 import { IAuthState, ISignInData, ISignUpData } from "@/interfaces";
 
-const auth = getAuth(app);
+const auth = getAuth();
 
 const initialState: IAuthState = {
   user: null,
