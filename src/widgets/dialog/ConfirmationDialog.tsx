@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { ActionEnum, TargetEnum } from "@/enum";
 import { dialogHeaderText, dialogBodyText } from "@/dictionaries";
 import { toggleConfirmationDialog } from "@/slices";
-import { alterRecord, selectProject } from "@/features/projects/slice";
+import { alterRecord, selectProject } from "@/slices";
 import { Project } from "@/interfaces";
 
 function ConfirmationDialog() {
