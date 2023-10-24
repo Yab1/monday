@@ -1,15 +1,14 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { uiReducer, authReducer } from "@/slices";
 import {
+  uiReducer,
+  authReducer,
   projectsReducer,
-  selectedProjectReducer,
-} from "@/features/projects/slice";
-import { currentUserReducer } from "@/features/profile/slice";
+  invitationsReducer,
+} from "@/slices";
 
 export const rootReducer = combineReducers({
-  auth: authReducer,
   ui: uiReducer,
+  auth: authReducer,
   projects: projectsReducer,
-  selectedProject: selectedProjectReducer,
-  currentUser: currentUserReducer,
+  invitations: invitationsReducer,
 });
