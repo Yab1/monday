@@ -1,9 +1,13 @@
-import { Link } from "react-router-dom";
 import { Button, Typography } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
+import emailIcon from "@/assets/img/email-icon.png";
 
 function VerificationPrompt() {
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-3">
+      <figure className="w-52 aspect-square">
+        <img src={emailIcon} alt="" />
+      </figure>
       <Typography
         variant="h4"
         className="text-3xl font-medium font-poppins text-extremely-dark-gray"
@@ -11,16 +15,18 @@ function VerificationPrompt() {
         Check your mail
       </Typography>
       <Typography className="text-sm font-poppins text-dark-gray">
-        We've sent email verification instructions to your inbox.
+        You will receive a verification link in your email shortly. Open your
+        email client to access it.
       </Typography>
-      <Button
-        color="blue"
-        variant="gradient"
-        className="px-10 mt-7 w-fit"
-        // onClick={}
+      <a
+        href="https://mail.google.com/mail/u/0/#inbox"
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        Open email app
-      </Button>
+        <Button color="blue" variant="gradient" className="px-10 mt-7 w-fit">
+          Open Gmail App
+        </Button>
+      </a>
       <Button
         variant="text"
         className="font-semibold text-gray-600 normal-case w-fit"
