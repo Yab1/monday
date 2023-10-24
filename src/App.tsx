@@ -1,35 +1,51 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useAppSelector } from "@/hooks";
+import { User, getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAppSelector, useAppDispatch } from "@/hooks";
 import { Auth, Dashboard } from "@/layouts";
 import { manageAttributes } from "@/function";
-import { AuthRoute } from "@/features/auth";
+import { authenticate } from "@/slices";
 
 function App() {
   const {
     toggleable: { darkMode },
   } = useAppSelector((state) => state.ui);
   const { authenticated } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     manageAttributes(darkMode);
   }, [darkMode]);
 
+  const auth = getAuth();
+
+  useEffect(() => {
+    AuthCheck();
+
+    return () => AuthCheck();
+  }, [auth]);
+
+  const AuthCheck = onAuthStateChanged(auth, (user: User | null) => {
+    if (user !== null) {
+      if (user.emailVerified) {
+        console.log(user);
+        dispatch(authenticate());
+      }
+    }
+  });
+
   return (
     <Routes>
-      <Route path="/auth/*" element={<Auth />} />
-      <Route
-        path="/dashboard/*"
-        element={
-          <AuthRoute>
-            <Dashboard />
-          </AuthRoute>
-        }
-      />
       {authenticated ? (
-        <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
+        <Fragment>
+          <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
+          <Route path="/dashboard/*" element={<Dashboard />} />
+        </Fragment>
       ) : (
-        <Route path="*" element={<Navigate to="/auth/sign-in" replace />} />
+        <Fragment>
+          <Route path="*" element={<Navigate to="/auth/sign-in" replace />} />
+          <Route path="/auth/*" element={<Auth />} />
+        </Fragment>
       )}
     </Routes>
   );
