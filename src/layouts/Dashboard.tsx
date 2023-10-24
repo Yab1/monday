@@ -8,7 +8,7 @@ function Dashboard() {
       <SideNav />
       <div className="p-4 pb-0 xl:ml-80">
         <DashboardNavbar />
-        <Routes>
+        {/* <Routes>
           {primaryRoutes.map(
             ({ layout, pages }) =>
               layout === "dashboard" &&
@@ -16,7 +16,7 @@ function Dashboard() {
                 <Route path={path} element={element} />
               ))
           )}
-        </Routes>
+        </Routes> */}
       </div>
     </div>
   );
