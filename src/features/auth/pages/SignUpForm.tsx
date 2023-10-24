@@ -1,16 +1,18 @@
-import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Fragment, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Input, Button, Typography } from "@material-tailwind/react";
 import { FcGoogle } from "react-icons/fc";
 import { useFormik } from "formik";
 import { signUpSchema } from "../schema";
-// import { signUpWithEmailPassword } from "@/slices";
-import { useAppSelector } from "@/hooks";
+import { signUpWithEmailPassword, signUpWithGoogle } from "@/slices";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Loading } from "@/widgets";
+import { resetState } from "@/slices";
 
 export function SignUp() {
   const { status } = useAppSelector((state) => state.auth);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -19,11 +21,18 @@ export function SignUp() {
       password: "",
     },
     validationSchema: signUpSchema,
-    onSubmit: () => {
-      // const userData = { email: values.email, password: values.password };
-      // dispatch(signUpWithEmailPassword(userData));
+    onSubmit: (values) => {
+      dispatch(resetState());
+      const userData = { email: values.email, password: values.password };
+      dispatch(signUpWithEmailPassword(userData));
     },
   });
+
+  useEffect(() => {
+    if (status === "succeeded") {
+      navigate("/auth/verification-prompt");
+    }
+  }, [status]);
 
   return (
     <Fragment>
@@ -36,7 +45,10 @@ export function SignUp() {
       <Typography className="text-sm font-poppins text-dark-gray">
         Please enter your details to create an account.
       </Typography>
-      <form className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96">
+      <form
+        className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96"
+        onSubmit={formik.handleSubmit}
+      >
         <div className="relative flex flex-col gap-6 mb-6">
           <Typography variant="h6" color="blue-gray" className="-mb-3">
             Your Name
@@ -145,7 +157,6 @@ export function SignUp() {
           color="blue"
           variant="gradient"
           className="mt-6"
-          onClick={() => formik.handleSubmit()}
           disabled={status === "loading" ? true : false}
         >
           sign up
@@ -155,7 +166,9 @@ export function SignUp() {
           fullWidth
           variant="outlined"
           color="blue"
-          className="flex items-center justify-center gap-2 mt-6 "
+          className="flex items-center justify-center gap-2 mt-6"
+          disabled={status === "loading" ? true : false}
+          onClick={() => dispatch(signUpWithGoogle())}
         >
           <FcGoogle size={25} />
           Sign up with Google
