@@ -1,6 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+// import { Route, Routes } from "react-router-dom";
 import { DashboardNavbar, SideNav } from "@/widgets";
-import { primaryRoutes } from "../routes";
+// import { primaryRoutes } from "../routes";
 
 function Dashboard() {
   return (
