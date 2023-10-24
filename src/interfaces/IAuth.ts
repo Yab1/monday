@@ -1,6 +1,6 @@
 import { User } from "./index";
 
-type status = "idle" | "loading" | "succeeded" | "failed";
+export type status = "idle" | "loading" | "succeeded" | "failed";
 
 export interface IAuthState {
   user: User | null;
