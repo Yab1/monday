@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { UIStates } from "@/interfaces";
+import { IUIStates } from "@/interfaces";
 import { ToggleableEnum, TargetEnum } from "@/enum";
 
-const initialState: UIStates = {
+const initialState: IUIStates = {
   toggleable: {
     darkMode: false,
     sideNav: false,
@@ -40,9 +40,20 @@ export const uiSlice = createSlice({
       state.editing.id = action.payload;
       state.editing.isEditing = !state.editing.isEditing;
     },
+    updateSideNavState: (state, action: PayloadAction<number>) => {
+      if (action.payload >= 1140) {
+        state.toggleable.sideNav = true;
+      } else {
+        state.toggleable.sideNav = false;
+      }
+    },
   },
 });
 
-export const { toggler, toggleConfirmationDialog, toggleEditMode } =
-  uiSlice.actions;
+export const {
+  toggler,
+  toggleConfirmationDialog,
+  toggleEditMode,
+  updateSideNavState,
+} = uiSlice.actions;
 export default uiSlice.reducer;
