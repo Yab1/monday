@@ -1,13 +1,18 @@
-// import {
-//   HomeIcon,
-//   TableCellsIcon,
-//   UserCircleIcon,
-//   BellIcon,
-//   Cog6ToothIcon,
-//   InboxIcon,
-//   PowerIcon,
-// } from "@heroicons/react/24/solid";
-// import { Home, ProjectManager, Profile, Notifications } from "@/features";
+import {
+  HomeIcon,
+  TableCellsIcon,
+  UserCircleIcon,
+  BellIcon,
+  Cog6ToothIcon,
+  InboxIcon,
+  PowerIcon,
+} from "@heroicons/react/24/solid";
+import {
+  Home,
+  ProjectManager,
+  Profile,
+  Notifications,
+} from "@/features/dashboard";
 import {
   SignIn,
   SignUp,
@@ -15,11 +20,10 @@ import {
   ResetPrompt,
   NewPassword,
 } from "@/features/auth";
-// import { SignIn, SignUp } from "@/pages/auth";
 
-// const icon = {
-//   className: "w-5 h-5 text-inherit",
-// };
+const icon = {
+  className: "w-5 h-5 text-inherit",
+};
 
 interface Page {
   icon?: JSX.Element;
@@ -34,29 +38,29 @@ interface Route {
 }
 
 export const primaryRoutes: Route[] = [
-  // {
-  //   layout: "dashboard",
-  //   pages: [
-  //     {
-  //       icon: <HomeIcon {...icon} />,
-  //       name: "dashboard",
-  //       path: "/home",
-  //       element: <Home />,
-  //     },
-  //     {
-  //       icon: <TableCellsIcon {...icon} />,
-  //       name: "project",
-  //       path: "/project",
-  //       element: <ProjectManager />,
-  //     },
-  //     {
-  //       icon: <UserCircleIcon {...icon} />,
-  //       name: "profile",
-  //       path: "/profile",
-  //       element: <Profile />,
-  //     },
-  //   ],
-  // },
+  {
+    layout: "dashboard",
+    pages: [
+      {
+        icon: <HomeIcon {...icon} />,
+        name: "dashboard",
+        path: "/home",
+        element: <Home />,
+      },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "project",
+        path: "/project",
+        element: <ProjectManager />,
+      },
+      {
+        icon: <UserCircleIcon {...icon} />,
+        name: "profile",
+        path: "/profile",
+        element: <Profile />,
+      },
+    ],
+  },
   {
     layout: "auth",
     pages: [
@@ -90,35 +94,35 @@ export const primaryRoutes: Route[] = [
 ];
 
 export const secondaryRoutes: Route[] = [
-  // {
-  //   layout: "dashboard",
-  //   pages: [
-  //     {
-  //       icon: <InboxIcon {...icon} />,
-  //       name: "inbox",
-  //       path: "/inbox",
-  //       element: <InboxIcon />,
-  //     },
-  //     {
-  //       icon: <BellIcon {...icon} />,
-  //       name: "notifactions",
-  //       path: "/notifactions",
-  //       element: <Notifications />,
-  //     },
-  //     {
-  //       icon: <Cog6ToothIcon {...icon} />,
-  //       name: "setting",
-  //       path: "/setting",
-  //       element: <Cog6ToothIcon />,
-  //     },
-  //     {
-  //       icon: <PowerIcon {...icon} />,
-  //       name: "logout",
-  //       path: "/logout",
-  //       element: <PowerIcon />,
-  //     },
-  //   ],
-  // },
+  {
+    layout: "dashboard",
+    pages: [
+      {
+        icon: <InboxIcon {...icon} />,
+        name: "inbox",
+        path: "/inbox",
+        element: <InboxIcon />,
+      },
+      {
+        icon: <BellIcon {...icon} />,
+        name: "notifactions",
+        path: "/notifactions",
+        element: <Notifications />,
+      },
+      {
+        icon: <Cog6ToothIcon {...icon} />,
+        name: "setting",
+        path: "/setting",
+        element: <Cog6ToothIcon />,
+      },
+      {
+        icon: <PowerIcon {...icon} />,
+        name: "logout",
+        path: "/logout",
+        element: <PowerIcon />,
+      },
+    ],
+  },
 ];
 
 export default { primaryRoutes, secondaryRoutes };
