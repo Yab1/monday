@@ -6,6 +6,7 @@ interface IUser {
   name: string;
   photoURL: string;
   email: string;
+  phoneNumber: string;
   title: string;
   aboutMe: string;
   isOnline: boolean;
