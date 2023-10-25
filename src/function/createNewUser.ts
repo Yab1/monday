@@ -8,18 +8,20 @@ function createNewUser(user: User): IUser {
     name: user.displayName!,
     photoURL: user.photoURL!,
     email: user.email!,
-    title: "",
-    aboutMe: "",
+    phoneNumber:"",
+    title: "Web Developer",
+    aboutMe:
+      "Hi, I'm Alec Thompson, Decisions: If you can't decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).",
     isOnline: true,
     ownedProjects: [] as IProjectMember[],
     collaboratingProjects: [] as IProjectMember[],
     invitations: [] as IInvitation[],
     socials: {
       [SocialsEnum.Facebook]: "",
-      [SocialsEnum.GitHub]: "",
+      [SocialsEnum.GitHub]: "https://github.com/Yab1",
       [SocialsEnum.LinkedIn]: "",
       [SocialsEnum.Telegram]: "",
-      [SocialsEnum.Twitter]: "",
+      [SocialsEnum.X]: "",
     },
     settings: [
       {
