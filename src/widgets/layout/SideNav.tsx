@@ -11,7 +11,7 @@ function Sidenav() {
   return (
     <Fragment>
       {sideNav ? (
-        <aside className="fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border bg-white shadow-lg dark:bg-gradient-to-br from-blue-gray-800 to-blue-gray-900 ">
+        <aside className="fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border bg-white shadow-lg dark:bg-gradient-to-br from-blue-gray-800 to-blue-gray-900">
           <div className="relative border-b border-blue-gray-50 dark:border-white/20">
             <Link to="/" className="flex items-center gap-4 px-8 py-6">
               <Typography
