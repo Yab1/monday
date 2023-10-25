@@ -9,12 +9,18 @@ import {
   UserCredential,
 } from "firebase/auth";
 import { app } from "@/firebase";
-import { IAuthState, ISignInData, ISignUpData, status } from "@/interfaces";
+import {
+  IAuthState,
+  ISignInData,
+  ISignUpData,
+  IUser,
+  status,
+} from "@/interfaces";
 
 const auth = getAuth(app);
 
 const initialState: IAuthState = {
-  user: null,
+  user: {} as IUser,
   authenticated: false,
   status: "idle",
   error: null,
@@ -131,6 +137,9 @@ const authSlice = createSlice({
     updateStatus: (state, action: PayloadAction<status>) => {
       state.status = action.payload;
     },
+    initializeUser: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -182,5 +191,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { resetState, authenticate, updateStatus } = authSlice.actions;
+export const { resetState, authenticate, updateStatus, initializeUser } =
+  authSlice.actions;
 export default authSlice.reducer;
