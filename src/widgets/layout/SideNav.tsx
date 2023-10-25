@@ -23,38 +23,44 @@ function Sidenav() {
             </Link>
           </div>
           <div className="m-4">
-            {primaryRoutes.map(({ layout, pages }, key) => (
-              <ul key={key} className="flex flex-col gap-1 mb-4">
-                {pages.map(({ icon, name, path }) => (
-                  <li key={name}>
-                    <NavLink to={`/${layout}${path}`}>
-                      {({ isActive }) => (
-                        <Button
-                          variant={isActive ? "gradient" : "text"}
-                          color={
-                            isActive ? "blue" : darkMode ? "white" : "blue-gray"
-                          }
-                          className={
-                            "flex items-center gap-4 px-4 capitalize " +
-                            (isActive
-                              ? "text-white"
-                              : darkMode
-                              ? "text-white"
-                              : "text-blue-gray-700")
-                          }
-                          fullWidth
-                        >
-                          {icon}
-                          <Typography className="font-medium capitalize">
-                            {name}
-                          </Typography>
-                        </Button>
-                      )}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            ))}
+            {primaryRoutes.map(({ layout, pages }, key) =>
+              layout === "dashboard" ? (
+                <ul key={key} className="flex flex-col gap-1 mb-4">
+                  {pages.map(({ icon, name, path }) => (
+                    <li key={name}>
+                      <NavLink to={`/${layout}${path}`}>
+                        {({ isActive }) => (
+                          <Button
+                            variant={isActive ? "gradient" : "text"}
+                            color={
+                              isActive
+                                ? "blue"
+                                : darkMode
+                                ? "white"
+                                : "blue-gray"
+                            }
+                            className={
+                              "flex items-center gap-4 px-4 capitalize " +
+                              (isActive
+                                ? "text-white"
+                                : darkMode
+                                ? "text-white"
+                                : "text-blue-gray-700")
+                            }
+                            fullWidth
+                          >
+                            {icon}
+                            <Typography className="font-medium capitalize">
+                              {name}
+                            </Typography>
+                          </Button>
+                        )}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              ) : null
+            )}
             <hr className="my-2 border-blue-gray-50" />
             {secondaryRoutes.map(({ layout, pages }, key) => (
               <ul key={key} className="flex flex-col gap-1 mb-4">
