@@ -1,8 +1,8 @@
 import { useLocation, Link } from "react-router-dom";
 import {
+  Avatar,
   Navbar,
   Typography,
-  Button,
   IconButton,
   Breadcrumbs,
   Input,
@@ -10,10 +10,8 @@ import {
   MenuHandler,
   MenuList,
   MenuItem,
-  Avatar,
 } from "@material-tailwind/react";
 import {
-  UserCircleIcon,
   Cog6ToothIcon,
   BellIcon,
   ClockIcon,
@@ -67,23 +65,6 @@ export function DashboardNavbar() {
           >
             <Bars3Icon strokeWidth={3} className="w-6 h-6 text-blue-gray-500" />
           </IconButton>
-          <Link to="/auth/sign-in">
-            <Button
-              variant="text"
-              color="blue-gray"
-              className="items-center hidden gap-1 px-4 xl:flex"
-            >
-              <UserCircleIcon className="w-5 h-5 text-blue-gray-500" />
-              Sign In
-            </Button>
-            <IconButton
-              variant="text"
-              color="blue-gray"
-              className="grid xl:hidden"
-            >
-              <UserCircleIcon className="w-5 h-5 text-blue-gray-500" />
-            </IconButton>
-          </Link>
           <IconButton
             variant="text"
             color="blue-gray"
