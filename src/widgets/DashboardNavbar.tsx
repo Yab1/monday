@@ -30,15 +30,15 @@ export function DashboardNavbar() {
   const dispatch = useAppDispatch();
 
   return (
-    <Navbar color="transparent" className="rounded-xl px-0 py-1" fullWidth>
+    <Navbar color="transparent" className="px-0 py-1 rounded-xl" fullWidth>
       <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
         <div className="capitalize">
-          <Breadcrumbs className="bg-transparent p-0">
+          <Breadcrumbs className="p-0 bg-transparent">
             <Link to={`/${layout}`}>
               <Typography
                 variant="small"
                 color="blue-gray"
-                className="font-normal opacity-50 transition-all hover:text-blue-500 hover:opacity-100"
+                className="font-normal transition-all opacity-50 hover:text-blue-500 hover:opacity-100"
               >
                 {layout}
               </Typography>
@@ -65,15 +65,15 @@ export function DashboardNavbar() {
             className="grid xl:hidden"
             onClick={() => dispatch(toggler(ToggleableEnum.SideNav))}
           >
-            <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
+            <Bars3Icon strokeWidth={3} className="w-6 h-6 text-blue-gray-500" />
           </IconButton>
           <Link to="/auth/sign-in">
             <Button
               variant="text"
               color="blue-gray"
-              className="hidden items-center gap-1 px-4 xl:flex"
+              className="items-center hidden gap-1 px-4 xl:flex"
             >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+              <UserCircleIcon className="w-5 h-5 text-blue-gray-500" />
               Sign In
             </Button>
             <IconButton
@@ -81,7 +81,7 @@ export function DashboardNavbar() {
               color="blue-gray"
               className="grid xl:hidden"
             >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+              <UserCircleIcon className="w-5 h-5 text-blue-gray-500" />
             </IconButton>
           </Link>
           <IconButton
@@ -89,15 +89,15 @@ export function DashboardNavbar() {
             color="blue-gray"
             onClick={() => dispatch(toggler(ToggleableEnum.DarkMode))}
           >
-            <Cog6ToothIcon className="h-5 w-5 text-blue-gray-500" />
+            <Cog6ToothIcon className="w-5 h-5 text-blue-gray-500" />
           </IconButton>
           <Menu>
             <MenuHandler>
               <IconButton variant="text" color="blue-gray">
-                <BellIcon className="h-5 w-5 text-blue-gray-500" />
+                <BellIcon className="w-5 h-5 text-blue-gray-500" />
               </IconButton>
             </MenuHandler>
-            <MenuList className="w-max border-0">
+            <MenuList className="border-0 w-max">
               <MenuItem className="flex items-center gap-3">
                 <Avatar
                   src="https://demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg"
@@ -147,8 +147,8 @@ export function DashboardNavbar() {
                 </div>
               </MenuItem>
               <MenuItem className="flex items-center gap-4">
-                <div className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-tr from-blue-gray-800 to-blue-gray-900">
-                  <CreditCardIcon className="h-4 w-4 text-white" />
+                <div className="grid rounded-full h-9 w-9 place-items-center bg-gradient-to-tr from-blue-gray-800 to-blue-gray-900">
+                  <CreditCardIcon className="w-4 h-4 text-white" />
                 </div>
                 <div>
                   <Typography
