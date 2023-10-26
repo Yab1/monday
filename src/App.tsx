@@ -4,13 +4,14 @@ import { User, getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 import { Auth, Dashboard } from "@/layouts";
 import { manageAttributes } from "@/function";
-import { authenticate } from "@/slices";
+import { authenticate, initializeUser } from "@/slices";
 
 function App() {
   const {
     toggleable: { darkMode },
   } = useAppSelector((state) => state.ui);
   const { authenticated } = useAppSelector((state) => state.auth);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -20,19 +21,15 @@ function App() {
   const auth = getAuth();
 
   useEffect(() => {
-    AuthCheck();
-
-    return () => AuthCheck();
-  }, [auth]);
-
-  const AuthCheck = onAuthStateChanged(auth, (user: User | null) => {
-    if (user !== null) {
-      if (user.emailVerified) {
-        console.log(user);
-        dispatch(authenticate());
+    onAuthStateChanged(auth, (user: User | null) => {
+      if (user !== null) {
+        if (user.emailVerified) {
+          dispatch(initializeUser(user));
+          dispatch(authenticate());
+        }
       }
-    }
-  });
+    });
+  }, [auth]);
 
   return (
     <Routes>
