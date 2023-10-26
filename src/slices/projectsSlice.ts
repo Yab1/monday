@@ -1,32 +1,61 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { alterDictionary } from "@/dictionaries";
 import { ActionEnum, TargetEnum } from "@/enum";
-import { Project, User } from "@/interfaces";
+import { IProjectState, IProjectMetaData, IBatchMetaData } from "@/interfaces";
 
-const initialState = [] as Project[];
+const initialState = {} as IProjectState;
+
+export const alterCollection = createAsyncThunk(
+  "project/alter-collection",
+  async ({
+    target,
+    actionType,
+    data,
+    projectID,
+    batchID,
+    taskID,
+  }: {
+    target: TargetEnum;
+    actionType: ActionEnum;
+    data: IProjectMetaData | IBatchMetaData;
+    projectID?: string;
+    batchID?: string;
+    taskID?: string;
+  }) => {
+    try {
+      const docRef = alterDictionary[target][actionType](
+        data,
+        projectID,
+        batchID,
+        taskID
+      );
+      return docRef;
+    } catch (error) {
+      console.error("Error checking and creating user data: ", error);
+      throw error;
+    }
+  }
+);
 
 export const projectSlice = createSlice({
-  name: "project",
+  name: "project-manager",
   initialState,
-  reducers: {
-    alterRecord: (
-      _,
-      action: PayloadAction<{
-        id: string;
-        data: Project[] | User[];
-        payload?: Object;
-        target: TargetEnum;
-        actionType: ActionEnum;
-      }>
-    ) => {
-      const { id, data, payload, target, actionType } = action.payload;
-      return alterDictionary[target][actionType](id, data, payload);
-    },
-    selectProject: (_, action: PayloadAction<Project>) => {
-      console.log(action.payload);
-    },
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(alterCollection.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(alterCollection.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.error = null;
+        console.log(action.payload);
+      })
+      .addCase(alterCollection.rejected, (state, action) => {
+        state.status = "failed";
+        console.log(action.error.code);
+      });
   },
 });
 
-export const { alterRecord, selectProject } = projectSlice.actions;
 export default projectSlice.reducer;
