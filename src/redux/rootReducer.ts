@@ -4,7 +4,7 @@ import {
   authReducer,
   projectsReducer,
   invitationsReducer,
-} from "@/slices";
+} from "@/redux/slices";
 
 export const rootReducer = combineReducers({
   ui: uiReducer,

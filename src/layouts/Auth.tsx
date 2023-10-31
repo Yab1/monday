@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Alert, Button } from "@material-tailwind/react";
 import { AiOutlineClose } from "react-icons/ai";
 import { primaryRoutes } from "@/routes";
@@ -8,7 +8,7 @@ import background from "@/assets/img/auth-background.svg";
 
 function Auth() {
   const [open, setOpen] = useState<boolean>(false);
-  const { error } = useAppSelector((state) => state.auth);
+  const { error, authenticated } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (error) {
@@ -20,13 +20,20 @@ function Auth() {
     }, 4000);
   }, [error]);
 
+  // if (authenticated)
+  //   return (
+  //     <Routes>
+  //       <Route path="*" element={<Navigate to={"/dashboard/home"} replace />} />
+  //     </Routes>
+  //   );
+
   return (
-    <main className="relative grid w-full h-screen grid-cols-12 overflow-hidden">
+    <main className="grid w-full h-screen overflow-hidden md:relative md:grid-cols-12">
       <aside
-        className="absolute inset-0 bg-no-repeat bg-cover -bottom-2 -left-1"
+        className="absolute inset-0 hidden bg-no-repeat bg-cover -z-10 -bottom-2 -left-1 md:block"
         style={{ backgroundImage: `url(${background})` }}
       ></aside>
-      <aside className="relative grid col-start-6 col-span-full bg-light-gray place-content-center">
+      <aside className="flex flex-col items-center justify-center gap-3 px-5 bg-light-gray md:col-start-6 md:col-span-full md:px-10 lg:px-20 xl:px-40">
         <Alert
           open={open}
           color="red"

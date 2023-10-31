@@ -19,7 +19,7 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 import { useAppDispatch } from "@/hooks";
-import { toggler } from "@/slices";
+import { toggler } from "@/redux/slices";
 import { ToggleableEnum } from "@/enum";
 
 export function DashboardNavbar() {

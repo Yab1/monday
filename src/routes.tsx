@@ -9,17 +9,11 @@ import {
 } from "@heroicons/react/24/solid";
 import {
   Home,
-  ProjectManager,
+  Projects,
   Profile,
   Notifications,
-} from "@/features/dashboard";
-import {
-  SignIn,
-  SignUp,
-  VerificationPrompt,
-  ResetPrompt,
-  NewPassword,
-} from "@/features/auth";
+} from "@/features/dashboard/pages";
+import { SignIn, SignUp } from "@/features/auth";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -51,7 +45,7 @@ export const primaryRoutes: Route[] = [
         icon: <TableCellsIcon {...icon} />,
         name: "project",
         path: "/project",
-        element: <ProjectManager />,
+        element: <Projects />,
       },
       {
         icon: <UserCircleIcon {...icon} />,
@@ -73,21 +67,6 @@ export const primaryRoutes: Route[] = [
         name: "sign up",
         path: "/sign-up",
         element: <SignUp />,
-      },
-      {
-        name: "create new password",
-        path: "/reset-password",
-        element: <NewPassword />,
-      },
-      {
-        name: "email verification prompt",
-        path: "/verification-prompt",
-        element: <VerificationPrompt />,
-      },
-      {
-        name: "password reset prompt",
-        path: "/reset-prompt",
-        element: <ResetPrompt />,
       },
     ],
   },

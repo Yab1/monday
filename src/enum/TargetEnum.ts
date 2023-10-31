@@ -1,8 +1,9 @@
 enum TargetEnum {
   Project = "Project",
-  Group = "Group",
-  Task = "Task",
-  Account = "Account",
+  Batch = "Batch",
+  TASK = "Task",
+  USER = "User",
+  ACCESS_CONTROL = "AccessControl",
 }
 
 export default TargetEnum;

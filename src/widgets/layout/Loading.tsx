@@ -1,9 +1,14 @@
 import { Fragment } from "react";
+import { useAppSelector } from "@/hooks";
 
-function Loading({ open }: { open: Boolean }) {
+function Loading() {
+  const {
+    toggleable: { isLoading },
+  } = useAppSelector((state) => state.ui);
+
   return (
     <Fragment>
-      {open ? (
+      {isLoading ? (
         <div className="fixed inset-0 z-50 grid w-screen h-screen bg-black bg-opacity-50 place-items-center backdrop-blur-sm">
           <div className="wrapper">
             <div className="box-wrap">

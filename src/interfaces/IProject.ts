@@ -24,15 +24,19 @@ export interface IProjectMetaData {
   creator: string;
 }
 
-export interface IProject extends IProjectMetaData {
-  groups: IBatchMetaData[];
+export interface IProject {
+  label: string;
+  status: ProjectStatusEnum;
+  description: string;
+  timestamp: string;
+  creator: string;
 }
 
 export type status = "idle" | "loading" | "succeeded" | "failed";
 
 export interface IProjectState {
-  projects: IProject[];
-  selectedProject: IProject;
+  ownedProjects: (IProjectMetaData & { id: string })[];
+  collaboratingProjects: (IProjectMetaData & { id: string })[];
   status: status;
   error: unknown;
 }

@@ -7,25 +7,28 @@ import {
 import { RiTwitterXFill } from "react-icons/ri";
 
 export enum SocialsEnum {
-  Facebook = "Facebook",
-  GitHub = "GitHub",
-  LinkedIn = "LinkedIn",
-  Telegram = "Telegram",
+  FACEBOOK = "Facebook",
+  GITHUB = "GitHub",
+  LINKEDIN = "LinkedIn",
+  TELEGRAM = "Telegram",
+  WEBSITE = "Website",
   X = "X",
 }
 
 export const SocialIconComponents = {
-  [SocialsEnum.Facebook]: BiLogoFacebook,
-  [SocialsEnum.GitHub]: BiLogoGithub,
-  [SocialsEnum.LinkedIn]: BiLogoLinkedin,
-  [SocialsEnum.Telegram]: BiLogoTelegram,
+  [SocialsEnum.FACEBOOK]: BiLogoFacebook,
+  [SocialsEnum.GITHUB]: BiLogoGithub,
+  [SocialsEnum.LINKEDIN]: BiLogoLinkedin,
+  [SocialsEnum.TELEGRAM]: BiLogoTelegram,
+  [SocialsEnum.WEBSITE]: BiLogoTelegram,
   [SocialsEnum.X]: RiTwitterXFill,
 };
 
 export const SocialIconColors = {
-  [SocialsEnum.Facebook]: "#1178f2",
-  [SocialsEnum.GitHub]: "#333333",
-  [SocialsEnum.LinkedIn]: "#0a66c2",
-  [SocialsEnum.Telegram]: "#1DA1F2",
+  [SocialsEnum.FACEBOOK]: "#1178f2",
+  [SocialsEnum.GITHUB]: "#333333",
+  [SocialsEnum.LINKEDIN]: "#0a66c2",
+  [SocialsEnum.TELEGRAM]: "#1DA1F2",
+  [SocialsEnum.WEBSITE]: "#1DA1F2",
   [SocialsEnum.X]: "#333333",
 };

@@ -1,4 +1,4 @@
-import { TargetEnum } from "@/enum";
+import { FilterTargetEnum, ProjectFilterStatesEnum, TargetEnum } from "@/enum";
 
 export interface IConfirmationState {
   id: string;
@@ -12,11 +12,17 @@ export interface IEditingState {
 export interface IUIStates {
   toggleable: {
     darkMode: boolean;
+    isLoading: boolean;
     sideNav: boolean;
-    editProjectDialog: boolean;
-    addProjectDialog: boolean;
-    addGroup: boolean;
+    alert: boolean;
+    firebaseInitialized: boolean;
+    // editProjectDialog: boolean;
+    // addProjectDialog: boolean;
+    // addGroup: boolean;
   };
   confirmationDialog: IConfirmationState;
   editing: IEditingState;
+  filterSettings: {
+    [FilterTargetEnum.PROJECTS]: ProjectFilterStatesEnum;
+  };
 }

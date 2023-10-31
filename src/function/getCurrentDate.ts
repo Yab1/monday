@@ -2,7 +2,7 @@ import { format } from "date-fns";
 
 function getCurrentDate() {
   const currentDate = new Date();
-  const formattedDate = format(currentDate, "MM-dd-yyyy");
+  const formattedDate = format(currentDate, "dd-MM-yyyy");
 
   return formattedDate;
 }

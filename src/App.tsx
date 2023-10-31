@@ -1,49 +1,67 @@
-import { Fragment, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { User, getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { Routes, Route, Navigate, redirect } from "react-router-dom";
+import { User, getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 import { Auth, Dashboard } from "@/layouts";
 import { manageAttributes } from "@/function";
-import { authenticate, initializeUser } from "@/slices";
+// import { authenticate, initializeUser } from "@/redux/slices";
+import { Loading } from "@/widgets";
+import createUser from "./redux/thunks/crudThunks/createThunks/createUser";
+import { auth } from "@/firebase";
+import { RouteGuard } from "./features/auth";
+import { toggler } from "./redux/slices";
+import { ToggleableEnum } from "./enum";
 
 function App() {
+  // const [firebaseInitialized, setFirebaseInitialized] = useState(false);
   const {
-    toggleable: { darkMode },
+    toggleable: { darkMode, firebaseInitialized },
   } = useAppSelector((state) => state.ui);
-  const { authenticated } = useAppSelector((state) => state.auth);
+  const { authenticated, status } = useAppSelector((state) => state.auth);
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   useEffect(() => {
     manageAttributes(darkMode);
   }, [darkMode]);
 
-  const auth = getAuth();
-
   useEffect(() => {
     onAuthStateChanged(auth, (user: User | null) => {
+      toggler(ToggleableEnum.FIREBASE_INITIALIZED);
       if (user !== null) {
-        if (user.emailVerified) {
-          dispatch(initializeUser(user));
-          dispatch(authenticate());
-        }
+        console.log(user);
       }
     });
   }, [auth]);
 
+  if (!firebaseInitialized || status === "loading") return <Loading />;
+
+  // if (authenticated) {
+  //   redirect("/dashboard/home");
+  // } else {
+  //   redirect("/auth/sign-in");
+  // }
+
   return (
     <Routes>
-      {authenticated ? (
-        <Fragment>
-          <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
-          <Route path="/dashboard/*" element={<Dashboard />} />
-        </Fragment>
-      ) : (
-        <Fragment>
-          <Route path="*" element={<Navigate to="/auth/sign-in" replace />} />
-          <Route path="/auth/*" element={<Auth />} />
-        </Fragment>
-      )}
+      <Route
+        path="/dashboard/*"
+        element={
+          <RouteGuard>
+            <Dashboard />
+          </RouteGuard>
+        }
+      />
+      <Route path="/auth/*" element={<Auth />} />
+      {/* <Route
+        path="*"
+        element={
+          <Navigate
+            to={authenticated ? "/dashboard/home" : "/auth/sign-in"}
+            replace
+          />
+        }
+      /> */}
     </Routes>
   );
 }

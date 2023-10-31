@@ -1,9 +1,7 @@
-import { IUser } from "./index";
-
-export type status = "idle" | "loading" | "succeeded" | "failed";
-
+// import { IUser } from "./index";
+import { status } from "./index";
 export interface IAuthState {
-  user: IUser;
+  // user: IUser;
   authenticated: boolean;
   status: status;
   error: unknown;

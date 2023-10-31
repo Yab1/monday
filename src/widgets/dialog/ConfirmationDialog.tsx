@@ -6,11 +6,11 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { ActionEnum, TargetEnum } from "@/enum";
+// import { ActionEnum, TargetEnum } from "@/enum";
 import { dialogHeaderText, dialogBodyText } from "@/dictionaries";
-import { toggleConfirmationDialog } from "@/slices";
-import { alterRecord, selectProject } from "@/slices";
-import { Project } from "@/interfaces";
+// import { toggleConfirmationDialog } from "@/redux/slices";
+// import { alterRecord, selectProject } from "@/slices";
+// import { Project } from "@/interfaces";
 
 function ConfirmationDialog() {
   const projects = useAppSelector((state) => state.projects);
@@ -19,26 +19,24 @@ function ConfirmationDialog() {
   } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
 
-  const handleCancel = () => {
-    const id = "";
-    dispatch(toggleConfirmationDialog({ id, type }));
-  };
+  // const handleCancel = () => {
+  //   const id = "";
+  //   dispatch(toggleConfirmationDialog({ id, type }));
+  // };
 
   const handleConfirmation = () => {
-    dispatch(
-      alterRecord({
-        id: id,
-        data: projects,
-        target: TargetEnum[type],
-        actionType: ActionEnum.Delete,
-      })
-    );
-
-    if (TargetEnum[type] === TargetEnum.Project) {
-      dispatch(selectProject({} as Project));
-    }
-
-    handleCancel();
+    // dispatch(
+    //   alterRecord({
+    //     id: id,
+    //     data: projects,
+    //     target: TargetEnum[type],
+    //     actionType: ActionEnum.,
+    //   })
+    // );
+    // if (TargetEnum[type] === TargetEnum.Project) {
+    //   dispatch(selectProject({} as Project));
+    // }
+    // handleCancel();
   };
 
   return (
@@ -49,7 +47,7 @@ function ConfirmationDialog() {
         <Button
           variant="text"
           color="red"
-          onClick={handleCancel}
+          // onClick={handleCancel}
           className="mr-1"
         >
           <span>Cancel</span>

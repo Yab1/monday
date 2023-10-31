@@ -1,7 +1,8 @@
 enum ActionEnum {
-  Add = "Add",
-  Delete = "Delete",
-  Update = "Update",
+  CREATE = "Create",
+  READ = "Read",
+  UPDATE = "Update",
+  DELETE = "Delete",
 }
 
 export default ActionEnum;
