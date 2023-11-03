@@ -1,19 +1,7 @@
-// import { IUser } from "./index";
-import { status } from "./index";
+import { IUser, TStatus } from "./index";
 export interface IAuthState {
-  // user: IUser;
+  user: IUser;
   authenticated: boolean;
-  status: status;
+  status: TStatus;
   error: unknown;
-}
-
-export interface ISignUpData {
-  email: string;
-  password: string;
-  // name: string;
-}
-
-export interface ISignInData {
-  email: string;
-  password: string;
 }
