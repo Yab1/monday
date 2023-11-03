@@ -1,31 +1,20 @@
-import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Alert, Button } from "@material-tailwind/react";
-import { AiOutlineClose } from "react-icons/ai";
+import { Alert } from "@material-tailwind/react";
 import { primaryRoutes } from "@/routes";
 import { useAppSelector } from "@/hooks";
 import background from "@/assets/img/auth-background.svg";
 
 function Auth() {
-  const [open, setOpen] = useState<boolean>(false);
   const { error, authenticated } = useAppSelector((state) => state.auth);
+  const { showAlert } = useAppSelector((state) => state.ui);
 
-  useEffect(() => {
-    if (error) {
-      setOpen(!open);
-    }
-
-    setTimeout(() => {
-      setOpen(false);
-    }, 4000);
-  }, [error]);
-
-  // if (authenticated)
-  //   return (
-  //     <Routes>
-  //       <Route path="*" element={<Navigate to={"/dashboard/home"} replace />} />
-  //     </Routes>
-  //   );
+  if (authenticated) {
+    return (
+      <Routes>
+        <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
+      </Routes>
+    );
+  }
 
   return (
     <main className="grid w-full h-screen overflow-hidden md:relative md:grid-cols-12">
@@ -33,20 +22,12 @@ function Auth() {
         className="absolute inset-0 hidden bg-no-repeat bg-cover -z-10 -bottom-2 -left-1 md:block"
         style={{ backgroundImage: `url(${background})` }}
       ></aside>
+
       <aside className="flex flex-col items-center justify-center gap-3 px-5 bg-light-gray md:col-start-6 md:col-span-full md:px-10 lg:px-20 xl:px-40">
         <Alert
-          open={open}
+          open={showAlert}
           color="red"
-          className="absolute z-10 flex items-center py-1 top-3 w-fit place-self-center"
-          action={
-            <Button
-              variant="text"
-              onClick={() => setOpen(!open)}
-              className="m-0"
-            >
-              <AiOutlineClose />
-            </Button>
-          }
+          className="absolute z-10 flex items-center py-1 text-sm font-light top-3 w-fit place-self-center"
         >
           {String(error)}
         </Alert>
