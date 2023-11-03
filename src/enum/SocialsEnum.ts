@@ -5,6 +5,7 @@ import {
   BiLogoTelegram,
 } from "react-icons/bi";
 import { RiTwitterXFill } from "react-icons/ri";
+import { BsGlobe } from "react-icons/bs";
 
 export enum SocialsEnum {
   FACEBOOK = "Facebook",
@@ -20,15 +21,15 @@ export const SocialIconComponents = {
   [SocialsEnum.GITHUB]: BiLogoGithub,
   [SocialsEnum.LINKEDIN]: BiLogoLinkedin,
   [SocialsEnum.TELEGRAM]: BiLogoTelegram,
-  [SocialsEnum.WEBSITE]: BiLogoTelegram,
+  [SocialsEnum.WEBSITE]: BsGlobe,
   [SocialsEnum.X]: RiTwitterXFill,
 };
 
 export const SocialIconColors = {
-  [SocialsEnum.FACEBOOK]: "#1178f2",
-  [SocialsEnum.GITHUB]: "#333333",
-  [SocialsEnum.LINKEDIN]: "#0a66c2",
-  [SocialsEnum.TELEGRAM]: "#1DA1F2",
-  [SocialsEnum.WEBSITE]: "#1DA1F2",
-  [SocialsEnum.X]: "#333333",
+  [SocialsEnum.FACEBOOK]: "bg-facebookBlue",
+  [SocialsEnum.GITHUB]: "bg-githubGrey",
+  [SocialsEnum.LINKEDIN]: "bg-linkedinBlue",
+  [SocialsEnum.TELEGRAM]: "bg-telegramBlue",
+  [SocialsEnum.WEBSITE]: "bg-websiteGrey",
+  [SocialsEnum.X]: "bg-githubGrey",
 };
