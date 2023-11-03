@@ -1,59 +1,45 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Navigate, redirect } from "react-router-dom";
-import { User, getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { useAppSelector, useAppDispatch } from "@/hooks";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { onAuthStateChanged, User } from "firebase/auth";
 import { Auth, Dashboard } from "@/layouts";
-import { manageAttributes } from "@/function";
-// import { authenticate, initializeUser } from "@/redux/slices";
-import { Loading } from "@/widgets";
-import createUser from "./redux/thunks/crudThunks/createThunks/createUser";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { resetState, showAlert } from "@/redux/slices";
 import { auth } from "@/firebase";
-import { RouteGuard } from "./features/auth";
-import { toggler } from "./redux/slices";
-import { ToggleableEnum } from "./enum";
+import { createUser } from "@/redux/thunks/crudThunks";
+import { Loading } from "@/widgets";
 
 function App() {
-  // const [firebaseInitialized, setFirebaseInitialized] = useState(false);
-  const {
-    toggleable: { darkMode, firebaseInitialized },
-  } = useAppSelector((state) => state.ui);
-  const { authenticated, status } = useAppSelector((state) => state.auth);
-
-  // const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    manageAttributes(darkMode);
-  }, [darkMode]);
+  const { error, status, authenticated } = useAppSelector(
+    (state) => state.auth
+  );
+  const [firebase, setFirebase] = useState(false);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user: User | null) => {
-      toggler(ToggleableEnum.FIREBASE_INITIALIZED);
-      if (user !== null) {
-        console.log(user);
-      }
+      setFirebase(true);
+      if (user !== null) dispatch(createUser({ user }));
     });
   }, [auth]);
 
-  if (!firebaseInitialized || status === "loading") return <Loading />;
+  useEffect(() => {
+    if (error) {
+      dispatch(showAlert(true));
 
-  // if (authenticated) {
-  //   redirect("/dashboard/home");
-  // } else {
-  //   redirect("/auth/sign-in");
-  // }
+      setTimeout(() => {
+        dispatch(showAlert(false));
+        dispatch(resetState());
+      }, 4000);
+    }
+  }, [error]);
+
+  if (!firebase || status === "loading") return <Loading />;
 
   return (
     <Routes>
-      <Route
-        path="/dashboard/*"
-        element={
-          <RouteGuard>
-            <Dashboard />
-          </RouteGuard>
-        }
-      />
+      <Route path="/dashboard/*" element={<Dashboard />} />
       <Route path="/auth/*" element={<Auth />} />
-      {/* <Route
+      <Route
         path="*"
         element={
           <Navigate
@@ -61,7 +47,7 @@ function App() {
             replace
           />
         }
-      /> */}
+      />
     </Routes>
   );
 }
