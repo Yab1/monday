@@ -6,6 +6,7 @@ const authWithGoogle = createAsyncThunk("auth/auth-with-google", async () => {
   try {
     await signInWithPopup(auth, new GoogleAuthProvider());
   } catch (error: unknown) {
+    console.log(error);
     throw error;
   }
 });
