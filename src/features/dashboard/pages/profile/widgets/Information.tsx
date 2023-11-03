@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { Fragment, ReactNode } from "react";
 import {
   Card,
   CardHeader,
@@ -32,18 +32,23 @@ export function Information() {
           const socialKey = key as SocialsEnum;
 
           const IconComponent = SocialIconComponents[socialKey];
-
-          if (value === "") return;
+          const style = SocialIconColors[socialKey];
 
           return (
-            <a key={key} href={value} target="_blank" rel="noopener noreferrer">
-              <IconButton
-                size="sm"
-                className={`rounded bg-[${SocialIconColors[socialKey]}] hover:shadow-[${SocialIconColors[socialKey]}]/20 focus:shadow-[${SocialIconColors[socialKey]}]/20 active:shadow-[${SocialIconColors[socialKey]}]/10`}
-              >
-                <IconComponent size={20} />
-              </IconButton>
-            </a>
+            <Fragment>
+              {value !== "" ? (
+                <a
+                  key={key}
+                  href={value as string}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <IconButton size="sm" className={"rounded " + style}>
+                    <IconComponent size={20} />
+                  </IconButton>
+                </a>
+              ) : null}
+            </Fragment>
           );
         })}
       </div>
