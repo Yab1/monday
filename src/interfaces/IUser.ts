@@ -12,3 +12,7 @@ export interface IUserSettings {
   account: Record<SettingEnum, boolean>;
   application: Record<SettingEnum, boolean>;
 }
+
+export interface IUser extends IUserData, IUserSettings {
+  id: string;
+}
