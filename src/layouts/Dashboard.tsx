@@ -1,46 +1,40 @@
-// import { useEffect } from "react";
-// import { Navigate, Route, Routes } from "react-router-dom";
-// import { DashboardNavbar, SideNav } from "@/widgets";
-// import {
-//   updateSideNavState,
-//   listenForAccessControlChanges,
-// } from "@/redux/slices";
-// import { primaryRoutes } from "../routes";
+import { useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { logOut } from "@/redux/thunks/authThunks";
+import { DashboardNavbar, SideNav } from "@/widgets";
+import { updateSideNavState } from "@/redux/slices";
+import { primaryRoutes } from "@/routes";
 
 function Dashboard() {
-  // const { authenticated, user } = useAppSelector((state) => state.auth);
+  const { authenticated } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   dispatch(updateSideNavState(window.innerWidth));
+  useEffect(() => {
+    dispatch(updateSideNavState(window.innerWidth));
 
-  //   window.addEventListener("resize", () =>
-  //     dispatch(updateSideNavState(window.innerWidth))
-  //   );
+    window.addEventListener("resize", () =>
+      dispatch(updateSideNavState(window.innerWidth))
+    );
 
-  //   if (Boolean(user.id)) dispatch(listenForAccessControlChanges(user.id));
+    return () => {
+      window.removeEventListener("resize", () =>
+        dispatch(updateSideNavState(window.innerWidth))
+      );
+    };
+  }, []);
 
-  //   return () => {
-  //     window.removeEventListener("resize", () =>
-  //       dispatch(updateSideNavState(window.innerWidth))
-  //     );
-  //   };
-  // }, []);
-
-  // if (!authenticated)
-  //   return (
-  //     <Routes>
-  //       <Route path="*" element={<Navigate to={"/auth/sign-in"} replace />} />
-  //     </Routes>
-  //   );
+  if (!authenticated) {
+    return (
+      <Routes>
+        <Route path="*" element={<Navigate to="/auth/sign-in" replace />} />
+      </Routes>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-blue-gray-50/50">
-      <h2>Home</h2>
-      <button onClick={() => dispatch(logOut())}>Log out</button>
-      {/* <SideNav />
+      <SideNav />
+
       <div className="p-4 pb-0 xl:ml-80">
         <DashboardNavbar />
         <Routes>
@@ -52,7 +46,7 @@ function Dashboard() {
               ))
           )}
         </Routes>
-      </div> */}
+      </div>
     </div>
   );
 }
