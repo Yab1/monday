@@ -32,11 +32,11 @@ export interface IProject {
   creator: string;
 }
 
-export type status = "idle" | "loading" | "succeeded" | "failed";
+export type TStatus = "idle" | "loading" | "succeeded" | "failed";
 
 export interface IProjectState {
   ownedProjects: (IProjectMetaData & { id: string })[];
   collaboratingProjects: (IProjectMetaData & { id: string })[];
-  status: status;
+  status: TStatus;
   error: unknown;
 }
