@@ -14,14 +14,13 @@ export interface IUIStates {
     darkMode: boolean;
     isLoading: boolean;
     sideNav: boolean;
-    alert: boolean;
-    firebaseInitialized: boolean;
     // editProjectDialog: boolean;
     // addProjectDialog: boolean;
     // addGroup: boolean;
   };
   confirmationDialog: IConfirmationState;
   editing: IEditingState;
+  showAlert: boolean;
   filterSettings: {
     [FilterTargetEnum.PROJECTS]: ProjectFilterStatesEnum;
   };
