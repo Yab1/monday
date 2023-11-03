@@ -12,8 +12,6 @@ const initialState: IUIStates = {
     darkMode: false,
     isLoading: false,
     sideNav: false,
-    alert: false,
-    firebaseInitialized: false,
   },
   confirmationDialog: {
     id: "",
@@ -24,6 +22,7 @@ const initialState: IUIStates = {
     id: "",
     isEditing: false,
   },
+  showAlert: false,
   filterSettings: {
     [FilterTargetEnum.PROJECTS]: ProjectFilterStatesEnum.ALL,
     // [FilterTargetEnum.BATCHES]: ProjectFilterStatesEnum.ALL,
@@ -34,12 +33,28 @@ const initialState: IUIStates = {
   },
 };
 
+// export const showAlert = createAsyncThunk("show-alert", async () => {
+//   setTimeout(() => {
+//     return false;
+//   }, 4000);
+
+//   return true;
+// });
+
 export const uiSlice = createSlice({
   name: "uiSlice",
   initialState,
   reducers: {
     toggler: (state, action: PayloadAction<ToggleableEnum>) => {
-      state.toggleable[action.payload] = !state.toggleable[action.payload];
+      const property = action.payload;
+      return {
+        ...state,
+        toggleable: {
+          ...state.toggleable,
+          [property]:
+            !state.toggleable[action.payload as keyof typeof state.toggleable],
+        },
+      };
     },
     toggleConfirmationDialog: (
       state,
@@ -70,6 +85,9 @@ export const uiSlice = createSlice({
       const target = action.payload.target as FilterTargetEnum;
       state.filterSettings[target] = action.payload.value;
     },
+    showAlert: (state, action: PayloadAction<boolean>) => {
+      state.showAlert = action.payload;
+    },
   },
 });
 
@@ -79,5 +97,6 @@ export const {
   toggleEditMode,
   updateSideNavState,
   applyFilter,
+  showAlert,
 } = uiSlice.actions;
 export default uiSlice.reducer;
