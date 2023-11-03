@@ -9,6 +9,11 @@ module.exports = withMT({
         "dark-gray": "#595959",
         "extremely-dark-gray": "#030303",
         "vibrant-red": "#EA454C",
+        facebookBlue: "#1178f2",
+        githubGrey: "#333333",
+        linkedinBlue: "#0a66c2",
+        telegramBlue: "#1DA1F2",
+        websiteGrey: "#848484",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
