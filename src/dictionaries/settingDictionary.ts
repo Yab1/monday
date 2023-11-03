@@ -1,15 +1,15 @@
 import { SettingEnum } from "@/enum";
 
 export const accountSettingLabel: Record<SettingEnum, string> = {
-  [SettingEnum.acceptsMyInvite]: "Email me when someone accepts my invite",
-  [SettingEnum.sendsMeInvite]: "Email me when someone sends me an invite",
-  [SettingEnum.mentionsMe]: "Email me when someone mentions me",
+  [SettingEnum.ACCEPTS_MY_INVITE]: "Email me when someone accepts my invite",
+  [SettingEnum.SENDS_ME_INVITE]: "Email me when someone sends me an invite",
+  [SettingEnum.MENTIONS_ME]: "Email me when someone mentions me",
 };
 
 export const applicationSettingLabel: Record<SettingEnum, string> = {
-  [SettingEnum.acceptsMyInvite]:
+  [SettingEnum.ACCEPTS_MY_INVITE]:
     "Send me a notification when someone accepts my invite",
-  [SettingEnum.sendsMeInvite]:
+  [SettingEnum.SENDS_ME_INVITE]:
     "Send me a notification when someone sends me an invite",
-  [SettingEnum.mentionsMe]: "Send me a notification when someone mentions me",
+  [SettingEnum.MENTIONS_ME]: "Send me a notification when someone mentions me",
 };
