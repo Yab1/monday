@@ -1,35 +1,32 @@
-import { db } from "@/firebase";
-import { IUser } from "@/interfaces";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { doc, onSnapshot } from "firebase/firestore";
+import { IUser } from "@/interfaces";
+import { db } from "@/firebase";
 
-const readUser = createAsyncThunk<IUser, { userID: string }>(
+const readUser = createAsyncThunk<IUser, string>(
   "read-user",
-  async ({ userID }) => {
+  async (userID) => {
     try {
-      let currentUser: IUser = {} as IUser;
+      const userRef = doc(db, "users", userID);
+
+      let userData: IUser = {} as IUser;
 
       const fetchUser = new Promise((resolve, _) => {
-        onSnapshot(doc(db, "users", userID), (doc) => {
+        onSnapshot(userRef, (doc) => {
           if (doc.exists()) {
-            Object.assign(currentUser, { id: doc.id, ...doc.data() });
+            userData = {
+              ...userData,
+              ...doc.data(),
+              id: doc.id,
+            };
           }
         });
         resolve("User Data fetch successfully");
       });
 
-      const fetchSetting = new Promise((resolve, _) => {
-        onSnapshot(doc(db, "users", userID, "settings", userID), (doc) => {
-          if (doc.exists()) {
-            Object.assign(currentUser, { settings: { ...doc.data() } });
-          }
-          resolve("User Settings fetch successfully");
-        });
-      });
+      await Promise.all([fetchUser]);
 
-      await Promise.all([fetchUser, fetchSetting]);
-
-      return currentUser;
+      return userData;
     } catch (error) {
       throw error;
     }

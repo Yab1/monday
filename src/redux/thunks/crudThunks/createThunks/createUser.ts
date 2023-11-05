@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, writeBatch } from "firebase/firestore";
 import { User } from "firebase/auth";
 import { db } from "@/firebase";
 import { IUserData, IUserSettings } from "@/interfaces";
@@ -11,22 +11,28 @@ const createUser = createAsyncThunk<void, { user: User }>(
   "create-user",
   async ({ user }, { dispatch }) => {
     try {
-      const userDoc = doc(db, "users", user.uid);
+      const userRef = doc(db, "users", user.uid);
 
-      const userDocSnapshot = await getDoc(userDoc);
+      const userDocSnapshot = await getDoc(userRef);
 
-      if (userDocSnapshot.exists()) {
-        dispatch(readUser({ userID: user.uid }));
-      } else {
+      if (!userDocSnapshot.exists()) {
+        const privateDataRef = collection(userRef, "privateData");
+        const settingsRef = doc(privateDataRef, "settings");
+        const projectsRef = doc(privateDataRef, "projects");
+
+        const batch = writeBatch(db);
+
         const newUserData: IUserData = generateUserData(user);
-        await setDoc(userDoc, newUserData);
-        const settingsDoc = doc(db, "users", user.uid, "settings", user.uid);
-        const settingsDocSnapshot = await getDoc(settingsDoc);
+        batch.set(userRef, newUserData);
 
-        if (!settingsDocSnapshot.exists()) {
-          const userSettings: IUserSettings = generateUserSettings();
-          await setDoc(settingsDoc, userSettings);
-        }
+        const userSettings: IUserSettings = generateUserSettings();
+        batch.set(settingsRef, userSettings);
+
+        batch.set(projectsRef, {
+          projectIds: [],
+        });
+
+        await batch.commit();
       }
     } catch (error) {
       alert(`Error creating user and settings ${error}`);
