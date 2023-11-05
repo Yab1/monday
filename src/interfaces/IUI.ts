@@ -14,8 +14,8 @@ export interface IUIStates {
     darkMode: boolean;
     isLoading: boolean;
     sideNav: boolean;
+    addProjectDialog: boolean;
     // editProjectDialog: boolean;
-    // addProjectDialog: boolean;
     // addGroup: boolean;
   };
   confirmationDialog: IConfirmationState;
