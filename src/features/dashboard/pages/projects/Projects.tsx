@@ -1,17 +1,8 @@
 import { Fragment } from "react";
-import {
-  ProjectsOverview,
-  ProjectGallery,
-  NoContent,
-} from "./layouts/projectsOverview";
+import { ProjectGallery, NoContent } from "./layouts/projectsOverview";
 
 function Projects() {
-  return (
-    <Fragment>
-      <ProjectsOverview />
-      {false ? <ProjectGallery /> : <NoContent />}
-    </Fragment>
-  );
+  return <Fragment>{false ? <ProjectGallery /> : <NoContent />}</Fragment>;
 }
 
 Projects.displayName = "/src/features/dashboard/projects/Projects.tsx";

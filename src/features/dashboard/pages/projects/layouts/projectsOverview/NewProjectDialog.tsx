@@ -11,15 +11,11 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { toggler, alterCollection } from "@/redux/slices";
-import {
-  ActionEnum,
-  ProjectStatusEnum,
-  TargetEnum,
-  ToggleableEnum,
-} from "@/enum";
+import { toggler } from "@/redux/slices";
+import { ProjectStatusEnum, ToggleableEnum } from "@/enum";
 import { getCurrentDate } from "@/function";
 import { IProjectMetaData } from "@/interfaces";
+import { createProject } from "@/redux/thunks/crudThunks";
 
 function NewProjectDialog() {
   const {
@@ -37,7 +33,7 @@ function NewProjectDialog() {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
-      const projectMetaData: IProjectMetaData = {
+      const data: IProjectMetaData = {
         label: values.projectTitle,
         status: ProjectStatusEnum.Active,
         description: values.projectDescription,
@@ -45,14 +41,8 @@ function NewProjectDialog() {
         creator: user.id,
       };
 
-      dispatch(
-        alterCollection({
-          target: TargetEnum.Project,
-          actionType: ActionEnum.CREATE,
-          data: projectMetaData,
-        })
-      );
-      dispatch(toggler(ToggleableEnum.AddProjectDialog));
+      dispatch(createProject({ data: data, user: user }));
+      dispatch(toggler(ToggleableEnum.ADD_PROJECT_DIALOG));
       formik.resetForm();
     },
   });
@@ -60,7 +50,7 @@ function NewProjectDialog() {
   return (
     <Dialog
       open={addProjectDialog}
-      handler={() => dispatch(toggler(ToggleableEnum.AddProjectDialog))}
+      handler={() => dispatch(toggler(ToggleableEnum.ADD_PROJECT_DIALOG))}
     >
       <div className="flex items-center justify-between">
         <DialogHeader>New Project</DialogHeader>
@@ -118,7 +108,7 @@ function NewProjectDialog() {
           variant="outlined"
           color="red"
           onClick={() => {
-            dispatch(toggler(ToggleableEnum.AddProjectDialog));
+            dispatch(toggler(ToggleableEnum.ADD_PROJECT_DIALOG));
             formik.resetForm();
           }}
         >

@@ -11,7 +11,7 @@ function NoContent() {
   return (
     <div
       className="flex flex-col items-center justify-center h-[500px] gap-2"
-      onDoubleClick={() => dispatch(toggler(ToggleableEnum.AddProjectDialog))}
+      onDoubleClick={() => dispatch(toggler(ToggleableEnum.ADD_PROJECT_DIALOG))}
     >
       <Typography variant="h3" className="text-gray-400 cursor-default">
         No Active Project
@@ -20,7 +20,7 @@ function NoContent() {
         variant="text"
         color="blue"
         className="flex gap-2 text-gray-400 normal-case"
-        onClick={() => dispatch(toggler(ToggleableEnum.AddProjectDialog))}
+        onClick={() => dispatch(toggler(ToggleableEnum.ADD_PROJECT_DIALOG))}
       >
         <AiOutlinePlus />
         Add Project

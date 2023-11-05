@@ -35,7 +35,7 @@ export function Information() {
           const style = SocialIconColors[socialKey];
 
           return (
-            <Fragment>
+            <Fragment key={key}>
               {value !== "" ? (
                 <a
                   key={key}
