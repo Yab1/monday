@@ -4,9 +4,10 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { DashboardNavbar, SideNav } from "@/widgets";
 import { updateSideNavState } from "@/redux/slices";
 import { primaryRoutes } from "@/routes";
+import { readProject } from "@/redux/thunks/crudThunks";
 
 function Dashboard() {
-  const { authenticated } = useAppSelector((state) => state.auth);
+  const { authenticated, user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -22,6 +23,23 @@ function Dashboard() {
       );
     };
   }, []);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      const abortController = new AbortController();
+      // const { signal } = abortController;
+
+      await dispatch(readProject(user.id));
+
+      return () => {
+        abortController.abort();
+      };
+    };
+
+    return () => {
+      fetchProject();
+    };
+  }, [dispatch, user.id]);
 
   if (!authenticated) {
     return (
