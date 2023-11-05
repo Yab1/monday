@@ -12,6 +12,7 @@ const initialState: IUIStates = {
     darkMode: false,
     isLoading: false,
     sideNav: false,
+    addProjectDialog:false
   },
   confirmationDialog: {
     id: "",
@@ -32,14 +33,6 @@ const initialState: IUIStates = {
     // [FilterTargetEnum.USERS]: ProjectFilterStatesEnum.ALL,
   },
 };
-
-// export const showAlert = createAsyncThunk("show-alert", async () => {
-//   setTimeout(() => {
-//     return false;
-//   }, 4000);
-
-//   return true;
-// });
 
 export const uiSlice = createSlice({
   name: "uiSlice",
