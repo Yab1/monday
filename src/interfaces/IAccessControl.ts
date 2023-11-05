@@ -1,9 +1,11 @@
 import { UserRoleEnum } from "@/enum";
 
-interface IAccessControl {
-  project: string;
-  user: string;
+export interface IAccessControl {
+  name: string;
+  photoURL: string;
   role: UserRoleEnum;
 }
 
-export default IAccessControl;
+export interface IAccessControlState extends IAccessControl {
+  id: string;
+}
