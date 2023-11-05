@@ -13,6 +13,11 @@ export interface IUserSettings {
   application: Record<SettingEnum, boolean>;
 }
 
-export interface IUser extends IUserData, IUserSettings {
+export interface IUser extends IUserData {
   id: string;
+}
+
+export interface IPrivateData {
+  settings: IUserSettings;
+  projectIds: string[];
 }
