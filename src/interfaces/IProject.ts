@@ -1,4 +1,5 @@
 import { TaskStatusEnum, ProjectStatusEnum } from "@/enum";
+import { IAccessControlState } from "./IAccessControl";
 
 export interface ITask {
   title: string;
@@ -24,19 +25,16 @@ export interface IProjectMetaData {
   creator: string;
 }
 
-export interface IProject {
-  label: string;
-  status: ProjectStatusEnum;
-  description: string;
-  timestamp: string;
-  creator: string;
+export interface IProject extends IProjectMetaData {
+  id: string;
+  members: IAccessControlState[];
 }
 
 export type TStatus = "idle" | "loading" | "succeeded" | "failed";
 
 export interface IProjectState {
-  ownedProjects: (IProjectMetaData & { id: string })[];
-  collaboratingProjects: (IProjectMetaData & { id: string })[];
+  ownedProjects: IProject[];
+  collaboratingProjects: IProject[];
   status: TStatus;
   error: unknown;
 }
