@@ -17,7 +17,7 @@ function RouteGuard({ children }: { children: ReactNode }) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user: User | null) => {
+    const fetchData = async (user: User | null) => {
       setFirebase(true);
       if (user !== null) {
         const userRef = doc(db, "users", user.uid);
@@ -30,19 +30,12 @@ function RouteGuard({ children }: { children: ReactNode }) {
           dispatch(createUser({ user }));
         }
       }
+    };
+
+    onAuthStateChanged(auth, (user: User | null) => {
+      fetchData(user);
     });
   }, [dispatch, auth]);
-
-  // const unsubscribe = async () => {
-  //   const abortController = new AbortController();
-
-  //   return () => {
-  //     abortController.abort();
-  //   };
-  // };
-  // return () => {
-  //   unsubscribe();
-  // };
 
   useEffect(() => {
     if (error) {
