@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Typography } from "@material-tailwind/react";
 import { FcGoogle } from "react-icons/fc";
 import { useAppSelector, useAppDispatch } from "@/hooks";
-import { authWithGoogle } from "@/redux/thunks/authThunks";
+import { SagaActions } from "@/enum";
 
 export function SignIn() {
   const { status } = useAppSelector((state) => state.auth);
@@ -26,7 +26,7 @@ export function SignIn() {
         fullWidth
         className="flex items-center justify-center gap-3"
         disabled={status === "loading" ? true : false}
-        onClick={() => dispatch(authWithGoogle())}
+        onClick={() => dispatch({ type: SagaActions.AUTH_WITH_GOOGLE })}
       >
         <FcGoogle size={25} />
         Sign in with Google

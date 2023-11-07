@@ -4,5 +4,6 @@ export { default as TargetEnum } from "./TargetEnum";
 export { default as ToggleableEnum } from "./ToggleableEnum";
 export { default as UserRoleEnum } from "./UserRoleEnum";
 export { default as SettingEnum } from "./SettingEnum";
+export { default as SagaActions } from "./SagaActions";
 export * from "./SocialsEnum";
 export * from "./FilterEnum";

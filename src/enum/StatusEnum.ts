@@ -15,3 +15,10 @@ export enum ProjectStatusEnum {
   Closed = "Closed",
   Archived = "Archived",
 }
+
+export enum Status {
+  IDLE = "Idle",
+  LOADING = "Loading",
+  SUCCEEDED = "Succeeded",
+  FAILED = "Failed",
+}
