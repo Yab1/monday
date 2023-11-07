@@ -16,26 +16,28 @@ function RouteGuard({ children }: { children: ReactNode }) {
   const [firebase, setFirebase] = useState(false);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const fetchData = async (user: User | null) => {
-      setFirebase(true);
-      if (user !== null) {
-        const userRef = doc(db, "users", user.uid);
-        const userDocSnapshot = await getDoc(userRef);
+  // useEffect(() => {
+  //   const fetchData = async (user: User | null) => {
+  //     setFirebase(true);
+  //     if (user !== null) {
+  //       const userRef = doc(db, "users", user.uid);
+  //       const userDocSnapshot = await getDoc(userRef);
 
-        if (userDocSnapshot.exists()) {
-          dispatch(readUser(user.uid));
-          dispatch(readPrivateData(user.uid));
-        } else {
-          dispatch(createUser({ user }));
-        }
-      }
-    };
+  //       if (userDocSnapshot.exists()) {
+  //         dispatch(readUser(user.uid));
+  //         dispatch(readPrivateData(user.uid));
+  //       } else {
+  //         dispatch(createUser({ user }));
+  //         dispatch(readUser(user.uid));
+  //         dispatch(readPrivateData(user.uid));
+  //       }
+  //     }
+  //   };
 
-    onAuthStateChanged(auth, (user: User | null) => {
-      fetchData(user);
-    });
-  }, [dispatch, auth]);
+  //   onAuthStateChanged(auth, (user: User | null) => {
+  //     fetchData(user);
+  //   });
+  // }, [dispatch, auth]);
 
   useEffect(() => {
     if (error) {
@@ -48,7 +50,8 @@ function RouteGuard({ children }: { children: ReactNode }) {
     }
   }, [error]);
 
-  return !firebase || status === "loading" ? <Loading /> : children;
+  // return !firebase || status === "loading" ? <Loading /> : children;
+  return false ? <Loading /> : children;
 }
 
 RouteGuard.displayName = "/src/features/auth/RouteGuard.tsx";
