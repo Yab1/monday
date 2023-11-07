@@ -1,8 +1,9 @@
-import { IPrivateData, IUser, TStatus } from "./index";
+import { Status } from "@/enum";
+import { IPrivateData, IUser } from "./index";
 export interface IAuthState {
   user: IUser;
   authenticated: boolean;
-  status: TStatus;
+  status: Status;
   error: unknown;
   privateData: IPrivateData;
 }
