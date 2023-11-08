@@ -1,11 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Alert } from "@material-tailwind/react";
-import { primaryRoutes } from "@/routes";
+import { authRoutes } from "@/routes";
 import { useAppSelector } from "@/hooks";
 import background from "@/assets/img/auth-background.svg";
 
 function Auth() {
-  const { error, authenticated } = useAppSelector((state) => state.auth);
+  const { authenticated } = useAppSelector((state) => state.auth);
+  const { error } = useAppSelector((state) => state.progress);
   const { showAlert } = useAppSelector((state) => state.ui);
 
   if (authenticated) {
@@ -33,13 +34,10 @@ function Auth() {
         </Alert>
 
         <Routes>
-          {primaryRoutes.map(
-            ({ layout, pages }) =>
-              layout === "auth" &&
-              pages.map(({ path, element }) => (
-                <Route path={path} element={element} />
-              ))
-          )}
+          {Object.entries(authRoutes).map(([_, value]) => {
+            const { element, path } = value;
+            return <Route key={path} path={path} element={element} />;
+          })}
         </Routes>
       </aside>
     </main>
