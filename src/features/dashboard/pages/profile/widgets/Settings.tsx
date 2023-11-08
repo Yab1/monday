@@ -4,7 +4,7 @@ import { useAppSelector } from "@/hooks";
 import { SettingEnum } from "@/enum";
 
 function Settings() {
-  const { user } = useAppSelector((state) => state.auth);
+  const { privateData } = useAppSelector((state) => state.auth);
 
   const settingEnumReverseMapping: Record<string, SettingEnum> = {
     acceptsMyInvite: SettingEnum.ACCEPTS_MY_INVITE,
@@ -18,7 +18,7 @@ function Settings() {
         Platform Settings
       </Typography>
       <div className="flex flex-col gap-16">
-        {Object.entries(user.settings).map(([title, options], index) => (
+        {Object.entries(privateData.settings).map(([title, options], index) => (
           <div key={index} className="flex flex-col gap-6">
             <Typography className="block text-xs font-semibold uppercase text-blue-gray-500">
               {title}
