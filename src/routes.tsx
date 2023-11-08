@@ -1,107 +1,83 @@
 import {
-  HomeIcon,
-  TableCellsIcon,
-  UserCircleIcon,
-  BellIcon,
-  Cog6ToothIcon,
-  InboxIcon,
-  PowerIcon,
-} from "@heroicons/react/24/solid";
-import {
   Home,
   Projects,
   Profile,
-  Notifications,
+  Inbox,
+  Setting,
+  Help,
 } from "@/features/dashboard/pages";
 import { SignIn, SignUp } from "@/features/auth";
+import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { ImTable2 } from "react-icons/im";
+import { FaUserCircle } from "react-icons/fa";
+import { RiInbox2Fill } from "react-icons/ri";
+import { AiFillSetting } from "react-icons/ai";
+import { BiSolidHelpCircle } from "react-icons/bi";
 
-const icon = {
-  className: "w-5 h-5 text-inherit",
-};
+const size: number = 20;
 
 interface Page {
-  icon?: JSX.Element;
+  icon: JSX.Element;
   name: string;
   path: string;
   element: JSX.Element;
 }
 
-interface Route {
-  layout: string;
-  pages: Page[];
-}
-
-export const primaryRoutes: Route[] = [
+export const primaryRoutes: Page[] = [
   {
-    layout: "dashboard",
-    pages: [
-      {
-        icon: <HomeIcon {...icon} />,
-        name: "dashboard",
-        path: "/home",
-        element: <Home />,
-      },
-      {
-        icon: <TableCellsIcon {...icon} />,
-        name: "project",
-        path: "/project",
-        element: <Projects />,
-      },
-      {
-        icon: <UserCircleIcon {...icon} />,
-        name: "profile",
-        path: "/profile",
-        element: <Profile />,
-      },
-    ],
+    icon: <MdOutlineSpaceDashboard size={size} />,
+    name: "dashboard",
+    path: "/home",
+    element: <Home />,
   },
   {
-    layout: "auth",
-    pages: [
-      {
-        name: "sign in",
-        path: "/sign-in",
-        element: <SignIn />,
-      },
-      {
-        name: "sign up",
-        path: "/sign-up",
-        element: <SignUp />,
-      },
-    ],
+    icon: <ImTable2 size={size} />,
+    name: "project",
+    path: "/project",
+    element: <Projects />,
   },
 ];
 
-export const secondaryRoutes: Route[] = [
+export const authRoutes: Page[] = [
   {
-    layout: "dashboard",
-    pages: [
-      {
-        icon: <InboxIcon {...icon} />,
-        name: "inbox",
-        path: "/inbox",
-        element: <InboxIcon />,
-      },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "notifactions",
-        path: "/notifactions",
-        element: <Notifications />,
-      },
-      {
-        icon: <Cog6ToothIcon {...icon} />,
-        name: "setting",
-        path: "/setting",
-        element: <Cog6ToothIcon />,
-      },
-      {
-        icon: <PowerIcon {...icon} />,
-        name: "logout",
-        path: "/logout",
-        element: <PowerIcon />,
-      },
-    ],
+    icon: <></>,
+    name: "sign in",
+    path: "/sign-in",
+    element: <SignIn />,
+  },
+  {
+    icon: <></>,
+    name: "sign up",
+    path: "/sign-up",
+    element: <SignUp />,
   },
 ];
 
-export default { primaryRoutes, secondaryRoutes };
+export const secondaryRoutes: Page[] = [
+  {
+    icon: <FaUserCircle size={size} />,
+    name: "my profile",
+    path: "/profile",
+    element: <Profile />,
+  },
+  {
+    icon: <RiInbox2Fill size={size} />,
+    name: "inbox",
+    path: "/inbox",
+    element: <Inbox />,
+  },
+  {
+    icon: <AiFillSetting size={size} />,
+    name: "setting",
+    path: "/setting",
+    element: <Setting />,
+  },
+  {
+    icon: <BiSolidHelpCircle size={size} />,
+    name: "help",
+    path: "/help",
+    element: <Help />,
+  },
+];
+
+export default { primaryRoutes, authRoutes, secondaryRoutes };
