@@ -1,8 +1,13 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { call, put, takeLatest } from "redux-saga/effects";
-import { authFailure, authStart, authSuccess } from "@/redux/slices";
-import { auth } from "@/firebase";
+import { call, fork, put, takeLatest } from "redux-saga/effects";
+import {
+  progressStart,
+  progressSuccess,
+  progressFailure,
+} from "@/redux/slices";
 import { FirebaseError } from "firebase/app";
+import { auth } from "@/firebase";
+import { SagaActions } from "@/enum";
 
 async function googlePopup() {
   try {
@@ -25,19 +30,21 @@ function handleFirebaseError(code: string): string {
 
 function* authWithGoogle() {
   try {
-    yield put(authStart());
+    yield put(progressStart());
     yield call(googlePopup);
-    yield put(authSuccess());
+    yield put(progressSuccess());
   } catch (error) {
     if (error instanceof FirebaseError) {
       const errorMessage: string = yield call(handleFirebaseError, error.code);
-      yield put(authFailure(errorMessage));
+      yield put(progressFailure(errorMessage));
     }
   }
 }
 
 function* watchAuthWithGoogle() {
-  yield takeLatest("auth/with-google", authWithGoogle);
+  yield takeLatest(SagaActions.AUTH_WITH_GOOGLE, authWithGoogle);
 }
 
-export default watchAuthWithGoogle;
+const authWithGoogleSaga = [fork(watchAuthWithGoogle)];
+
+export default authWithGoogleSaga;
