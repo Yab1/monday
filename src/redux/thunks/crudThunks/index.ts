@@ -1,5 +1,4 @@
 // CREATE THUNKS
-export { default as createUser } from "./createThunks/createUser";
 export { default as createProject } from "./createThunks/createProject";
 // READ THUNKS
 export { default as readUser } from "./readThunks/readUser";
