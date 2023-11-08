@@ -1,4 +1,4 @@
-import { SettingEnum, SocialsEnum } from "@/enum";
+import { SettingEnum, SocialsEnum, StatusEnum } from "@/enum";
 export interface IUserData {
   name: string;
   photoURL: string;
@@ -20,4 +20,11 @@ export interface IUser extends IUserData {
 export interface IPrivateData {
   settings: IUserSettings;
   projectIds: string[];
+}
+
+export interface IUserState {
+  user: IUser;
+  privateData: IPrivateData;
+  status: StatusEnum;
+  error: unknown;
 }
