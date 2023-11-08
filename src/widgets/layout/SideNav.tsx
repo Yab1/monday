@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Button, Typography } from "@material-tailwind/react";
-import { primaryRoutes, secondaryRoutes } from "@/routes";
+import { primaryRoutes } from "@/routes";
 import { useAppSelector } from "@/hooks";
 function Sidenav() {
   const {
@@ -23,50 +23,13 @@ function Sidenav() {
             </Link>
           </div>
           <div className="m-4">
-            {primaryRoutes.map(({ layout, pages }, key) =>
-              layout === "dashboard" ? (
-                <ul key={key} className="flex flex-col gap-1 mb-4">
-                  {pages.map(({ icon, name, path }) => (
-                    <li key={name}>
-                      <NavLink to={`/${layout}${path}`}>
-                        {({ isActive }) => (
-                          <Button
-                            variant={isActive ? "gradient" : "text"}
-                            color={
-                              isActive
-                                ? "blue"
-                                : darkMode
-                                ? "white"
-                                : "blue-gray"
-                            }
-                            className={
-                              "flex items-center gap-4 px-4 capitalize " +
-                              (isActive
-                                ? "text-white"
-                                : darkMode
-                                ? "text-white"
-                                : "text-blue-gray-700")
-                            }
-                            fullWidth
-                          >
-                            {icon}
-                            <Typography className="font-medium capitalize">
-                              {name}
-                            </Typography>
-                          </Button>
-                        )}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              ) : null
-            )}
-            <hr className="my-2 border-blue-gray-50" />
-            {secondaryRoutes.map(({ layout, pages }, key) => (
-              <ul key={key} className="flex flex-col gap-1 mb-4">
-                {pages.map(({ icon, name, path }) => (
+            <ul className="flex flex-col gap-1 mb-4">
+              {Object.entries(primaryRoutes).map(([_, value]) => {
+                const { icon, name, path } = value;
+
+                return (
                   <li key={name}>
-                    <NavLink to={`/${layout}${path}`}>
+                    <NavLink to={`/dashboard${path}`}>
                       {({ isActive }) => (
                         <Button
                           variant={isActive ? "gradient" : "text"}
@@ -84,16 +47,17 @@ function Sidenav() {
                           fullWidth
                         >
                           {icon}
-                          <Typography className="font-medium capitalize text-inherit">
+                          <Typography className="font-medium capitalize">
                             {name}
                           </Typography>
                         </Button>
                       )}
                     </NavLink>
                   </li>
-                ))}
-              </ul>
-            ))}
+                );
+              })}
+            </ul>
+            <hr className="my-2 border-blue-gray-50" />
           </div>
         </aside>
       ) : null}
