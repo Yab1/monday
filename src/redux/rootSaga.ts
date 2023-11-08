@@ -1,8 +1,9 @@
 import { all } from "redux-saga/effects";
-import { watchAuthWithGoogle } from "./sagas/authSagas";
+import { authWithGoogleSaga, logOutSaga } from "./sagas/authSagas";
+import { initializeUserSaga } from "./sagas/MediatorSagas";
 
 function* rootSaga() {
-  yield all([watchAuthWithGoogle()]);
+  yield all([...authWithGoogleSaga, ...logOutSaga, ...initializeUserSaga]);
 }
 
 export default rootSaga;
