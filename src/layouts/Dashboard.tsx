@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { DashboardNavbar, SideNav } from "@/widgets";
+import { Navbar, SideNav } from "@/widgets";
 import { updateSideNavState } from "@/redux/slices";
-import { primaryRoutes } from "@/routes";
-import { readProject } from "@/redux/thunks/crudThunks";
+import { primaryRoutes, secondaryRoutes } from "@/routes";
 
 function Dashboard() {
-  const { authenticated, user } = useAppSelector((state) => state.auth);
+  const { authenticated } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -24,23 +23,6 @@ function Dashboard() {
     };
   }, []);
 
-  useEffect(() => {
-    const fetchProject = async () => {
-      const abortController = new AbortController();
-      // const { signal } = abortController;
-
-      await dispatch(readProject(user.id));
-
-      return () => {
-        abortController.abort();
-      };
-    };
-
-    return () => {
-      fetchProject();
-    };
-  }, [dispatch, user.id]);
-
   if (!authenticated) {
     return (
       <Routes>
@@ -54,15 +36,17 @@ function Dashboard() {
       <SideNav />
 
       <div className="p-4 pb-0 xl:ml-80">
-        <DashboardNavbar />
+        <Navbar />
         <Routes>
-          {primaryRoutes.map(
-            ({ layout, pages }) =>
-              layout === "dashboard" &&
-              pages.map(({ path, element }) => (
-                <Route path={path} element={element} />
-              ))
-          )}
+          {Object.entries(primaryRoutes).map(([_, value]) => {
+            const { element, path } = value;
+            return <Route key={path} path={path} element={element} />;
+          })}
+
+          {Object.entries(secondaryRoutes).map(([_, value]) => {
+            const { element, path } = value;
+            return <Route key={path} path={path} element={element} />;
+          })}
         </Routes>
       </div>
     </div>
