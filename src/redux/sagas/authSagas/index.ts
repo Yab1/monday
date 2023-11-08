@@ -1,2 +1,2 @@
-export { default as watchAuthWithGoogle } from "./authWithGoogle";
-// export { default as logOut } from "./logOut";
+export { default as authWithGoogleSaga } from "./authWithGoogle";
+export { default as logOutSaga } from "./logOut";
