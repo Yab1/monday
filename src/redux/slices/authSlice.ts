@@ -1,37 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IAuthState, IPrivateData, IUser } from "@/interfaces";
-import { Status } from "@/enum";
 
 const initialState: IAuthState = {
   user: {} as IUser,
   privateData: {} as IPrivateData,
   authenticated: false,
-  status: Status.IDLE,
-  error: null,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    resetState: () => initialState,
-    signInWithGoogle: () => {
-      type: "signInWithGoogle";
+    setUser: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload;
     },
-    authStart: (state) => {
-      state.status = Status.LOADING;
+    setPrivateData: (state, action: PayloadAction<IPrivateData>) => {
+      state.privateData = action.payload;
     },
-    authSuccess: (state) => {
-      state.status = Status.SUCCEEDED;
-      state.error = null;
-    },
-    authFailure: (state, action: PayloadAction<string>) => {
-      state.status = Status.FAILED;
-      state.error = action.payload;
+    authenticate: (state, action: PayloadAction<boolean>) => {
+      state.authenticated = action.payload;
     },
   },
 });
 
-export const { resetState, authStart, authSuccess, authFailure } =
-  authSlice.actions;
+export const { setUser, setPrivateData, authenticate } = authSlice.actions;
 export default authSlice.reducer;
