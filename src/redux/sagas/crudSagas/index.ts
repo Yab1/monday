@@ -1,10 +1,13 @@
-// CREATE THUNKS
-// export { default as createUser } from "./createThunks/createUser";
-// export { default as createProject } from "./createThunks/createProject";
+// CREATE SAGAS
+// export { default as createUserSaga } from "./createSagas/createUser";
+export { default as createUser } from "./createSagas/createUser";
+
 // READ THUNKS
-// export { default as readUser } from "./readThunks/readUser";
-// export { default as readPrivateData } from "./readThunks/readPrivateData";
-// export { default as readAccessControl } from "./readThunks/readAccessControl";
-// export { default as readProject } from "./readThunks/readProject";
+// export { default as readUserSaga } from "./readSagas/readUser";
+export { default as readUser } from "./readSagas/readUser";
+export { default as readPrivateData } from "./readSagas/readPrivateData";
+// export { default as readPrivateDataSaga } from "./readSagas/readPrivateData";
+
 // UPDATE THUNKS
+
 // DELETE THUNKS
