@@ -1,7 +1,12 @@
 import { ReactNode, useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { resetState, showAlert } from "@/redux/slices";
+import {
+  progressStart,
+  progressSuccess,
+  resetProgressState,
+  showAlert,
+} from "@/redux/slices";
 import { auth } from "@/firebase";
 import { Loading } from "@/widgets";
 import { SagaActions } from "@/enum";
@@ -12,15 +17,15 @@ function RouteGuard({ children }: { children: ReactNode }) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const fetchData = async (user: User | null) => {
+    onAuthStateChanged(auth, (user: User | null) => {
       setFirebase(true);
+      dispatch(progressStart());
+
       if (user !== null) {
         dispatch({ type: SagaActions.INITIALIZE_USER, payload: user });
+      } else {
+        dispatch(progressSuccess());
       }
-    };
-
-    onAuthStateChanged(auth, (user: User | null) => {
-      fetchData(user);
     });
   }, [dispatch, auth]);
 
@@ -30,7 +35,7 @@ function RouteGuard({ children }: { children: ReactNode }) {
 
       setTimeout(() => {
         dispatch(showAlert(false));
-        dispatch(resetState());
+        dispatch(resetProgressState());
       }, 4000);
     }
   }, [error]);
