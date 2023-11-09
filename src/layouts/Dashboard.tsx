@@ -15,18 +15,15 @@ function Dashboard() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(updateSideNavState(window.innerWidth));
-
-    window.addEventListener("resize", () =>
-      dispatch(updateSideNavState(window.innerWidth))
-    );
-
-    return () => {
-      window.removeEventListener("resize", () =>
-        dispatch(updateSideNavState(window.innerWidth))
-      );
+    const handleResize = () => {
+      dispatch(updateSideNavState(window.innerWidth));
     };
-  }, []);
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [dispatch]);
 
   if (!authenticated) {
     return (
