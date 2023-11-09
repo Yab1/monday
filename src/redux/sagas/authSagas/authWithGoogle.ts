@@ -1,21 +1,9 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { call, fork, put, takeLatest } from "redux-saga/effects";
-import {
-  progressStart,
-  progressSuccess,
-  progressFailure,
-} from "@/redux/slices";
+import { progressStart, progressFailure } from "@/redux/slices";
 import { FirebaseError } from "firebase/app";
 import { auth } from "@/firebase";
 import { SagaActions } from "@/enum";
-
-async function googlePopup() {
-  try {
-    await signInWithPopup(auth, new GoogleAuthProvider());
-  } catch (error) {
-    throw error;
-  }
-}
 
 function handleFirebaseError(code: string): string {
   switch (code) {
@@ -31,8 +19,7 @@ function handleFirebaseError(code: string): string {
 function* authWithGoogle() {
   try {
     yield put(progressStart());
-    yield call(googlePopup);
-    yield put(progressSuccess());
+    yield call(signInWithPopup, auth, new GoogleAuthProvider());
   } catch (error) {
     if (error instanceof FirebaseError) {
       const errorMessage: string = yield call(handleFirebaseError, error.code);
