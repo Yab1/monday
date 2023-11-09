@@ -1,13 +1,12 @@
 import { collection, doc, getDoc, writeBatch } from "firebase/firestore";
 import { User } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
+import { call, put } from "redux-saga/effects";
 import { db } from "@/firebase";
 import { IUserData, IUserSettings } from "@/interfaces";
 import generateUserData from "@/function/generateUserData";
 import generateUserSettings from "@/function/generateUserSettings";
-import { call, fork, put, takeLatest } from "redux-saga/effects";
-import { FirebaseError } from "firebase/app";
-import { progressStart, progressFailure } from "@/redux/slices";
-import { SagaActions } from "@/enum";
+import { progressFailure } from "@/redux/slices";
 
 async function addUser(user: User) {
   const userRef = doc(db, "users", user.uid);
@@ -50,7 +49,7 @@ function* createUser(user: User) {
     const isRecordExist: boolean = yield call(checkRecord, user.uid);
 
     if (isRecordExist) return;
-    yield put(progressStart());
+
     yield call(addUser, user);
   } catch (error) {
     if (error instanceof FirebaseError) {
@@ -61,10 +60,3 @@ function* createUser(user: User) {
 }
 
 export default createUser;
-// function* watchCreateUser() {
-//   yield takeLatest(SagaActions.CREATE_USER, createUser);
-// }
-
-// const createUserSaga = [fork(watchCreateUser)];
-
-// export default createUserSaga;
