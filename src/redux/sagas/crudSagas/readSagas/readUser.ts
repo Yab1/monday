@@ -15,8 +15,9 @@ import {
   setUser,
   authenticate,
 } from "@/redux/slices";
+import { deriveFirestoreError } from "@/function";
 
-function createUserDataChannel(userRef: DocumentReference) {
+function createUserSagaDataChannel(userRef: DocumentReference) {
   return eventChannel((emitter) => {
     const unsubscribe = onSnapshot(
       userRef,
@@ -40,11 +41,11 @@ interface ICustomEventChannel
   close: () => void;
 }
 
-function* readUser(userId: string) {
+function* readUserSaga(userId: string) {
   const userRef: DocumentReference = doc(db, "users", userId);
 
   const channel: ICustomEventChannel = yield call(
-    createUserDataChannel,
+    createUserSagaDataChannel,
     userRef
   );
 
@@ -61,9 +62,14 @@ function* readUser(userId: string) {
       }
       yield cancel();
     }
+  } catch (error) {
+    if (error instanceof FirebaseError) {
+      const errorMessage: string = yield call(deriveFirestoreError, error.code);
+      yield put(progressFailure(errorMessage));
+    }
   } finally {
     if (channel) channel.close();
   }
 }
 
-export default readUser;
+export default readUserSaga;

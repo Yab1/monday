@@ -11,6 +11,7 @@ import { EventChannel, eventChannel } from "redux-saga";
 import { db } from "@/firebase";
 import { IPrivateData, IUserSettings } from "@/interfaces";
 import { progressFailure, setPrivateData, authenticate } from "@/redux/slices";
+import { deriveFirestoreError } from "@/function";
 
 function createPrivateDataChannel(privateDataRef: CollectionReference) {
   return eventChannel((emitter) => {
@@ -46,7 +47,7 @@ interface ICustomEventChannel
   close: () => void;
 }
 
-function* readPrivateData(userId: string) {
+function* readPrivateDataSaga(userId: string) {
   const userRef = doc(db, "users", userId);
   const privateDataRef: CollectionReference = collection(
     userRef,
@@ -70,9 +71,14 @@ function* readPrivateData(userId: string) {
       }
       yield cancel();
     }
+  } catch (error) {
+    if (error instanceof FirebaseError) {
+      const errorMessage: string = yield call(deriveFirestoreError, error.code);
+      yield put(progressFailure(errorMessage));
+    }
   } finally {
     if (channel) channel.close();
   }
 }
 
-export default readPrivateData;
+export default readPrivateDataSaga;
