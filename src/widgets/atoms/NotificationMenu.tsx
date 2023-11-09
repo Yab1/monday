@@ -8,10 +8,12 @@ import {
   MenuItem,
 } from "@material-tailwind/react";
 import { BellIcon, ClockIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 
 function NotificationMenu() {
+  const navigate = useNavigate();
   return (
-    <Menu>
+    <Menu placement="bottom-start">
       <MenuHandler>
         <IconButton variant="text" color="blue-gray">
           <BellIcon className="w-5 h-5 text-blue-gray-500" />
@@ -41,6 +43,15 @@ function NotificationMenu() {
               <ClockIcon className="h-3.5 w-3.5" /> 13 minutes ago
             </Typography>
           </div>
+        </MenuItem>
+        <hr className="my-2 border-blue-gray-50" />
+        <MenuItem
+          className="flex items-center justify-center gap-2"
+          onClick={() => navigate("notifications")}
+        >
+          <Typography variant="small" className="font-medium">
+            View All
+          </Typography>
         </MenuItem>
       </MenuList>
     </Menu>
