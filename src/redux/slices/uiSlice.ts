@@ -10,9 +10,8 @@ import {
 const initialState: IUIStates = {
   toggleable: {
     darkMode: false,
-    isLoading: false,
     sideNav: false,
-    addProjectDialog:false
+    addProjectDialog: false,
   },
   confirmationDialog: {
     id: "",

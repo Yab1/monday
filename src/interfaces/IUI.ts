@@ -12,7 +12,6 @@ export interface IEditingState {
 export interface IUIStates {
   toggleable: {
     darkMode: boolean;
-    isLoading: boolean;
     sideNav: boolean;
     addProjectDialog: boolean;
     // editProjectDialog: boolean;
