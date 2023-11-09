@@ -10,8 +10,8 @@ import { User } from "firebase/auth";
 function* initializeUserSaga(action: { type: string; payload: User }) {
   const user = action.payload;
 
-  yield call(createUserSaga, user);
   yield all([
+    call(createUserSaga, user),
     fork(readUserSaga, user.uid),
     fork(readPrivateDataSaga, user.uid),
   ]);
