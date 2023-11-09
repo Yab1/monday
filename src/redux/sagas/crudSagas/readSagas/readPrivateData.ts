@@ -10,7 +10,7 @@ import { call, cancel, put, take } from "redux-saga/effects";
 import { EventChannel, eventChannel } from "redux-saga";
 import { db } from "@/firebase";
 import { IPrivateData, IUserSettings } from "@/interfaces";
-import { progressFailure, setPrivateData } from "@/redux/slices";
+import { firestoreFailure, setPrivateData } from "@/redux/slices";
 import { deriveFirestoreError } from "@/function";
 
 function createPrivateDataChannel(privateDataRef: CollectionReference) {
@@ -57,7 +57,7 @@ function* readPrivateDataSaga(userId: string) {
       const data: IPrivateData | FirebaseError = yield take(channel);
 
       if (data instanceof FirebaseError) {
-        yield put(progressFailure(data.code));
+        yield put(firestoreFailure(data.code));
       } else {
         yield put(setPrivateData(data));
       }
@@ -66,7 +66,7 @@ function* readPrivateDataSaga(userId: string) {
   } catch (error) {
     if (error instanceof FirebaseError) {
       const errorMessage: string = yield call(deriveFirestoreError, error.code);
-      yield put(progressFailure(errorMessage));
+      yield put(firestoreFailure(errorMessage));
     }
   } finally {
     if (channel) channel.close();

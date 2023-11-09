@@ -10,7 +10,7 @@ import { FirebaseError } from "firebase/app";
 import { call, put } from "redux-saga/effects";
 import { db } from "@/firebase";
 import { IUserData, IUserSettings } from "@/interfaces";
-import { progressFailure } from "@/redux/slices";
+import { firestoreFailure } from "@/redux/slices";
 import {
   deriveFirestoreError,
   generateUserData,
@@ -48,7 +48,7 @@ function* createUserSaga(user: User) {
   } catch (error) {
     if (error instanceof FirebaseError) {
       const errorMessage: string = yield call(deriveFirestoreError, error.code);
-      yield put(progressFailure(errorMessage));
+      yield put(firestoreFailure(errorMessage));
     }
   }
 }

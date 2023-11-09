@@ -4,9 +4,9 @@ import { call, fork, put, takeEvery } from "redux-saga/effects";
 import { db } from "@/firebase";
 import { IAccessControl, IProjectMetaData, IUser } from "@/interfaces";
 import {
-  progressFailure,
-  progressStart,
-  progressSuccess,
+  firestoreStart,
+  firestoreSucceeded,
+  firestoreFailure,
 } from "@/redux/slices";
 import { SagaActions, UserRoleEnum } from "@/enum";
 import { deriveFirestoreError } from "@/function";
@@ -46,16 +46,16 @@ function* createProjectSaga(action: {
   payload: { data: IProjectMetaData; user: IUser };
 }) {
   try {
-    yield put(progressStart());
+    yield put(firestoreStart());
 
     const { data, user } = action.payload;
     yield call(addProject, data, user);
 
-    yield put(progressSuccess());
+    yield put(firestoreSucceeded());
   } catch (error) {
     if (error instanceof FirebaseError) {
       const errorMessage: string = yield call(deriveFirestoreError, error.code);
-      yield put(progressFailure(errorMessage));
+      yield put(firestoreFailure(errorMessage));
     }
   }
 }
