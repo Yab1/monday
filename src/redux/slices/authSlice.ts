@@ -3,35 +3,30 @@ import { IAuthState, IPrivateData, IUser } from "@/interfaces";
 import { StatusEnum } from "@/enum";
 
 const initialState: IAuthState = {
+  authStatus: StatusEnum.IDLE,
+  authError: null,
+  authenticated: false,
   user: {} as IUser,
   privateData: {} as IPrivateData,
-  authenticated: false,
-  authStatus: StatusEnum.IDLE,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setStatus: (state, action: PayloadAction<StatusEnum>) => {
-      switch (action.payload) {
-        case StatusEnum.IDLE:
-          return initialState;
-        case StatusEnum.LOADING:
-          state.authStatus = action.payload;
-          state.authenticated = false;
-          break;
-        case StatusEnum.SUCCEEDED:
-          state.authenticated = true;
-          state.authStatus = action.payload;
-          break;
-        case StatusEnum.FAILED:
-          state.authenticated = false;
-          state.authStatus = action.payload;
-          break;
-        default:
-          break;
-      }
+    authIdle: () => initialState,
+    authStart: (state) => {
+      state.authStatus = StatusEnum.LOADING;
+      state.authenticated = false;
+    },
+    authSucceeded: (state) => {
+      state.authStatus = StatusEnum.SUCCEEDED;
+      state.authenticated = true;
+    },
+    authFailed: (state, action: PayloadAction<string>) => {
+      state.authStatus = StatusEnum.FAILED;
+      state.authError = action.payload;
+      state.authenticated = false;
     },
     setUser: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
@@ -42,5 +37,12 @@ const authSlice = createSlice({
   },
 });
 
-export const { setStatus, setUser, setPrivateData } = authSlice.actions;
+export const {
+  authIdle,
+  authStart,
+  authSucceeded,
+  authFailed,
+  setUser,
+  setPrivateData,
+} = authSlice.actions;
 export default authSlice.reducer;
