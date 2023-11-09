@@ -1,4 +1,4 @@
-import { collection, doc, writeBatch } from "firebase/firestore";
+import { arrayUnion, collection, doc, writeBatch } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
 import { call, fork, put, takeEvery } from "redux-saga/effects";
 import { db } from "@/firebase";
@@ -21,6 +21,8 @@ async function addProject(data: IProjectMetaData, user: IUser) {
     user.id
   );
 
+  const userProjectsRef = doc(db, "users", user.id, "privateData", "projects");
+
   const batch = writeBatch(db);
 
   batch.set(projectRef, data);
@@ -31,6 +33,10 @@ async function addProject(data: IProjectMetaData, user: IUser) {
     role: UserRoleEnum.Owner,
   };
   batch.set(accessControlRef, accessControl);
+
+  batch.update(userProjectsRef, {
+    projectIds: arrayUnion(projectRef.id),
+  });
 
   await batch.commit();
 
