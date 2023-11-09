@@ -11,6 +11,12 @@ enum SagaActions {
 
   // PRIVATE DATA CRUD
   READ_PVT = "user/read-pvt",
+
+  // PROJECT CRUD
+  CREATE_PROJECT = "project/create-project",
+  READ_PROJECT = "project/read-project",
+  UPDATE_PROJECT = "project/update-project",
+  DELETE_PROJECT = "project/delete-project",
 }
 
 export default SagaActions;
