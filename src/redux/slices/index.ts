@@ -4,8 +4,8 @@ export * from "./uiSlice";
 export { default as authReducer } from "./authSlice";
 export * from "./authSlice";
 
-export { default as progressReducer } from "./progressSlice";
-export * from "./progressSlice";
+export { default as firestoreReducer } from "./firestoreSlice";
+export * from "./firestoreSlice";
 
 export { default as projectsReducer } from "./projectsSlice";
 export * from "./projectsSlice";
