@@ -32,7 +32,7 @@ function ProfileMenu() {
           const { path, name, icon } = value;
           return (
             <MenuItem key={path}>
-              <NavLink to={`/dashboard${path}`}>
+              <NavLink to={`/${name}/${path}`}>
                 {({ isActive }) => (
                   <div
                     className={
