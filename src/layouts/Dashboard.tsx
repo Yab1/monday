@@ -6,6 +6,7 @@ import { updateSideNavState } from "@/redux/slices";
 import { primaryRoutes, secondaryRoutes } from "@/routes";
 import { Notifications } from "@/features/dashboard/pages";
 import { Alert } from "@material-tailwind/react";
+import { Loading } from "@/widgets";
 
 function Dashboard() {
   const { authenticated } = useAppSelector((state) => state.auth);
@@ -58,15 +59,16 @@ function Dashboard() {
               element={<Notifications />}
             />
           </Routes>
+          <Alert
+            open={showAlert}
+            color="red"
+            className="absolute z-10 py-3 text-sm font-light bottom-4 right-4 w-fit"
+          >
+            {String(error)}
+          </Alert>
+          <Loading />
         </div>
       </div>
-      <Alert
-        open={showAlert}
-        color="red"
-        className="absolute z-10 py-3 text-sm font-light bottom-4 right-4 w-fit"
-      >
-        {String(error)}
-      </Alert>
     </Fragment>
   );
 }
