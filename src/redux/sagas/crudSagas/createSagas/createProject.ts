@@ -1,35 +1,62 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { doc, addDoc, collection, setDoc } from "firebase/firestore";
-import { IAccessControl, IProjectMetaData, IUser } from "@/interfaces";
+import { collection, doc, writeBatch } from "firebase/firestore";
+import { FirebaseError } from "firebase/app";
+import { call, fork, put, takeEvery } from "redux-saga/effects";
 import { db } from "@/firebase";
-import { UserRoleEnum } from "@/enum";
+import { IAccessControl, IProjectMetaData, IUser } from "@/interfaces";
+import { progressFailure } from "@/redux/slices";
+import { SagaActions, UserRoleEnum } from "@/enum";
+import { deriveFirestoreError } from "@/function";
 
-const createProject = createAsyncThunk<
-  void,
-  { data: IProjectMetaData; user: IUser }
->("create-project", async ({ data, user }) => {
+async function addProject(data: IProjectMetaData, user: IUser) {
+  const projectCollectionRef = collection(db, "projects");
+  const projectRef = doc(projectCollectionRef);
+  const accessControlRef = doc(
+    projectCollectionRef,
+    // projectRef,
+    projectRef.id,
+    "accessControl",
+    user.id
+  );
+
+  const batch = writeBatch(db);
+
+  batch.set(projectRef, data);
+
+  const accessControl: IAccessControl = {
+    name: user.name,
+    photoURL: user.photoURL,
+    role: UserRoleEnum.Owner,
+  };
+  batch.set(accessControlRef, accessControl);
+
+  await batch.commit();
+
   try {
-    const projectRef = collection(db, "projects");
-
-    const docRef = await addDoc(projectRef, data);
-
-    const accessControlRef = doc(
-      projectRef,
-      docRef.id,
-      "accessControl",
-      user.id
-    );
-
-    const accessControl: IAccessControl = {
-      name: user.name,
-      photoURL: user.photoURL,
-      role: UserRoleEnum.Owner,
-    };
-
-    await setDoc(accessControlRef, accessControl);
   } catch (error) {
+    console.error(error);
     throw error;
   }
-});
+}
+
+function* createProjectSaga(action: {
+  type: SagaActions.CREATE_PROJECT;
+  payload: { data: IProjectMetaData; user: IUser };
+}) {
+  try {
+    const { data, user } = action.payload;
+    yield call(addProject, data, user);
+  } catch (error) {
+    if (error instanceof FirebaseError) {
+      const errorMessage: string = yield call(deriveFirestoreError, error.code);
+      yield put(progressFailure(errorMessage));
+    }
+  }
+}
+
+function* watchCreateProject() {
+  yield takeEvery(SagaActions.CREATE_PROJECT, createProjectSaga);
+}
+
+const createProject = [fork(watchCreateProject)];
 
 export default createProject;
