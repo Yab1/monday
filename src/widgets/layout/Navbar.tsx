@@ -11,7 +11,7 @@ function NavBar() {
     <Navbar color="transparent" className="px-0 py-1 rounded-xl" fullWidth>
       <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
         <PageIndicator />
-        <div className="flex items-center">
+        <div className="flex items-center gap-1">
           <SearchBar />
           <NotificationMenu />
           <ProfileMenu />
