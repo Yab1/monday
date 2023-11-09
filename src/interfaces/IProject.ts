@@ -35,6 +35,4 @@ export type TStatus = "idle" | "loading" | "succeeded" | "failed";
 export interface IProjectState {
   ownedProjects: IProject[];
   collaboratingProjects: IProject[];
-  status: TStatus;
-  error: unknown;
 }
