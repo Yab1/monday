@@ -12,6 +12,7 @@ export interface IEditingState {
 export interface IUIStates {
   toggleable: {
     darkMode: boolean;
+    alert: boolean;
     sideNav: boolean;
     addProjectDialog: boolean;
     // editProjectDialog: boolean;
@@ -19,7 +20,6 @@ export interface IUIStates {
   };
   confirmationDialog: IConfirmationState;
   editing: IEditingState;
-  showAlert: boolean;
   filterSettings: {
     [FilterTargetEnum.PROJECTS]: ProjectFilterStatesEnum;
   };
