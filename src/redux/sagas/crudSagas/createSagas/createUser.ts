@@ -1,4 +1,10 @@
-import { collection, doc, getDoc, writeBatch } from "firebase/firestore";
+import {
+  DocumentSnapshot,
+  collection,
+  doc,
+  getDoc,
+  writeBatch,
+} from "firebase/firestore";
 import { User } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { call, put } from "redux-saga/effects";
@@ -31,18 +37,12 @@ async function addUser(user: User) {
   await batch.commit();
 }
 
-async function checkRecord(userId: string) {
-  const userRef = doc(db, "users", userId);
-  const userDocSnapshot = await getDoc(userRef);
-
-  return userDocSnapshot.exists();
-}
-
 function* createUserSaga(user: User) {
   try {
-    const isRecordExist: boolean = yield call(checkRecord, user.uid);
+    const userRef = doc(db, "users", user.uid);
+    const userDocSnapshot: DocumentSnapshot = yield call(getDoc, userRef);
 
-    if (isRecordExist) return;
+    if (userDocSnapshot.exists()) return;
 
     yield call(addUser, user);
   } catch (error) {
