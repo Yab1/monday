@@ -32,7 +32,7 @@ function ProfileMenu() {
           const { path, name, icon } = value;
           return (
             <MenuItem key={path}>
-              <NavLink to={`/${name}/${path}`}>
+              <NavLink to={`/dashboard/${path}`}>
                 {({ isActive }) => (
                   <div
                     className={
@@ -67,6 +67,7 @@ function ProfileMenu() {
   );
 }
 
-ProfileMenu.displayName = "/src/features/dashboard/layouts/navbar/widgets/ProfileMenu.tsx";
+ProfileMenu.displayName =
+  "/src/features/dashboard/layouts/navbar/widgets/ProfileMenu.tsx";
 
 export default ProfileMenu;
