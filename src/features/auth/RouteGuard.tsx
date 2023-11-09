@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import {
+  authenticate,
   progressStart,
   progressSuccess,
   resetProgressState,
@@ -9,15 +10,22 @@ import {
 } from "@/redux/slices";
 import { auth } from "@/firebase";
 import { Loading } from "@/widgets";
-import { SagaActions } from "@/enum";
+import { SagaActions, StatusEnum } from "@/enum";
+import { isObjectEmpty } from "@/function";
 
 function RouteGuard({ children }: { children: ReactNode }) {
   const [firebase, setFirebase] = useState(false);
   const { error, status } = useAppSelector((state) => state.progress);
+  const { user, privateData } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
+  // if (status === StatusEnum.LOADING || status === StatusEnum.IDLE) {
+  //   // console.log(status);
+  // }
+  // console.log(status);
+
   useEffect(() => {
-    onAuthStateChanged(auth, (user: User | null) => {
+    const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
       setFirebase(true);
       dispatch(progressStart());
 
@@ -27,7 +35,16 @@ function RouteGuard({ children }: { children: ReactNode }) {
         dispatch(progressSuccess());
       }
     });
+
+    return () => unsubscribe();
   }, [dispatch, auth]);
+
+  useEffect(() => {
+    if (!isObjectEmpty(user) && !isObjectEmpty(privateData)) {
+      dispatch(authenticate(true));
+      dispatch(progressSuccess());
+    }
+  }, [user, privateData]);
 
   useEffect(() => {
     if (error) {
@@ -40,7 +57,7 @@ function RouteGuard({ children }: { children: ReactNode }) {
     }
   }, [error]);
 
-  return !firebase || status === "Loading" ? <Loading /> : children;
+  return !firebase || status === StatusEnum.LOADING ? <Loading /> : children;
 }
 
 RouteGuard.displayName = "/src/features/auth/RouteGuard.tsx";
