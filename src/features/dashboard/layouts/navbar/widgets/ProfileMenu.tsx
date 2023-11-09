@@ -67,6 +67,6 @@ function ProfileMenu() {
   );
 }
 
-ProfileMenu.displayName = "/src/widgets/atoms/ProfileMenu.tsx";
+ProfileMenu.displayName = "/src/features/dashboard/layouts/navbar/widgets/ProfileMenu.tsx";
 
 export default ProfileMenu;

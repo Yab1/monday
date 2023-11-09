@@ -4,7 +4,7 @@ import {
   SearchBar,
   NotificationMenu,
   ProfileMenu,
-} from "../atoms";
+} from "./widgets";
 
 function NavBar() {
   return (

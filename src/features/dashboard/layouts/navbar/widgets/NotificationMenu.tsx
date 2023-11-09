@@ -58,6 +58,7 @@ function NotificationMenu() {
   );
 }
 
-NotificationMenu.displayName = "/src/widgets/atoms/NotificationMenu.tsx";
+NotificationMenu.displayName =
+  "/src/features/dashboard/layouts/navbar/widgets/NotificationMenu.tsx";
 
 export default NotificationMenu;

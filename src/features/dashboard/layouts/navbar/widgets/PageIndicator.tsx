@@ -28,6 +28,6 @@ function PageIndicator() {
   );
 }
 
-PageIndicator.displayName = "/src/widgets/atoms/PageIndicator.tsx";
+PageIndicator.displayName = "/src/features/dashboard/layouts/navbar/widgets/PageIndicator.tsx";
 
 export default PageIndicator;

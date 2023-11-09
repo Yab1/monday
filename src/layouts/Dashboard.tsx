@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { Navbar, SideNav } from "@/widgets";
+import { Navbar, SideNav } from "@/features/dashboard/layouts";
 import { updateSideNavState } from "@/redux/slices";
 import { primaryRoutes, secondaryRoutes } from "@/routes";
 import { Notifications } from "@/features/dashboard/pages";

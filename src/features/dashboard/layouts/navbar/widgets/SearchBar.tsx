@@ -8,6 +8,7 @@ function SearchBar() {
   );
 }
 
-SearchBar.displayName = "/src/widgets/atoms/SearchBar.tsx";
+SearchBar.displayName =
+  "/src/features/dashboard/layouts/navbar/widgets/SearchBar.tsx";
 
 export default SearchBar;
