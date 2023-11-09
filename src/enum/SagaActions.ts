@@ -1,7 +1,7 @@
 enum SagaActions {
   AUTH_WITH_GOOGLE = "auth/with-google",
   LOG_OUT = "auth/log-out",
-  INITIALIZE_USER = "user/initialize-user",
+  INITIALIZE_USER = "auth/initialize-user",
 
   // USER CRUD
   CREATE_USER = "user/create-user",
