@@ -1,6 +1,3 @@
-import { SagaActions } from "@/enum";
-import { db } from "@/firebase";
-import { IPrivateData, IUserSettings } from "@/interfaces";
 import {
   CollectionReference,
   QuerySnapshot,
@@ -8,16 +5,12 @@ import {
   doc,
   onSnapshot,
 } from "firebase/firestore";
-import { call, fork, put, take, takeLatest } from "redux-saga/effects";
-import { EventChannel, eventChannel } from "redux-saga";
 import { FirebaseError } from "firebase/app";
-import {
-  progressStart,
-  progressSuccess,
-  progressFailure,
-  setPrivateData,
-  authenticate,
-} from "@/redux/slices";
+import { call, cancel, put, take } from "redux-saga/effects";
+import { EventChannel, eventChannel } from "redux-saga";
+import { db } from "@/firebase";
+import { IPrivateData, IUserSettings } from "@/interfaces";
+import { progressFailure, setPrivateData, authenticate } from "@/redux/slices";
 
 function createPrivateDataChannel(privateDataRef: CollectionReference) {
   return eventChannel((emitter) => {
@@ -48,17 +41,22 @@ function createPrivateDataChannel(privateDataRef: CollectionReference) {
   });
 }
 
-function* readPrivateData(userId: string) {
-  yield put(progressStart());
+interface ICustomEventChannel
+  extends EventChannel<QuerySnapshot<IPrivateData> | FirebaseError> {
+  close: () => void;
+}
 
+function* readPrivateData(userId: string) {
   const userRef = doc(db, "users", userId);
   const privateDataRef: CollectionReference = collection(
     userRef,
     "privateData"
   );
 
-  const channel: EventChannel<QuerySnapshot<IPrivateData> | FirebaseError> =
-    yield call(createPrivateDataChannel, privateDataRef);
+  const channel: ICustomEventChannel = yield call(
+    createPrivateDataChannel,
+    privateDataRef
+  );
 
   try {
     while (true) {
@@ -68,21 +66,13 @@ function* readPrivateData(userId: string) {
         yield put(progressFailure(data.code));
       } else {
         yield put(setPrivateData(data));
-        yield put(progressSuccess());
         yield put(authenticate(true));
       }
+      yield cancel();
     }
   } finally {
-    channel.close();
+    if (channel) channel.close();
   }
 }
 
 export default readPrivateData;
-
-// function* watchReadPrivateData() {
-//   yield takeLatest(SagaActions.READ_PVT, readPrivateData);
-// }
-
-// const readPrivateDataSaga = [fork(watchReadPrivateData)];
-
-// export default readPrivateDataSaga;

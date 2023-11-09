@@ -1,17 +1,15 @@
-import { SagaActions } from "@/enum";
-import { db } from "@/firebase";
-import { IUser } from "@/interfaces";
 import {
   DocumentReference,
   QuerySnapshot,
   doc,
   onSnapshot,
 } from "firebase/firestore";
-import { call, fork, put, take, takeLatest } from "redux-saga/effects";
-import { EventChannel, eventChannel } from "redux-saga";
 import { FirebaseError } from "firebase/app";
+import { call, cancel, put, take } from "redux-saga/effects";
+import { EventChannel, eventChannel } from "redux-saga";
+import { db } from "@/firebase";
+import { IUser } from "@/interfaces";
 import {
-  progressStart,
   progressSuccess,
   progressFailure,
   setUser,
@@ -37,13 +35,18 @@ function createUserDataChannel(userRef: DocumentReference) {
   });
 }
 
-function* readUser(userId: string) {
-  yield put(progressStart());
+interface ICustomEventChannel
+  extends EventChannel<QuerySnapshot<IUser> | FirebaseError> {
+  close: () => void;
+}
 
+function* readUser(userId: string) {
   const userRef: DocumentReference = doc(db, "users", userId);
 
-  const channel: EventChannel<QuerySnapshot<IUser> | FirebaseError> =
-    yield call(createUserDataChannel, userRef);
+  const channel: ICustomEventChannel = yield call(
+    createUserDataChannel,
+    userRef
+  );
 
   try {
     while (true) {
@@ -53,21 +56,14 @@ function* readUser(userId: string) {
         yield put(progressFailure(data.code));
       } else {
         yield put(setUser(data));
-        yield put(progressSuccess());
         yield put(authenticate(true));
+        yield put(progressSuccess());
       }
+      yield cancel();
     }
   } finally {
-    channel.close();
+    if (channel) channel.close();
   }
 }
 
 export default readUser;
-
-// function* watchReadUser() {
-//   yield takeLatest(SagaActions.READ_USER, readUser);
-// }
-
-// const readUserSaga = [fork(watchReadUser)];
-
-// export default readUserSaga;
