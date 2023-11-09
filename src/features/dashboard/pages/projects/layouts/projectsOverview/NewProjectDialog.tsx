@@ -12,10 +12,9 @@ import {
 } from "@material-tailwind/react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { toggler } from "@/redux/slices";
-import { ProjectStatusEnum, ToggleableEnum } from "@/enum";
+import { ProjectStatusEnum, SagaActions, ToggleableEnum } from "@/enum";
 import { getCurrentDate } from "@/function";
 import { IProjectMetaData } from "@/interfaces";
-import { createProject } from "@/redux/thunks/crudThunks";
 
 function NewProjectDialog() {
   const {
@@ -41,7 +40,10 @@ function NewProjectDialog() {
         creator: user.id,
       };
 
-      dispatch(createProject({ data: data, user: user }));
+      dispatch({
+        type: SagaActions.CREATE_PROJECT,
+        payload: { data: data, user: user },
+      });
       dispatch(toggler(ToggleableEnum.ADD_PROJECT_DIALOG));
       formik.resetForm();
     },
