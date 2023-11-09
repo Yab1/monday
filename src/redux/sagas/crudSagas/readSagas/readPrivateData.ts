@@ -10,7 +10,7 @@ import { call, cancel, put, take } from "redux-saga/effects";
 import { EventChannel, eventChannel } from "redux-saga";
 import { db } from "@/firebase";
 import { IPrivateData, IUserSettings } from "@/interfaces";
-import { progressFailure, setPrivateData, authenticate } from "@/redux/slices";
+import { progressFailure, setPrivateData } from "@/redux/slices";
 import { deriveFirestoreError } from "@/function";
 
 function createPrivateDataChannel(privateDataRef: CollectionReference) {
@@ -38,13 +38,8 @@ function createPrivateDataChannel(privateDataRef: CollectionReference) {
         emitter(new FirebaseError(error.code, error.message));
       }
     );
-    return () => unsubscribe();
+    return unsubscribe;
   });
-}
-
-interface ICustomEventChannel
-  extends EventChannel<QuerySnapshot<IPrivateData> | FirebaseError> {
-  close: () => void;
 }
 
 function* readPrivateDataSaga(userId: string) {
@@ -54,10 +49,8 @@ function* readPrivateDataSaga(userId: string) {
     "privateData"
   );
 
-  const channel: ICustomEventChannel = yield call(
-    createPrivateDataChannel,
-    privateDataRef
-  );
+  const channel: EventChannel<QuerySnapshot<IPrivateData> | FirebaseError> =
+    yield call(createPrivateDataChannel, privateDataRef);
 
   try {
     while (true) {
@@ -67,7 +60,6 @@ function* readPrivateDataSaga(userId: string) {
         yield put(progressFailure(data.code));
       } else {
         yield put(setPrivateData(data));
-        yield put(authenticate(true));
       }
       yield cancel();
     }

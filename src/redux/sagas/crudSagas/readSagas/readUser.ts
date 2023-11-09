@@ -9,12 +9,7 @@ import { call, cancel, put, take } from "redux-saga/effects";
 import { EventChannel, eventChannel } from "redux-saga";
 import { db } from "@/firebase";
 import { IUser } from "@/interfaces";
-import {
-  progressSuccess,
-  progressFailure,
-  setUser,
-  authenticate,
-} from "@/redux/slices";
+import { progressFailure, setUser } from "@/redux/slices";
 import { deriveFirestoreError } from "@/function";
 
 function createUserSagaDataChannel(userRef: DocumentReference) {
@@ -32,22 +27,15 @@ function createUserSagaDataChannel(userRef: DocumentReference) {
         emitter(new FirebaseError(error.code, error.message));
       }
     );
-    return () => unsubscribe();
+    return unsubscribe;
   });
-}
-
-interface ICustomEventChannel
-  extends EventChannel<QuerySnapshot<IUser> | FirebaseError> {
-  close: () => void;
 }
 
 function* readUserSaga(userId: string) {
   const userRef: DocumentReference = doc(db, "users", userId);
 
-  const channel: ICustomEventChannel = yield call(
-    createUserSagaDataChannel,
-    userRef
-  );
+  const channel: EventChannel<QuerySnapshot<IUser> | FirebaseError> =
+    yield call(createUserSagaDataChannel, userRef);
 
   try {
     while (true) {
@@ -57,8 +45,6 @@ function* readUserSaga(userId: string) {
         yield put(progressFailure(data.code));
       } else {
         yield put(setUser(data));
-        yield put(authenticate(true));
-        yield put(progressSuccess());
       }
       yield cancel();
     }
