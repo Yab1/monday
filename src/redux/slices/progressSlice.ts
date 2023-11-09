@@ -11,7 +11,7 @@ const progressSlice = createSlice({
   name: "progress",
   initialState,
   reducers: {
-    resetState: () => initialState,
+    resetProgressState: () => initialState,
     progressStart: (state) => {
       state.status = StatusEnum.LOADING;
     },
@@ -26,6 +26,10 @@ const progressSlice = createSlice({
   },
 });
 
-export const { resetState, progressStart, progressSuccess, progressFailure } =
-  progressSlice.actions;
+export const {
+  resetProgressState,
+  progressStart,
+  progressSuccess,
+  progressFailure,
+} = progressSlice.actions;
 export default progressSlice.reducer;
