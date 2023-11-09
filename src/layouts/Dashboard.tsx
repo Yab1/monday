@@ -2,17 +2,31 @@ import { Fragment, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Navbar, SideNav } from "@/features/dashboard/layouts";
-import { updateSideNavState } from "@/redux/slices";
+import { firestoreIdle, toggler, updateSideNavState } from "@/redux/slices";
 import { primaryRoutes, secondaryRoutes } from "@/routes";
 import { Notifications } from "@/features/dashboard/pages";
 import { Alert } from "@material-tailwind/react";
 import { Loading } from "@/widgets";
+import { ToggleableEnum } from "@/enum";
 
 function Dashboard() {
   const { authenticated } = useAppSelector((state) => state.auth);
-  const { error } = useAppSelector((state) => state.progress);
-  const { showAlert } = useAppSelector((state) => state.ui);
+  const { firestoreError } = useAppSelector((state) => state.firestore);
+  const {
+    toggleable: { alert },
+  } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (firestoreError) {
+      dispatch(toggler(ToggleableEnum.ALERT));
+
+      setTimeout(() => {
+        dispatch(toggler(ToggleableEnum.ALERT));
+        dispatch(firestoreIdle());
+      }, 4000);
+    }
+  }, [firestoreError]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,11 +71,11 @@ function Dashboard() {
             />
           </Routes>
           <Alert
-            open={showAlert}
+            open={alert}
             color="red"
             className="absolute z-10 py-3 text-sm font-light bottom-4 right-4 w-fit"
           >
-            {String(error)}
+            {String(firestoreError)}
           </Alert>
           <Loading />
         </div>
