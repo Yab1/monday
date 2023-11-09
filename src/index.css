@@ -3,6 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
+.gradient {
+  background-image: linear-gradient(
+    to right,
+    #223148,
+    #2a3c5c,
+    #344770,
+    #415284,
+    #4f5d99
+  );
+}
+
 /* Loading-page */
 :root {
   --w-size: 200px;
