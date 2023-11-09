@@ -11,6 +11,7 @@ const initialState: IUIStates = {
   toggleable: {
     darkMode: false,
     sideNav: false,
+    alert: false,
     addProjectDialog: false,
   },
   confirmationDialog: {
@@ -22,7 +23,6 @@ const initialState: IUIStates = {
     id: "",
     isEditing: false,
   },
-  showAlert: false,
   filterSettings: {
     [FilterTargetEnum.PROJECTS]: ProjectFilterStatesEnum.ALL,
     // [FilterTargetEnum.BATCHES]: ProjectFilterStatesEnum.ALL,
@@ -77,9 +77,6 @@ export const uiSlice = createSlice({
       const target = action.payload.target as FilterTargetEnum;
       state.filterSettings[target] = action.payload.value;
     },
-    showAlert: (state, action: PayloadAction<boolean>) => {
-      state.showAlert = action.payload;
-    },
   },
 });
 
@@ -89,6 +86,5 @@ export const {
   toggleEditMode,
   updateSideNavState,
   applyFilter,
-  showAlert,
 } = uiSlice.actions;
 export default uiSlice.reducer;
