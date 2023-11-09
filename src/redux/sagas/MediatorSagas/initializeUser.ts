@@ -1,19 +1,26 @@
 import { SagaActions } from "@/enum";
 import { all, call, fork, takeLatest } from "redux-saga/effects";
-import { createUser, readUser, readPrivateData } from "@/redux/sagas/crudSagas";
+import {
+  createUserSaga,
+  readUserSaga,
+  readPrivateDataSaga,
+} from "@/redux/sagas/crudSagas";
 import { User } from "firebase/auth";
 
-function* initializeUser(action: { type: string; payload: User }) {
+function* initializeUserSaga(action: { type: string; payload: User }) {
   const user = action.payload;
 
-  yield call(createUser, user);
-  yield all([fork(readUser, user.uid), fork(readPrivateData, user.uid)]);
+  yield call(createUserSaga, user);
+  yield all([
+    fork(readUserSaga, user.uid),
+    fork(readPrivateDataSaga, user.uid),
+  ]);
 }
 
 function* watchInitializeUser() {
-  yield takeLatest(SagaActions.INITIALIZE_USER, initializeUser);
+  yield takeLatest(SagaActions.INITIALIZE_USER, initializeUserSaga);
 }
 
-const initializeUserSaga = [fork(watchInitializeUser)];
+const initializeUser = [fork(watchInitializeUser)];
 
-export default initializeUserSaga;
+export default initializeUser;
