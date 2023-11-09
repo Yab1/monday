@@ -5,18 +5,11 @@ import {
   progressSuccess,
   progressFailure,
   authenticate,
+  resetAuthState,
 } from "@/redux/slices";
 import { FirebaseError } from "firebase/app";
 import { auth } from "@/firebase";
 import { SagaActions } from "@/enum";
-
-async function callSignOut() {
-  try {
-    await signOut(auth);
-  } catch (error) {
-    throw error;
-  }
-}
 
 function handleFirebaseError(code: string): string {
   switch (code) {
@@ -30,9 +23,11 @@ function handleFirebaseError(code: string): string {
 function* logOut() {
   try {
     yield put(progressStart());
-    yield call(callSignOut);
-    yield put(progressSuccess());
+    yield call(signOut, auth);
+
     yield put(authenticate(false));
+    yield put(resetAuthState());
+    yield put(progressSuccess());
   } catch (error) {
     if (error instanceof FirebaseError) {
       const errorMessage: string = yield call(handleFirebaseError, error.code);
