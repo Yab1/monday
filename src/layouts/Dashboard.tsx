@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Navbar, SideNav } from "@/widgets";
 import { updateSideNavState } from "@/redux/slices";
 import { primaryRoutes, secondaryRoutes } from "@/routes";
+import { Notifications } from "@/features/dashboard/pages";
 
 function Dashboard() {
   const { authenticated } = useAppSelector((state) => state.auth);
@@ -47,6 +48,11 @@ function Dashboard() {
             const { element, path } = value;
             return <Route key={path} path={path} element={element} />;
           })}
+          <Route
+            key={"/notifications"}
+            path={"/notifications"}
+            element={<Notifications />}
+          />
         </Routes>
       </div>
     </div>
