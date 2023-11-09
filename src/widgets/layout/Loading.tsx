@@ -4,13 +4,12 @@ import { StatusEnum } from "@/enum";
 
 function Loading() {
   const { authStatus } = useAppSelector((state) => state.auth);
-  const { status } = useAppSelector((state) => state.progress);
+  const { firestoreStatus } = useAppSelector((state) => state.firestore);
 
   return (
     <Fragment>
       {authStatus === StatusEnum.LOADING ||
-      authStatus === StatusEnum.IDLE ||
-      status === StatusEnum.LOADING ? (
+      firestoreStatus === StatusEnum.LOADING ? (
         <div className="fixed inset-0 z-50 grid w-screen h-screen bg-black bg-opacity-50 place-items-center backdrop-blur-sm">
           <div className="wrapper">
             <div className="box-wrap">
