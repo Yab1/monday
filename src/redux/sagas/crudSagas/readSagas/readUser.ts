@@ -12,7 +12,7 @@ import { IUser } from "@/interfaces";
 import { firestoreFailure, setUser } from "@/redux/slices";
 import { deriveFirestoreError } from "@/function";
 
-function createUserSagaDataChannel(userRef: DocumentReference) {
+function createUserChannel(userRef: DocumentReference) {
   return eventChannel((emitter) => {
     const unsubscribe = onSnapshot(
       userRef,
@@ -35,7 +35,7 @@ function* readUserSaga(userId: string) {
   const userRef: DocumentReference = doc(db, "users", userId);
 
   const channel: EventChannel<QuerySnapshot<IUser> | FirebaseError> =
-    yield call(createUserSagaDataChannel, userRef);
+    yield call(createUserChannel, userRef);
 
   try {
     while (true) {
@@ -46,6 +46,7 @@ function* readUserSaga(userId: string) {
       } else {
         yield put(setUser(data));
       }
+
       yield cancel();
     }
   } catch (error) {
