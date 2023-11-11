@@ -1,16 +1,23 @@
 import { ReactNode, useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { authIdle, authStart, authSucceeded } from "@/redux/slices";
+import {
+  authIdle,
+  authStart,
+  authSucceeded,
+  firestoreSucceeded,
+} from "@/redux/slices";
 import { auth } from "@/firebase";
 import { SplashScreen } from "@/widgets";
-import { SagaActions, StatusEnum } from "@/enum";
+import { BufferEnum, SagaActions, StatusEnum } from "@/enum";
 import { isObjectEmpty } from "@/function";
 
 function RouteGuard({ children }: { children: ReactNode }) {
   const [firebase, setFirebase] = useState(false);
-  const { authStatus, user, privateData } = useAppSelector(
-    (state) => state.auth
+  const { authStatus, authenticated } = useAppSelector((state) => state.auth);
+  const { user, settings } = useAppSelector((state) => state.firestore);
+  const { [BufferEnum.PROJECT_BUFFER]: projectBuffer } = useAppSelector(
+    (state) => state.buffer
   );
   const dispatch = useAppDispatch();
 
@@ -26,14 +33,27 @@ function RouteGuard({ children }: { children: ReactNode }) {
       }
     });
 
-    return () => unsubscribe();
+    return unsubscribe;
   }, [dispatch, auth]);
 
   useEffect(() => {
-    if (!isObjectEmpty(user) && !isObjectEmpty(privateData)) {
+    if (!isObjectEmpty(user) && !isObjectEmpty(settings)) {
       dispatch(authSucceeded());
     }
-  }, [user, privateData]);
+  }, [user, settings, dispatch]);
+
+  useEffect(() => {
+    if (authenticated) {
+      if (projectBuffer.added.length > 0) {
+        dispatch({
+          type: SagaActions.INITIALIZE_PROJECT,
+          payload: projectBuffer.added,
+        });
+      } else {
+        dispatch(firestoreSucceeded());
+      }
+    }
+  }, [authenticated, dispatch, projectBuffer.added]);
 
   return !firebase || authStatus === StatusEnum.LOADING ? (
     <SplashScreen />
