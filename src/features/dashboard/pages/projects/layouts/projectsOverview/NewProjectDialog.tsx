@@ -20,7 +20,7 @@ function NewProjectDialog() {
   const {
     toggleable: { addProjectDialog },
   } = useAppSelector((state) => state.ui);
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.firestore);
   const dispatch = useAppDispatch();
 
   const formik = useFormik({

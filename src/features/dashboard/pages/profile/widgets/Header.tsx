@@ -2,7 +2,7 @@ import { Avatar, Typography } from "@material-tailwind/react";
 import { useAppSelector } from "@/hooks";
 
 function Header() {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.firestore);
 
   return (
     <div className="flex items-center justify-between gap-6 mb-10">

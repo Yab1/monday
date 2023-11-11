@@ -13,7 +13,7 @@ import { useAppSelector } from "@/hooks";
 import { SocialsEnum, SocialIconComponents, SocialIconColors } from "@/enum";
 
 export function Information() {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.firestore);
 
   interface IDetails {
     "first name": string;

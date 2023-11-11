@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { SagaActions } from "@/enum";
 
 function ProfileMenu() {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.firestore);
   const dispatch = useAppDispatch();
 
   return (
