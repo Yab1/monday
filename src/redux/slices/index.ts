@@ -7,8 +7,8 @@ export * from "./authSlice";
 export { default as firestoreReducer } from "./firestoreSlice";
 export * from "./firestoreSlice";
 
-export { default as projectsReducer } from "./projectsSlice";
-export * from "./projectsSlice";
+export { default as bufferReducer } from "./bufferSlice";
+export * from "./bufferSlice";
 
 export { default as invitationsReducer } from "./invitationSlice";
 export * from "./invitationSlice";

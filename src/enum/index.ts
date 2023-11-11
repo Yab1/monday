@@ -5,5 +5,6 @@ export { default as ToggleableEnum } from "./ToggleableEnum";
 export { default as UserRoleEnum } from "./UserRoleEnum";
 export { default as SettingEnum } from "./SettingEnum";
 export { default as SagaActions } from "./SagaActions";
+export { default as BufferEnum } from "./BufferEnum";
 export * from "./SocialsEnum";
 export * from "./FilterEnum";

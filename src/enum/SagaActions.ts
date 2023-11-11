@@ -3,20 +3,24 @@ enum SagaActions {
   LOG_OUT = "auth/log-out",
   INITIALIZE_USER = "auth/initialize-user",
 
+  // FIRESTORE
+  INITIALIZE_PROJECT = "firestore/initialize-project",
+  CANCEL_SAGA = "firestore/cancel-saga",
+
   // USER CRUD
-  CREATE_USER = "user/create-user",
-  READ_USER = "user/read-user",
-  UPDATE_USER = "user/update-user",
-  DELETE_USER = "user/delete-user",
+  CREATE_USER = "firestore/create-user",
+  READ_USER = "firestore/read-user",
+  UPDATE_USER = "firestore/update-user",
+  DELETE_USER = "firestore/delete-user",
 
   // PRIVATE DATA CRUD
   READ_PVT = "user/read-pvt",
 
   // PROJECT CRUD
-  CREATE_PROJECT = "project/create-project",
-  READ_PROJECT = "project/read-project",
-  UPDATE_PROJECT = "project/update-project",
-  DELETE_PROJECT = "project/delete-project",
+  CREATE_PROJECT = "firestore/create-project",
+  READ_PROJECT = "firestore/read-project",
+  UPDATE_PROJECT = "firestore/update-project",
+  DELETE_PROJECT = "firestore/delete-project",
 }
 
 export default SagaActions;
