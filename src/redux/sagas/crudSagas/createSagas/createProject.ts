@@ -3,11 +3,7 @@ import { FirebaseError } from "firebase/app";
 import { call, fork, put, takeEvery } from "redux-saga/effects";
 import { db } from "@/firebase";
 import { IAccessControl, IProjectMetaData, IUser } from "@/interfaces";
-import {
-  firestoreStart,
-  firestoreSucceeded,
-  firestoreFailure,
-} from "@/redux/slices";
+import { firestoreStart, firestoreFailure } from "@/redux/slices";
 import { SagaActions, UserRoleEnum } from "@/enum";
 import { deriveFirestoreError } from "@/function";
 
@@ -56,8 +52,6 @@ function* createProjectSaga(action: {
 
     const { data, user } = action.payload;
     yield call(addProject, data, user);
-
-    yield put(firestoreSucceeded());
   } catch (error) {
     if (error instanceof FirebaseError) {
       const errorMessage: string = yield call(deriveFirestoreError, error.code);
