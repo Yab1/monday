@@ -7,7 +7,7 @@ import rootSaga from "./rootSaga";
 
 const sagaMiddleWare = createSagaMiddleware();
 
-const actionLogger = (store: any) => (next: any) => (action: AnyAction) => {
+const actionLogger = () => (next: any) => (action: AnyAction) => {
   console.log("Action:", action.type);
   return next(action);
 };
