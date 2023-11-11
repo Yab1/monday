@@ -3,14 +3,12 @@ import {
   uiReducer,
   authReducer,
   firestoreReducer,
-  projectsReducer,
-  invitationsReducer,
+  bufferReducer,
 } from "@/redux/slices";
 
 export const rootReducer = combineReducers({
   ui: uiReducer,
   auth: authReducer,
   firestore: firestoreReducer,
-  projects: projectsReducer,
-  invitations: invitationsReducer,
+  buffer: bufferReducer,
 });
