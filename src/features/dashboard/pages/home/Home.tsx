@@ -1,6 +1,6 @@
 // import { Typography } from "@material-tailwind/react";
 // import { StatisticsChart, ProjectOverviewTable } from "@/widgets";
-import { ProjectOverviewTable } from "@/widgets";
+import { ProjectOverviewTable } from "./widgets/table";
 // import { statisticsChartsData } from "@/data";
 // import { ClockIcon } from "@heroicons/react/24/solid";
 
