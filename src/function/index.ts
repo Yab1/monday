@@ -7,3 +7,4 @@ export { default as deriveFirestoreError } from "./deriveFirestoreError";
 export { default as generateUserData } from "./generateUserData";
 export { default as generateUserSettings } from "./generateUserSettings";
 export { default as isObjectEmpty } from "./isObjectEmpty";
+export { default as computeChanges } from "./computeChanges";
