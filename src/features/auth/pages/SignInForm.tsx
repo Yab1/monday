@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { Button, Typography } from "@material-tailwind/react";
 import { FcGoogle } from "react-icons/fc";
 import { useAppSelector, useAppDispatch } from "@/hooks";
-import { SagaActions } from "@/enum";
+import { SagaActions, StatusEnum } from "@/enum";
 
 export function SignIn() {
-  const { status } = useAppSelector((state) => state.auth);
+  const { authStatus } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   return (
@@ -25,7 +25,7 @@ export function SignIn() {
       <Button
         fullWidth
         className="flex items-center justify-center gap-3"
-        disabled={status === "loading" ? true : false}
+        disabled={authStatus === StatusEnum.LOADING ? true : false}
         onClick={() => dispatch({ type: SagaActions.AUTH_WITH_GOOGLE })}
       >
         <FcGoogle size={25} />
