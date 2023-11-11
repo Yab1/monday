@@ -7,3 +7,4 @@ export * from "./IUser";
 export * from "./DailyProgressChart";
 export * from "./IProject";
 export * from "./IUI";
+export * from "./IBuffer";
