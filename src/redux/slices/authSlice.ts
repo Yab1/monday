@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IAuthState, IPrivateData, IUser } from "@/interfaces";
+import { IAuthState } from "@/interfaces";
 import { StatusEnum } from "@/enum";
 
 const initialState: IAuthState = {
   authStatus: StatusEnum.IDLE,
   authError: null,
   authenticated: false,
-  user: {} as IUser,
-  privateData: {} as IPrivateData,
 };
 
 const authSlice = createSlice({
@@ -28,21 +26,9 @@ const authSlice = createSlice({
       state.authError = action.payload;
       state.authenticated = false;
     },
-    setUser: (state, action: PayloadAction<IUser>) => {
-      state.user = action.payload;
-    },
-    setPrivateData: (state, action: PayloadAction<IPrivateData>) => {
-      state.privateData = action.payload;
-    },
   },
 });
 
-export const {
-  authIdle,
-  authStart,
-  authSucceeded,
-  authFailed,
-  setUser,
-  setPrivateData,
-} = authSlice.actions;
+export const { authIdle, authStart, authSucceeded, authFailed } =
+  authSlice.actions;
 export default authSlice.reducer;
