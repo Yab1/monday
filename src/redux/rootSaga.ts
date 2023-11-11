@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
 import { authWithGoogleSaga, logOutSaga } from "./sagas/authSagas";
-import { initializeUser } from "./sagas/MediatorSagas";
+import { initializeUser, initializeProject } from "./sagas/MediatorSagas";
 import { createProject } from "./sagas/crudSagas";
 
 function* rootSaga() {
@@ -9,6 +9,7 @@ function* rootSaga() {
     ...logOutSaga,
     ...initializeUser,
     ...createProject,
+    ...initializeProject,
   ]);
 }
 
