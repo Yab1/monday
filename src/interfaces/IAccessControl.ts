@@ -6,6 +6,11 @@ export interface IAccessControl {
   role: UserRoleEnum;
 }
 
-export interface IAccessControlState extends IAccessControl {
+export interface IMember extends IAccessControl {
   id: string;
+}
+
+export interface ITeamProjectData {
+  projectId: string;
+  members: IMember[];
 }
